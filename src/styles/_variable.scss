@@ -1,0 +1,59 @@
+@use './_global' as *;
+
+
+// Light Theme
+$lightPrimary:#00f2ff;
+$lightSecondary:#F5F5F5;
+$lightAccent:#4CAF50;
+$lightText:#333333;
+$lightBackground:#642f2f;
+$lightError:#F44336;
+$lightSuccess:#4CAF50;
+$lightInputBackground:#E0E0E0;
+$lightWrapperBackground:hsl(0, 0%, 98%);
+$lightErrorBackground: hsl(4, 90%, 88%);
+
+// Hover-light
+$lightTextHover:hsl(0, 0%, 35%);
+$lightPrimaryHover:hsl(183, 100%, 69%);
+$lightSecondaryHover:hsl(0, 0%, 99%);
+$lightErrorBackgroundHover:hsl(4, 90%, 95%);
+$lightErrorHover:hsl(4, 90%, 68%);
+
+// Dark Theme
+$darkPrimary:#1976D2;
+$darkSecondary:#121212;
+$darkAccent:#009688;
+$darkText:#E0E0E0;
+$darkBackground:#1E1E1E;
+$darkError:#FF5252;
+$darkSuccess:#69F0AE;
+
+// Nature Theme
+$naturePrimary:#2E7D32;
+$natureSecondary:#F5F5DC;
+$natureAccent:#8D6E63;
+$natureText:#1B5E20;
+$natureBackground:#FFF8F1;
+$natureError:#D32F2F;
+$natureSuccess:#689F38;
+
+// Vibrant Theme
+$vibrantPrimary:#9C27B0;
+$vibrantSecondary:#FFF9C4;
+$vibrantAccent:#FF9800;
+$vibrantText:#6A1B9A;
+$vibrantBackground:#FFFFFF;
+$vibrantError:#FF5252;
+$vibrantSuccess:#69F0AE;
+
+// font Family
+$fontFamilyOne:Poppins, Inter, Roboto;
+$fontFamilyTwo:Inter, Roboto, Poppins;
+$fontFamilyThree:Roboto, Rubik, Inter;
+
+
+// Font Weight
+$fontWeight500:500;
+$fontWeight700:700;
+$fontWeight900:900;

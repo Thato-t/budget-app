@@ -1,0 +1,402 @@
+[
+    {
+        "id": 1,
+        "message": "Your budget is training for the Olympics. Help it win!"
+    },
+    {
+        "id": 2,
+        "message": "Warning: Your budget thinks you're auditioning for 'The Biggest Spender.'"
+    },
+    {
+        "id": 3,
+        "message": "Stop! That purchase doesn't spark joy\u2014it sparks regret!"
+    },
+    {
+        "id": 4,
+        "message": "Savings = giving your future self a virtual high-five."
+    },
+    {
+        "id": 5,
+        "message": "Cutting subscriptions = your budget doing yoga. Balance achieved!"
+    },
+    {
+        "id": 6,
+        "message": "Savings tip: Pretend you\u2019re broke\u2014it works like magic!"
+    },
+    {
+        "id": 7,
+        "message": "You're not just saving money; you're saving your budget's soul."
+    },
+    {
+        "id": 8,
+        "message": "Bank accounts prefer green tea over caffeine-fueled spending sprees."
+    },
+    {
+        "id": 9,
+        "message": "Your credit card needs a spa day\u2014no swiping, please."
+    },
+    {
+        "id": 10,
+        "message": "Congrats! You resisted a sale. That's big spender energy!"
+    },
+    {
+        "id": 11,
+        "message": "Your credit card needs a spa day\u2014no swiping, please."
+    },
+    {
+        "id": 12,
+        "message": "Think of savings as a plot twist your future self will love."
+    },
+    {
+        "id": 13,
+        "message": "You're not just saving money; you're saving your budget's soul."
+    },
+    {
+        "id": 14,
+        "message": "Netflix and chill... with your budget intact. Avoid online shopping!"
+    },
+    {
+        "id": 15,
+        "message": "Caution: Shopping carts are not amusement parks for your budget."
+    },
+    {
+        "id": 16,
+        "message": "Warning: Your budget thinks you're auditioning for 'The Biggest Spender.'"
+    },
+    {
+        "id": 17,
+        "message": "Congrats! You resisted a sale. That's big spender energy!"
+    },
+    {
+        "id": 18,
+        "message": "Your budget is training for the Olympics. Help it win!"
+    },
+    {
+        "id": 19,
+        "message": "Congrats! You resisted a sale. That's big spender energy!"
+    },
+    {
+        "id": 20,
+        "message": "Tip: Unsubscribe from sale emails\u2014they\u2019re like dessert menus for your wallet."
+    },
+    {
+        "id": 21,
+        "message": "You're not just saving money; you're saving your budget's soul."
+    },
+    {
+        "id": 22,
+        "message": "Budget math: $5 coffee x 30 days = Budget explosion. Do the math!"
+    },
+    {
+        "id": 23,
+        "message": "Warning: Your budget thinks you're auditioning for 'The Biggest Spender.'"
+    },
+    {
+        "id": 24,
+        "message": "Your budget's motto: 'Live, Laugh, Save.' Stick to it!"
+    },
+    {
+        "id": 25,
+        "message": "Cutting subscriptions = your budget doing yoga. Balance achieved!"
+    },
+    {
+        "id": 26,
+        "message": "Savings = giving your future self a virtual high-five."
+    },
+    {
+        "id": 27,
+        "message": "Your budget is training for the Olympics. Help it win!"
+    },
+    {
+        "id": 28,
+        "message": "Bank accounts prefer green tea over caffeine-fueled spending sprees."
+    },
+    {
+        "id": 29,
+        "message": "Put the cart down slowly and step away. Your wallet's watching."
+    },
+    {
+        "id": 30,
+        "message": "Warning: Your budget thinks you're auditioning for 'The Biggest Spender.'"
+    },
+    {
+        "id": 31,
+        "message": "Your budget needs an adult. Are you ready to step up?"
+    },
+    {
+        "id": 32,
+        "message": "Savings tip: Pretend you\u2019re broke\u2014it works like magic!"
+    },
+    {
+        "id": 33,
+        "message": "Netflix and chill... with your budget intact. Avoid online shopping!"
+    },
+    {
+        "id": 34,
+        "message": "Your budget is training for the Olympics. Help it win!"
+    },
+    {
+        "id": 35,
+        "message": "Your budget can't even right now. Stop clicking 'Buy Now.'"
+    },
+    {
+        "id": 36,
+        "message": "Your budget's motto: 'Live, Laugh, Save.' Stick to it!"
+    },
+    {
+        "id": 37,
+        "message": "Savings tip: Pretend you\u2019re broke\u2014it works like magic!"
+    },
+    {
+        "id": 38,
+        "message": "Savings tip: Pretend you\u2019re broke\u2014it works like magic!"
+    },
+    {
+        "id": 39,
+        "message": "You're not just saving money; you're saving your budget's soul."
+    },
+    {
+        "id": 40,
+        "message": "That sale won't last forever, but your debt might. Skip it!"
+    },
+    {
+        "id": 41,
+        "message": "Tip: Unsubscribe from sale emails\u2014they\u2019re like dessert menus for your wallet."
+    },
+    {
+        "id": 42,
+        "message": "Savings tip: Pretend you\u2019re broke\u2014it works like magic!"
+    },
+    {
+        "id": 43,
+        "message": "Your budget just texted: 'New year, same overspending?'"
+    },
+    {
+        "id": 44,
+        "message": "Your budget needs an adult. Are you ready to step up?"
+    },
+    {
+        "id": 45,
+        "message": "Your budget is training for the Olympics. Help it win!"
+    },
+    {
+        "id": 46,
+        "message": "You're one coffee splurge away from your budget calling 911."
+    },
+    {
+        "id": 47,
+        "message": "You don't need 12 scented candles. Your budget thanks you."
+    },
+    {
+        "id": 48,
+        "message": "Your budget can't even right now. Stop clicking 'Buy Now.'"
+    },
+    {
+        "id": 49,
+        "message": "Netflix and chill... with your budget intact. Avoid online shopping!"
+    },
+    {
+        "id": 50,
+        "message": "Your budget just texted: 'New year, same overspending?'"
+    },
+    {
+        "id": 51,
+        "message": "Your budget can't even right now. Stop clicking 'Buy Now.'"
+    },
+    {
+        "id": 52,
+        "message": "Netflix and chill... with your budget intact. Avoid online shopping!"
+    },
+    {
+        "id": 53,
+        "message": "Your budget's motto: 'Live, Laugh, Save.' Stick to it!"
+    },
+    {
+        "id": 54,
+        "message": "You don't need 12 scented candles. Your budget thanks you."
+    },
+    {
+        "id": 55,
+        "message": "Your budget just texted: 'New year, same overspending?'"
+    },
+    {
+        "id": 56,
+        "message": "Impulse buys are like junk food for your budget. Healthy choices only!"
+    },
+    {
+        "id": 57,
+        "message": "Think of savings as a plot twist your future self will love."
+    },
+    {
+        "id": 58,
+        "message": "Your budget needs an adult. Are you ready to step up?"
+    },
+    {
+        "id": 59,
+        "message": "Your budget can't even right now. Stop clicking 'Buy Now.'"
+    },
+    {
+        "id": 60,
+        "message": "Imagine a vacation instead of random stuff. Budget wisely!"
+    },
+    {
+        "id": 61,
+        "message": "Your budget is training for the Olympics. Help it win!"
+    },
+    {
+        "id": 62,
+        "message": "Caution: Shopping carts are not amusement parks for your budget."
+    },
+    {
+        "id": 63,
+        "message": "Your budget isn't Monopoly money. Spend like it's real life."
+    },
+    {
+        "id": 64,
+        "message": "Your wallet called\u2014it says it needs a break from the gym of spending."
+    },
+    {
+        "id": 65,
+        "message": "You're not just saving money; you're saving your budget's soul."
+    },
+    {
+        "id": 66,
+        "message": "Netflix and chill... with your budget intact. Avoid online shopping!"
+    },
+    {
+        "id": 67,
+        "message": "Savings = giving your future self a virtual high-five."
+    },
+    {
+        "id": 68,
+        "message": "Your wallet called\u2014it says it needs a break from the gym of spending."
+    },
+    {
+        "id": 69,
+        "message": "Think of savings as a plot twist your future self will love."
+    },
+    {
+        "id": 70,
+        "message": "Budget math: $5 coffee x 30 days = Budget explosion. Do the math!"
+    },
+    {
+        "id": 71,
+        "message": "Your budget isn't Monopoly money. Spend like it's real life."
+    },
+    {
+        "id": 72,
+        "message": "Your budget can't even right now. Stop clicking 'Buy Now.'"
+    },
+    {
+        "id": 73,
+        "message": "Stop! That purchase doesn't spark joy\u2014it sparks regret!"
+    },
+    {
+        "id": 74,
+        "message": "You're one coffee splurge away from your budget calling 911."
+    },
+    {
+        "id": 75,
+        "message": "Impulse buys are like junk food for your budget. Healthy choices only!"
+    },
+    {
+        "id": 76,
+        "message": "Impulse buys are like junk food for your budget. Healthy choices only!"
+    },
+    {
+        "id": 77,
+        "message": "Think of savings as a plot twist your future self will love."
+    },
+    {
+        "id": 78,
+        "message": "Cutting subscriptions = your budget doing yoga. Balance achieved!"
+    },
+    {
+        "id": 79,
+        "message": "Your budget needs an adult. Are you ready to step up?"
+    },
+    {
+        "id": 80,
+        "message": "Your budget just texted: 'New year, same overspending?'"
+    },
+    {
+        "id": 81,
+        "message": "Bank accounts prefer green tea over caffeine-fueled spending sprees."
+    },
+    {
+        "id": 82,
+        "message": "You don't need 12 scented candles. Your budget thanks you."
+    },
+    {
+        "id": 83,
+        "message": "Budget math: $5 coffee x 30 days = Budget explosion. Do the math!"
+    },
+    {
+        "id": 84,
+        "message": "Put the cart down slowly and step away. Your wallet's watching."
+    },
+    {
+        "id": 85,
+        "message": "Pro tip: Leftovers are budget saviors. Become a meal-prep pro!"
+    },
+    {
+        "id": 86,
+        "message": "Caution: Shopping carts are not amusement parks for your budget."
+    },
+    {
+        "id": 87,
+        "message": "That sale won't last forever, but your debt might. Skip it!"
+    },
+    {
+        "id": 88,
+        "message": "Your budget just texted: 'New year, same overspending?'"
+    },
+    {
+        "id": 89,
+        "message": "Budget math: $5 coffee x 30 days = Budget explosion. Do the math!"
+    },
+    {
+        "id": 90,
+        "message": "Netflix and chill... with your budget intact. Avoid online shopping!"
+    },
+    {
+        "id": 91,
+        "message": "You're not just saving money; you're saving your budget's soul."
+    },
+    {
+        "id": 92,
+        "message": "Caution: Shopping carts are not amusement parks for your budget."
+    },
+    {
+        "id": 93,
+        "message": "Impulse buys are like junk food for your budget. Healthy choices only!"
+    },
+    {
+        "id": 94,
+        "message": "Your budget's motto: 'Live, Laugh, Save.' Stick to it!"
+    },
+    {
+        "id": 95,
+        "message": "Congrats! You resisted a sale. That's big spender energy!"
+    },
+    {
+        "id": 96,
+        "message": "Your wallet called\u2014it says it needs a break from the gym of spending."
+    },
+    {
+        "id": 97,
+        "message": "You're not just saving money; you're saving your budget's soul."
+    },
+    {
+        "id": 98,
+        "message": "Your credit card needs a spa day\u2014no swiping, please."
+    },
+    {
+        "id": 99,
+        "message": "Your budget isn't Monopoly money. Spend like it's real life."
+    },
+    {
+        "id": 100,
+        "message": "Netflix and chill... with your budget intact. Avoid online shopping!"
+    }
+]

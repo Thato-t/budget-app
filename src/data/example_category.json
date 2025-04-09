@@ -1,0 +1,310 @@
+
+{
+    "fixedExpenses": [
+        {
+            "backgroundColor": "#E3F2FD",
+            "exampleEmoji": "🏡",
+            "exampleName": "Rent"
+        },
+        {
+            "backgroundColor": "#81DAFA",
+            "exampleEmoji": "💡",
+            "exampleName": "Utilities"
+        },
+        {
+            "backgroundColor": "#C5CAE9",
+            "exampleEmoji": "🛡",
+            "exampleName": "Insurance"
+        },
+        {
+            "backgroundColor": "#9FA8DA",
+            "exampleEmoji": "🏧",
+            "exampleName": "Loan Payments"
+        },
+        {
+            "backgroundColor": "#B3E5FC",
+            "exampleEmoji": "📺",
+            "exampleName": "Subscription"
+        },
+        {
+            "backgroundColor": "#80DEEA",
+            "exampleEmoji": "🚗",
+            "exampleName": "Transportation"
+        },
+        {
+            "backgroundColor": "#BBDEFB",
+            "exampleEmoji": "🧒",
+            "exampleName": "Childcare/ School Fees"
+        },
+        {
+            "backgroundColor": "#80CBC4",
+            "exampleEmoji": "🐖",
+            "exampleName": "Savings Contributions"
+        }
+        
+    ],
+
+    "variableExpenses": [
+        {
+            "backgroundColor": "#FFAB91",
+            "exampleEmoji": "🛒",
+            "exampleName": "Groceries"
+        },
+        {
+            "backgroundColor": "#FF8A65",
+            "exampleEmoji": "🍽",
+            "exampleName": "Dining Out"
+        },
+        {
+            "backgroundColor": "#F8BBD0",
+            "exampleEmoji": "🎬",
+            "exampleName": "Entertainment"
+        },
+        {
+            "backgroundColor": "#FFCDD2",
+            "exampleEmoji": "🛍",
+            "exampleName": "Shopping"
+        },
+        {
+            "backgroundColor": "#FFCC80",
+            "exampleEmoji": "✈",
+            "exampleName": "Travel"
+        },
+        {
+            "backgroundColor": "#E1BEE7",
+            "exampleEmoji": "🏥",
+            "exampleName": "Healthcare"
+        },
+        {
+            "backgroundColor": "#FFCCBC",
+            "exampleEmoji": "💇‍♂️",
+            "exampleName": "Personal Care"
+        },
+        {
+            "backgroundColor": "#F5F5DC",
+            "exampleEmoji": "🎲",
+            "exampleName": "Miscellaneous"
+        }
+        
+    ],
+
+    "Savings": [
+        {
+            "backgroundColor": "#FFCDD2",
+            "exampleEmoji": "🚨",
+            "exampleName": "Emergency Fund"
+        },
+        {
+            "backgroundColor": "#B2DFDB",
+            "exampleEmoji": "🧓",
+            "exampleName": "Retirement Savings"
+        },
+        {
+            "backgroundColor": "#FFE0B2",
+            "exampleEmoji": "⛱",
+            "exampleName": "Vacation Fund"
+        },
+        {
+            "backgroundColor": "#81DAFA",
+            "exampleEmoji": "🎓",
+            "exampleName": "Education Fund"
+        },
+        {
+            "backgroundColor": "#DCE775",
+            "exampleEmoji": "🏨",
+            "exampleName": "Home Down Payment"
+        },
+        {
+            "backgroundColor": "#80CBC4",
+            "exampleEmoji": "🚙",
+            "exampleName": "Car Fund"
+        },
+        {
+            "backgroundColor": "#F8BBD0",
+            "exampleEmoji": "🎉",
+            "exampleName": "Gift Fund"
+        },
+        {
+            "backgroundColor": "#F5F5DC",
+            "exampleEmoji": "🛋",
+            "exampleName": "Big Purchases"
+        }
+        
+    ],
+
+    "Investments": [
+        {
+            "backgroundColor": "#E1BEE7",
+            "exampleEmoji": "📊",
+            "exampleName": "Stocks"
+        },
+        {
+            "backgroundColor": "#CE93D8",
+            "exampleEmoji": "📉",
+            "exampleName": "Bonds"
+        },
+        {
+            "backgroundColor": "#BA68C8",
+            "exampleEmoji": "💹",
+            "exampleName": "Mutual Funds"
+        },
+        {
+            "backgroundColor": "#ABA7BC",
+            "exampleEmoji": "🏗",
+            "exampleName": "Real Estate"
+        },
+        {
+            "backgroundColor": "#9575CD",
+            "exampleEmoji": "💰",
+            "exampleName": "Cryptocurrency"
+        },
+        {
+            "backgroundColor": "#8E24AA",
+            "exampleEmoji": "👴",
+            "exampleName": "Retirement Accounts"
+        },
+        {
+            "backgroundColor": "#7E57C2",
+            "exampleEmoji": "📈",
+            "exampleName": "Index Funds"
+        },
+        {
+            "backgroundColor": "#6A1B9A",
+            "exampleEmoji": "💼",
+            "exampleName": "Business Investments"
+        }
+        
+    ],
+
+    "Debts": [
+        {
+            "backgroundColor": "#FFCDD2",
+            "exampleEmoji": "💳",
+            "exampleName": "Credit Card Debt"
+        },
+        {
+            "backgroundColor": "#FFCC80",
+            "exampleEmoji": "👨‍🎓",
+            "exampleName": "Student Loans"
+        },
+        {
+            "backgroundColor": "#FFAB91",
+            "exampleEmoji": "🏠",
+            "exampleName": "Mortgage"
+        },
+        {
+            "backgroundColor": "#FF8A65",
+            "exampleEmoji": "🚘",
+            "exampleName": "Car Loans"
+        },
+        {
+            "backgroundColor": "#FFCCBC",
+            "exampleEmoji": "🤝",
+            "exampleName": "Personal Loans"
+        },
+        {
+            "backgroundColor": "#F8BBD0",
+            "exampleEmoji": "🏥",
+            "exampleName": "Medical Debt"
+        },
+        {
+            "backgroundColor": "#FFCDE9",
+            "exampleEmoji": "💸",
+            "exampleName": "Payday Loans"
+        },
+        {
+            "backgroundColor": "#F5F5DC",
+            "exampleEmoji": "🏛",
+            "exampleName": "Other Debts"
+        }
+        
+    ],
+    
+    "Givings": [
+        {
+            "backgroundColor": "#C8E6C9",
+            "exampleEmoji": "👐",
+            "exampleName": "Charitable Donations"
+        },
+        {
+            "backgroundColor": "#B2F2BB",
+            "exampleEmoji": "⛩",
+            "exampleName": "Spiritual/Religious Tithes"
+        },
+        {
+            "backgroundColor": "#FFCCBC",
+            "exampleEmoji": "🎁",
+            "exampleName": "Gifts to Family/Friends"
+        },
+        {
+            "backgroundColor": "#80CBC4",
+            "exampleEmoji": "🌍",
+            "exampleName": "Community Support"
+        },
+        {
+            "backgroundColor": "#FFF9C4",
+            "exampleEmoji": "💡",
+            "exampleName": "CrowdFunding"
+        },
+        {
+            "backgroundColor": "#FFEE58",
+            "exampleEmoji": "🥇",
+            "exampleName": "Sponsorship"
+        },
+        {
+            "backgroundColor": "#F5F5DC",
+            "exampleEmoji": "🙋‍♀️",
+            "exampleName": "Volunteer Expenses"
+        },
+        {
+            "backgroundColor": "#F8BBD0",
+            "exampleEmoji": "❤",
+            "exampleName": "Other Giving"
+        }
+        
+    ],
+
+    "Emergencies": [
+        {
+            "backgroundColor": "#FFCDD2",
+            "exampleEmoji": "🚨",
+            "exampleName": "Emergency Fund"
+        },
+        {
+            "backgroundColor": "#F8BBD0",
+            "exampleEmoji": "🚑",
+            "exampleName": "Medical Emergencies"
+        },
+        {
+            "backgroundColor": "#FFCC80",
+            "exampleEmoji": "🔧",
+            "exampleName": "Car Repairs"
+        },
+        {
+            "backgroundColor": "#FFAB91",
+            "exampleEmoji": "🏗",
+            "exampleName": "Home Repairs"
+        },
+        {
+            "backgroundColor": "#F5F5DC",
+            "exampleEmoji": "📉",
+            "exampleName": "Job Loss"
+        },
+        {
+            "backgroundColor": "#81D4F4",
+            "exampleEmoji": "🧳",
+            "exampleName": "Travel Emergencies"
+        },
+        {
+            "backgroundColor": "#D1C4E9",
+            "exampleEmoji": "⚖",
+            "exampleName": "Legal Fees"
+        },
+        {
+            "backgroundColor": "#FFCCBC",
+            "exampleEmoji": "⚡",
+            "exampleName": "Other Emergencies"
+        }
+        
+    ]
+}

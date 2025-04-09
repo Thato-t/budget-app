@@ -1,0 +1,99 @@
+@use '../../styles/_variable' as *;
+@use '../../styles/_mixins' as *;
+@use '../Dashboard/dashboard.scss' as *;
+
+*,
+*::before,
+*::after{
+    @include boxSizing();
+    // outline:2px solid red;
+}
+.report-wrapper{
+    @extend .dashboard-wrapper;
+    @include flex-space-between();
+    gap:25px;
+}
+.report-graph-wrapper{
+    @extend .graphs-wrapper; 
+}
+.report-mini-wrapper-one{
+    width:50%
+}
+.report-graph-btns{
+    @extend .types;
+    gap:10px;
+    align-items:start;
+}
+.report-months-btn{
+    cursor:pointer;
+    border-radius:6px;
+    font-size:.9rem;
+    font-weight:200;
+    background-color:$lightPrimary;
+    height:40px;
+    @include p-bgd-br();
+    outline:none;
+    margin-bottom:9px;
+    border:none;
+}
+.report-graphs-btn{
+    font-size:.9rem;
+    @extend .type-of-graph; 
+    height:40px;
+    display:flex;
+    align-items:center;
+}
+.report-graph{
+    margin-top:0px;
+    height:176px;
+}
+.report-results{
+    margin-top:25px;
+    width:18ch;
+    text-align:center;
+    font-size:.8rem;
+    margin-inline:auto;
+}
+.report-amount{
+    font-weight:700;
+}
+.report-months-view{
+    margin-bottom:8px;
+    font-size:.8rem;
+}
+.report-monthly-statements{
+    @extend .recent-trans;
+}
+.no-transaction{
+    width:fit-content;
+    margin-inline:auto;    
+    color:$lightTextHover
+}
+.report-statement{
+    @extend .recent-rows;
+}
+.report-amount-spent-percentage{
+    @extend .emoji-box;
+}
+.report-category-name-date{
+    width:200px;
+    margin-left:-104px
+}
+.report-monthly-date{
+    font-size:.7rem;
+    color:$lightTextHover
+}
+.report-monthly-category-name{
+    font-weight:700;
+}
+.report-amount-spent{
+    width:150px;
+    text-align:end
+}
+.report-mini-wrapper-two{
+    width:50%;
+}
+.report-recents{
+    margin-left:7px;
+    margin-bottom:20px;
+}

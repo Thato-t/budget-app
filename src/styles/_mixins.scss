@@ -1,0 +1,43 @@
+@use './_variable' as *;
+
+@mixin boxSizing{
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+@mixin navbar{
+    height:60px;
+    padding-inline:10px 20px;
+}
+@mixin flex-space-between{
+    display:flex;
+    justify-content:space-between;
+}
+@mixin flex-center{
+    display:flex;
+    justify-content:center;
+}
+@mixin p-bgd-br{
+    padding:5px;
+    background-color:$lightPrimary;
+    border-radius:7px;
+}
+@mixin flex-content-right{
+    display:flex;
+    justify-content: right;
+}
+@mixin input-wrapper{
+    width:fit-content;
+    margin-inline:auto;
+    margin-bottom:10px;
+    padding:5px;
+    background-color: $lightInputBackground;
+    border-radius:6px
+}
+@mixin input-default{
+    outline:none;
+    border:none;
+    width:200px;
+    height:30px;
+    background-color:transparent;
+}
