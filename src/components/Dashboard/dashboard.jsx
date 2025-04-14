@@ -6,6 +6,8 @@ import LoadingState from '../../reusable/loadingState.jsx';
 import AddTransaction from '../modals/addTransaction.jsx';
 import UpdateTransaction from '../modals/updateTransaction.jsx';
 import ChartConfig from '../../utils/chartConfig.jsx';
+import  bar from '../../assets/Icons/bar.png'
+import pie from '../../assets/Icons/pie.png'
 
 
 function Dashboard() {
@@ -16,15 +18,20 @@ function Dashboard() {
     const [ selectedOption, setSelectedOption ] = useState('fixedExpense');  
     const values = useLocalStorageName('name', 'transactions');
     const [ countriesCurrency, setCountriesCurrency ] = useState('R');
-    const [ graph, setGraph ] = useState('pie');
+    const [ graph, setGraph ] = useState(pie);
     const [ showAddModal, setShowAddModal ] = useState(false)
     const [ showUpdateModal, setShowUpdateModal ] = useState(false)
-    
+    const [ isBar, setIsBar ] = useState(true)
+    const [ textCategory, setTextCategory ] = useState();
+    const [ bgdColorCategory, setBgdColorCategry ] = useState()
+    // Make the bar and pie image persistent in localStorage
+
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     const handleSelectChange = (event) => {
         setSelectedOption(event.target.value)
     }
+
 
     useEffect(() => {
         setIsLoadingRecents(true)
@@ -36,7 +43,6 @@ function Dashboard() {
                 setIsLoadingRecents(false)
                 setTransactions([...data[selectedOption]]);
                 setIsLoadingCategory(false)
-                console.log(data[selectedOption])
             })
             .catch(err => err)
     }, [selectedOption])
@@ -58,7 +64,15 @@ function Dashboard() {
         if(percentage > (5).toFixed(2)) return '#4CAF50'
     }
 
-    
+    const getPercentageColor = (totalAmount, amountSpent) => {
+        const remaining = totalAmount - amountSpent;
+        const percentage = ((remaining / totalAmount) * 100).toFixed(2);
+        if(percentage > (80).toFixed(2)) return ' #4CAF50'
+        if(percentage > (60).toFixed(2)) return ' #00BCD4'
+        if(percentage > (40).toFixed(2)) return '#FFEB3B '
+        if(percentage > (20).toFixed(2)) return ' #FF5722'
+        if(percentage > (5).toFixed(2)) return ' #F44336'
+    }
 
   return ( 
     <>  
@@ -69,6 +83,8 @@ function Dashboard() {
         {showUpdateModal && <UpdateTransaction 
             show={showUpdateModal} 
             onClose={() => setShowUpdateModal(false)} 
+            text={textCategory}
+            color={bgdColorCategory}
         />}
         <div className="body">
             <Navbar className="navbar"/>
@@ -111,9 +127,14 @@ function Dashboard() {
                                 <p className="recent-explanation-two">Start with (+) to create first one</p>
                             </div> 
                             : recents.map((recent, index) => 
-                                <div className="recent-rows"
-                                 key={index}
-                                 onClick={() => setShowUpdateModal(true)}
+                                <div 
+                                  className="recent-rows"
+                                  key={index}
+                                  onClick={() =>  { 
+                                    setShowUpdateModal(true)
+                                    setBgdColorCategry(recent.emojiBgdColor)
+                                    setTextCategory(recent.exampleName)
+                                }}
                                 >
                                     <div className="emoji-box" style={{backgroundColor: recent.emojiBgdColor}}>{recent.categoryEmoji}</div>
                                     <p className="example-name">{recent.exampleName}</p>
@@ -131,27 +152,41 @@ function Dashboard() {
                                 <span className="months">
                                     {months[new Date().getMonth()]}
                                 </span>
-                                {/* FIND ICON FOR PIE AND BAR GRAPHS */}
                                 <span className="type-of-graph" 
-                                    onClick={() =>  graph === 'pie' ? setGraph('bar') : setGraph('pie')}
-                                >{graph}</span>
+                                    onClick={() =>  {
+                                        if(graph === bar){
+                                            setIsBar(false);
+                                            setGraph(pie);
+                                        }else{
+                                            setIsBar(true);
+                                            setGraph(bar);
+                                        }
+                                    }}
+                                >
+                                    <img src={graph} alt="icon" />
+                                </span>
                             </div>
-                            {/* Must insert graphs */}
                             <div className="graphs">
-                                <ChartConfig />
+                                <ChartConfig  states={isBar} />
                             </div>
                         </div>
                         {/* FIND ICON FOR THE BTN */}
                         <div className="add-expense-btn"
                             onClick={() => setShowAddModal(true)}
-                        >+</div>
+                        >
+                            +
+                        </div>
                        
                     </div>
 
                     <div className="dashboard-containerThree">
                         <div className="categories fixedCategory">
                             
-                            <select className="categoryName" value={selectedOption} onChange={handleSelectChange}>
+                            <select 
+                             className="categoryName" 
+                             value={selectedOption} 
+                             onChange={handleSelectChange}
+                            >
                                 <option className="dashboard-categories-names" value="fixedExpense">Fixed Expenses</option>
                                 <option className="dashboard-categories-names" value="variableExpense">Variable Expenses</option>
                                 <option className="dashboard-categories-names" value="savings">Savings</option>
@@ -168,7 +203,11 @@ function Dashboard() {
                                 <p className="empty-transactions-explanation-two">Start with (+) to create first one</p>
                             </div> 
                             : transactions.map((category, index) => 
-                                <div className="categoryExample"  key={index}>
+                                <div 
+                                  className="categoryExample"  
+                                  key={index}
+                                  onClick={() => setShowUpdateModal(true)}
+                                >
                                     <div className="semi-category">
                                         <div className="category-emoji" 
                                             style={{backgroundColor: category.emojiBgdColor}}>{category.categoryEmoji}</div>
@@ -183,7 +222,7 @@ function Dashboard() {
                                         </p>
                                     </div>
                                     <p className="percentage-left" 
-                                    style={{ color: getCircleColor(category.amountLimit, category.amountSpend)}}>{
+                                    style={{ color: getPercentageColor(category.amountLimit, category.amountSpend)}}>{
                                     (((category.amountLimit - category.amountSpend) / category.amountLimit) * 100).toFixed(2)
                                     }%
                                     </p>

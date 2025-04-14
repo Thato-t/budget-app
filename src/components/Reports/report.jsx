@@ -4,13 +4,30 @@ import { useState, useEffect } from 'react'
 import './report.scss'
 import ChartConfig from '../../utils/chartConfig.jsx';
 import LoadingState from '../../reusable/loadingState.jsx'
+import  bar from '../../assets/Icons/bar.png'
+import pie from '../../assets/Icons/pie.png'
+import UpdateTransaction from '../modals/updateTransaction.jsx';
+import PastTransaction from '../modals/pastTransaction.jsx';
 
 function Report() {
+  // TODO a modal for the past transactions without inputs
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   const [ monthlyTransactions, setMonthlyTransactions ] = useState([]);
   const [ isLoading, setIsLoading ] = useState(false);
   const [currency, setCurrency] = useState('R');
-  const [ graph, setGraph ] = useState('pie')
+  const [ graph, setGraph ] = useState(pie);
+  const [ isBar, setIsBar ] = useState(true);
+  const [ showUpdateModal, setShowUpdateModal ] = useState(false);
+  const [ showPastModal, setShowPastModal ] = useState(false);
+  const [ selectedOption, setSelectedOption ] = useState(months[new Date().getMonth()]);
+  const [ textCategory, setTextCategory ] = useState();
+  const [ bgdColorCategory, setBgdColorCategry ] = useState()
+
+
+  const handleSelectChange = (event) => {
+    setSelectedOption(event.target.value)
+}
 
 
   // TODO in the JSON file put another array of object that is for for monthly transactions for different months 
@@ -27,6 +44,16 @@ function Report() {
 
   return (
     <>
+        {showUpdateModal && <UpdateTransaction 
+                    show={showUpdateModal} 
+                    onClose={() => setShowUpdateModal(false)} 
+        />}
+        {showPastModal && <PastTransaction 
+                    show={showPastModal} 
+                    onClose={() => setShowPastModal(false)} 
+                    text={textCategory}
+                    color={bgdColorCategory}
+        />}
         <div className="report-body">
           <Navbar />
           <div className="report-wrapper">
@@ -34,7 +61,12 @@ function Report() {
               <div className="report-graph-wrapper">
                 <div className="report-graph-btns">
                   
-                    <select name="months" className="report-months-btn">
+                    <select 
+                     name="months" 
+                     className="report-months-btn"
+                     value={selectedOption}
+                     onChange={handleSelectChange}
+                    >
                       <option value="January">January</option>
                       <option value="February">February</option>
                       <option value="March">March</option>
@@ -50,27 +82,47 @@ function Report() {
                     </select>
                   
                   <div className="report-graphs-btn" 
-                    onClick={() => graph === 'pie' ? setGraph('bar') : setGraph('pie')}
-                    >{graph}
+                    onClick={() =>  {
+                        if(graph === bar){
+                            setIsBar(false);
+                            setGraph(pie);
+                        }else{
+                            setIsBar(true);
+                            setGraph(bar);
+                        }
+                    }}
+                  >
+                    <img src={graph} alt="icon" />
                   </div>
                 </div>
-                {/* TODO place a graph here */}
                 <div className="report-graph">
-                  <ChartConfig />
+                  <ChartConfig states={isBar}/>
                 </div>
                 <p className="report-results">You spent 
                   <span className="report-amount"> R4000.00 </span>
                   on all expenses
                 </p>
               </div>
-              <p className="report-months-view">January 2022</p>
+              <p 
+               className="report-months-view"
+              >
+                {selectedOption}
+                <span> {new Date().getFullYear()}</span>
+              </p>
               <div className="report-monthly-statements">
                 {isLoading ? 
                 <LoadingState /> :
                 monthlyTransactions.length === 0 ? 
                 <p className="no-transaction">No transaction have been made yet..</p> : 
                 monthlyTransactions.map((transaction, index) => 
-                  <div key={index}>
+                  <div 
+                   key={index}
+                   onClick={() => {
+                    setShowPastModal(true)
+                    setBgdColorCategry(transaction.emojiBgdColor)
+                    setTextCategory(transaction.categoryName)
+                  }}
+                  >
                     <div className="report-statement">
                       <div className="report-amount-spent-percentage" 
                         style={{backgroundColor: transaction.emojiBgdColor}}
@@ -99,7 +151,10 @@ function Report() {
                 monthlyTransactions.length === 0 ? 
                 <p className="no-transaction">No transaction have been made yet..</p> : 
                 monthlyTransactions.map((transaction, index) => 
-                  <div key={index}>
+                  <div 
+                   key={index}
+                   onClick={() =>  setShowUpdateModal(true)}
+                  >
                     <div className="report-statement">
                       <div className="report-amount-spent-percentage" 
                         style={{backgroundColor: transaction.emojiBgdColor}}>

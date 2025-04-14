@@ -1,11 +1,15 @@
 import React from 'react'
 
-function Create({onClick}) {
+function Create({ onClick}) {
   return (
     <>
-        <div className="add-transaction-btn" onClick={onClick}>
+        <button
+         type="submit"
+         className="add-transaction-btn" 
+         onClick={() => {onClick}}
+        >
             create
-        </div>
+        </button>
     </>
   )
 }

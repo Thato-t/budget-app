@@ -7,9 +7,11 @@ import CommentInput from '../../reusable/inputs/commentInput.jsx'
 import Cross from '../../reusable/buttons/cross.jsx'
 import Create from '../../reusable/buttons/create.jsx'
 import TypeOfCategory from '../../reusable/typeOfCategory.jsx'
+import useLocalStorageName from '../../utils/localStorage.jsx'
 
 
 function AddTransaction({ show, onClose }) {
+
 
 
     const [ quote, setQuote ] = useState();
@@ -20,6 +22,15 @@ function AddTransaction({ show, onClose }) {
     const [ typeOfCategory, setTypeOfCategory ] = useState();
     const [ categoryColor, setCategoryColor ] = useState();
     const [ isLoading, setIsLoading ] = useState(false) 
+    const [ setItemsTransactions ] = useLocalStorageName('transactions');
+    const [ count, setCount] = useState(1);
+    const [ categoryChange, setCategoryChange ] = useState('');
+    const [ dateChange, setDateChange ] = useState('');
+    const [ amountSpentChange, setAmountSpentChange ] = useState('');
+    const [ commentChange, setCommentChange ] = useState('');
+    const [ amountLimitChange, setAmountLimitChange ] = useState('');
+    const [ categoryEmoji, setCategoryEmoji ] = useState();
+    const  [ errMsg, setErrMsg ] = useState('')
 
     const randomIndex = Math.floor(Math.random() * 99);
 
@@ -41,57 +52,91 @@ function AddTransaction({ show, onClose }) {
         setIsLoading(false)
     }, [selectOption])
 
+    const addItems = () => {
+        const newItems = [{
+            id: count,
+            categoryName: typeOfCategory,
+            categoryEmoji: categoryEmoji,
+            emojiBgdColor: categoryColor,
+            exampleName: categoryChange,
+            amountLeft: amountLimitChange - amountSpentChange,
+            amountLimit: amountLimitChange,
+            amountSpend: amountSpentChange,
+            date: dateChange,
+            comment: commentChange
+        }]
+        const arr = [...newItems]
+        setItemsTransactions(arr);
+        setCount(count + 1);
+    }
+
+    const handleSubmit = event => {
+        event.preventDefault();
+        if(!categoryChange.trim() || !dateChange.trim() || !amountSpentChange.trim() || !amountLimitChange.trim()){
+            setErrMsg('All inputs are required');
+        }
+        addItems();
+    }
+
     if(!show) return null;
 
   return (
     <>
         <div className="add-transaction-body">
             <div className="add-transaction-wrapper">
-                {/* Insert a cross icon */}
                 <Cross onClick={onClose}/>
                 <p className="add-transaction-quote">'{quote}'</p>
-                <NameInput />
-                <DateInput />
-                <AmountInput />
-                <CommentInput />
-                <div className="add-transaction-categories-wrapper">
-                    <select name="categories" id="add-transaction-select" value={selectOption} onChange={handleSelectChange}>
-                        <option value="fixedExpenses">Fixed Expenses</option>
-                        <option value="variableExpenses">Variable Expenses</option>
-                        <option value="Savings">Savings</option>
-                        <option value="Investments">Investments</option>
-                        <option value="Emergencies">Emergencies</option>
-                        <option value="Debts">Debts</option>
-                        <option value="Givings">Givings</option>
-                    </select>
-                </div>
-                <div className="add-transaction-category-example-wrapper">
-                    {
-                        isLoading ? 
-                        <p className="add-transaction-loading-state">loading...</p> :
-                        exampleCategories.map((category, index) => 
-                            <div key={index} 
-                                onClick={() => { 
-                                    setIsPressed(true)
-                                    setTypeOfCategory(category.exampleName)
-                                    setCategoryColor(category.backgroundColor)
-                                }}
-                            >
-                                <div className="add-transaction-category-example" style={{backgroundColor: category.backgroundColor}}>
-                                    <div className="add-transaction-emoji">{category.exampleEmoji}</div>
+                <form onSubmit={handleSubmit}>
+                    <NameInput onChange={event => setCategoryChange(event.target.value)} />
+                    <DateInput onChange={event => setDateChange(event.target.value)} />
+                    <AmountInput onChange={event => setAmountSpentChange(event.target.value)} />
+                    <CommentInput onChange={event => setCommentChange(event.target.value)} />
+                    <div className="add-transaction-categories-wrapper">
+                        <select name="categories" id="add-transaction-select" value={selectOption} onChange={handleSelectChange}>
+                            <option value="fixedExpenses">Fixed Expenses</option>
+                            <option value="variableExpenses">Variable Expenses</option>
+                            <option value="Savings">Savings</option>
+                            <option value="Investments">Investments</option>
+                            <option value="Emergencies">Emergencies</option>
+                            <option value="Debts">Debts</option>
+                            <option value="Givings">Givings</option>
+                        </select>
+                    </div>
+                    <div className="add-transaction-category-example-wrapper">
+                        {
+                            isLoading ? 
+                            <p className="add-transaction-loading-state">loading...</p> :
+                            exampleCategories.map((category, index) => 
+                                <div key={index} 
+                                    onClick={() => { 
+                                        setIsPressed(true)
+                                        setTypeOfCategory(category.exampleName)
+                                        setCategoryColor(category.backgroundColor)
+                                        setCategoryEmoji(category.exampleEmoji)
+                                    }}
+                                >
+                                    <div className="add-transaction-category-example" style={{backgroundColor: category.backgroundColor}}>
+                                        <div className="add-transaction-emoji">{category.exampleEmoji}</div>
+                                    </div>
                                 </div>
-                            </div>
-                        )
-                    }
-                </div>
-                {isPressed &&  <TypeOfCategory text={typeOfCategory} color={categoryColor} />}
-                <div className="add-transaction-amount-limit">
-                    <span className="add-transaction-currency">R</span>
-                    <input type="number" name="amount" id="add-transaction-amount-limit-input" placeholder="2000.00"/>
-                </div>
-                <p className="add-transaction-limit">Set Limit..</p>
-                <Create onClick={onClose} />
-                {/* <p className="add-transaction-err-message">Transaction name required</p> */}
+                            )
+                        }
+                    </div>
+                    {isPressed &&  <TypeOfCategory text={typeOfCategory} color={categoryColor} />}
+                    <div className="add-transaction-amount-limit">
+                        <span className="add-transaction-currency">R</span>
+                        <input 
+                         type="number" 
+                         name="amount" 
+                         id="add-transaction-amount-limit-input" 
+                         placeholder="2000.00" 
+                         onChange={event => setAmountLimitChange(event.target.value)} 
+                        />
+                    </div>
+                    <p className="add-transaction-limit">Set Limit..</p>
+                    <Create onClick={onClose} />
+                    <p className="add-transaction-err-message">{errMsg}</p> 
+                </form>
             </div>
         </div>
     </>

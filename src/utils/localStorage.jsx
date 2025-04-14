@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 
 const useLocalStorageName = (key, transaction) => {
     const [ values, setValues ] = useState('')
-    const [ transactions, setTransactions ] = useState()
+    const [ transactions, setTransactions ] = useState([])
 
     // * fetching, storing for the username
 
@@ -17,20 +17,21 @@ const useLocalStorageName = (key, transaction) => {
     }, [key])
 
     const removeItems = () => {
-        localStorage.removeItem(key);
         setValues('')
+        localStorage.removeItem(key);
     }
 
     // * fetching, storing for the transactions
+    useEffect(() => {
+        const item = JSON.parse(localStorage.getItem(transaction)) || [];
+        setTransactions([...item]);
+    }, [key])
 
     const setItemsTransactions = (value) => {
-        localStorage.setItem(transaction, JSON.stringify(value))
+        const updatedData = [value, ...transactions];
+        setTransactions([...updatedData]);
+        localStorage.setItem(transaction, JSON.stringify(updatedData));
     }
-
-    useEffect(() => {
-        const item = JSON.parse(localStorage.getItem(transaction))
-        setTransactions(item)
-    }, [transactions])
 
     const removeItemsTransactions = () => {
         localStorage.removeItem(transaction)

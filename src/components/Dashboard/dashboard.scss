@@ -137,6 +137,8 @@
 .type-of-graph{
     cursor: pointer;
     @include p-bgd-br();
+    @include flex-center();
+    align-items:center;
 }
 .type-of-graph:hover{
     background-color:$lightPrimaryHover ;

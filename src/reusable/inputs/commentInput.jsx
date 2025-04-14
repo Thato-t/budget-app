@@ -1,10 +1,14 @@
 import React from 'react'
 
-function CommentInput() {
+function CommentInput({onChange}) {
   return (
     <>
         <div className="add-transaction-comment-wrapper">
-          <textarea id="add-transaction-comment" placeholder="Enter comment"></textarea>
+          <textarea 
+           id="add-transaction-comment" 
+           placeholder="Enter comment"
+           onChange={onChange}
+           ></textarea>
         </div>
     </>
   )

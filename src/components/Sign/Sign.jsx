@@ -4,16 +4,31 @@ import Dashboard from '../Dashboard/dashboard.jsx'
 import './Sign.scss'
 import { useEffect, useState } from 'react' 
 import useLocalStorageName from '../../utils/localStorage'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function Sign(){
 
     const [ setItems ] = useLocalStorageName('name');
     const [ name, setName ] = useState('');
+    const [ errMsg, setErrMsg ] = useState('');
+    const navigate = useNavigate();
 
     const onChange = (event) => {
         setName(event.target.value);
     }
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        if(name.trim() === ''){
+            setErrMsg('The name is required')
+            return
+        }
+
+
+        navigate('/')
+        setItems(name)
+    }
+    
     return(
         <>
             <div className="body">
@@ -24,20 +39,24 @@ function Sign(){
                         <p className="description">Personal budgeting is the secret to financial freedom. Start your journey today.</p>
                         <img src={finance_theme_three} alt="undraw-finance" className="illustration" />
                     </div> 
-                    <div className="right-mini-wrapper">
-                        <div className="input-wrapper">
-                            <input type="text" id="input" className="input" 
-                            placeholder="What is your name?"
-                            onChange={() => onChange(event)}
-                            /><br></br>
+                    <form onSubmit={handleSubmit}> 
+                        <div className="right-mini-wrapper">
+                            <div className="input-wrapper">
+                                <input 
+                                 type="text" 
+                                 id="input" 
+                                 className="input" 
+                                 placeholder="What is your name?"
+                                 value={name}
+                                 onChange={() => onChange(event)}
+                                /><br></br>
+                            </div>
+                            <p className="sign-error">{errMsg}</p> 
+                            {/* Must put an icon of a head or person inside the btn */}
+                                <button type="submit" id="btn" className="btn"
+                                >Create Account</button>
                         </div>
-                        {/* Must put an icon of a head or person inside the btn */}
-                        <Link to="/">
-                            <button id="btn" className="btn"
-                            onClick={() => setItems(name)}
-                            >Create Account</button>
-                        </Link>
-                    </div>
+                    </form>
                 </div>
                 <img src={wave} alt="wave" className="wave" />
             </div>

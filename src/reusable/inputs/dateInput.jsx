@@ -1,10 +1,15 @@
 import React from 'react'
 
-function DateInput() {
+function DateInput({onChange}) {
   return (
     <>
        <div className="add-transaction-name"> 
-            <input type="date" name="" id="add-transaction-name-input" />
+            <input 
+             type="date" 
+             name="" 
+             id="add-transaction-name-input" 
+             onChange={onChange}
+             />
        </div>
     </>
   )

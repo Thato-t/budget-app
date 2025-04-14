@@ -5,8 +5,9 @@ import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Lege
 // Register chart components
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement );
 
-function ChartConfig() {
-    const [ amounts, setAmounts ] = useState([])
+function ChartConfig({ states }) {
+    const [ amounts, setAmounts ] = useState([]);
+    const [ display, setDisplay] = useState('none')
 
     useEffect(() => {
         fetch('http://localhost:3002/0')
@@ -29,10 +30,21 @@ function ChartConfig() {
             maintainAspectRatio: false,
             title: {display: false}
         }
+
   return (
     <>
-        <Bar data={data} options={options} />
-        {/* <Pie data={data} /> */}
+        <Bar 
+         data={data} 
+         options={options}
+         style={{ display: states === false ? display : 'flex'}}
+        />
+        <Pie 
+         data={data}  
+         style={{
+            marginInline: 'auto',
+            display: states === true ? display : 'flex'
+         }}
+        />
     </>
   )
 }

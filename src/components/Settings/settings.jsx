@@ -3,10 +3,12 @@ import Navbar from '../../reusable/navbar/navbar.jsx'
 import '../../styles/_variable.scss'
 import './settings.scss'
 import useLocalStorageName from '../../utils/localStorage.jsx'
+import { useNavigate } from 'react-router-dom'
 
 function Settings() {
-    const [ removeItems ]  = useLocalStorageName('name')
-    const values  = useLocalStorageName('name')
+    const [ removeItems ]  = useLocalStorageName('name');
+    const values  = useLocalStorageName('name');
+    const navigate = useNavigate();
 
     // TODO make a fetch req of the flag and the currencies  
   return (
@@ -37,7 +39,15 @@ function Settings() {
                     <span className="settings-theme-clr" style={{ backgroundColor: '#00f2ff'}}></span>
                 </div>
     
-                <button className="settings-delete-btn" onClick={removeItems}>Delete 
+                <button 
+                 className="settings-delete-btn" 
+                 onClick={() => {
+                    removeItems
+                    if(values[2] === ''){
+                        navigate('/sign')
+                    }
+                 }}
+                >Delete 
                     <span className="settings-username"> {values}</span>
                 </button>
             </div>
