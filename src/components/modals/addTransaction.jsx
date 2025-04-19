@@ -53,7 +53,7 @@ function AddTransaction({ show, onClose }) {
     }, [selectOption])
 
     const addItems = () => {
-        const newItems = [{
+        const newItems = {
             id: count,
             categoryName: typeOfCategory,
             categoryEmoji: categoryEmoji,
@@ -64,9 +64,8 @@ function AddTransaction({ show, onClose }) {
             amountSpend: amountSpentChange,
             date: dateChange,
             comment: commentChange
-        }]
-        const arr = [...newItems]
-        setItemsTransactions(arr);
+        }
+        setItemsTransactions(newItems);
         setCount(count + 1);
     }
 

@@ -65,11 +65,11 @@ function Dashboard() {
     }
 
     const getPercentageColor = (totalAmount, amountSpent) => {
-        const remaining = totalAmount - amountSpent;
+        // const remaining = totalAmount - amountSpent;
         const percentage = ((remaining / totalAmount) * 100).toFixed(2);
         if(percentage > (80).toFixed(2)) return ' #4CAF50'
         if(percentage > (60).toFixed(2)) return ' #00BCD4'
-        if(percentage > (40).toFixed(2)) return '#FFEB3B '
+        if(percentage > (40).toFixed(2)) return '#FFEB3B' 
         if(percentage > (20).toFixed(2)) return ' #FF5722'
         if(percentage > (5).toFixed(2)) return ' #F44336'
     }

@@ -28,9 +28,9 @@ const useLocalStorageName = (key, transaction) => {
     }, [key])
 
     const setItemsTransactions = (value) => {
-        const updatedData = [value, ...transactions];
-        setTransactions([...updatedData]);
-        localStorage.setItem(transaction, JSON.stringify(updatedData));
+        const updatedData = [...transactions, value]; // Append the new value to the existing array
+        setTransactions(updatedData); // Update the state
+        localStorage.setItem(transaction, JSON.stringify(updatedData)); // Save to localStorage
     }
 
     const removeItemsTransactions = () => {
