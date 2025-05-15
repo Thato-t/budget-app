@@ -7,7 +7,6 @@ const amountsSchema = new mongoose.Schema({
     TotalExpense: Number
 })
 
-const amounts = mongoose.model('User Amount', amountsSchema)
-amounts.save();
+const Amounts = mongoose.model('User Amount', amountsSchema)
 
-module.exports = amounts 
+export default Amounts; 

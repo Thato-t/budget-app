@@ -8,6 +8,7 @@ import UpdateTransaction from '../modals/updateTransaction.jsx';
 import ChartConfig from '../../utils/chartConfig.jsx';
 import  bar from '../../assets/Icons/bar.png'
 import pie from '../../assets/Icons/pie.png'
+import axios from 'axios'
 
 
 function Dashboard() {
@@ -32,19 +33,31 @@ function Dashboard() {
         setSelectedOption(event.target.value)
     }
 
+    const fetchExpensesData = async () => {
+        setIsLoadingRecents(true)
+        try {
+            const res = await axios.get('http://localhost:5000')
+            setRecents([...res.data.dt[0].recent]);
+            setIsLoadingRecents(false)
+        } catch (error) {
+            console.error(`Error found: ${error}`);
+        }
+    }
+
+    const fetchCategoriesData = async () => {
+        setIsLoadingCategory(true)
+        try {
+            const res = await axios.get('http://localhost:5000')
+            setTransactions([...res.data.dt[0][selectedOption]]);
+            setIsLoadingCategory(false) 
+        } catch (error) {
+            console.error(`Error found: ${error}`);
+        }
+    }
 
     useEffect(() => {
-        setIsLoadingRecents(true)
-        setIsLoadingCategory(true)
-        fetch('http://localhost:3002/0')
-            .then(res => res.json())
-            .then(data => {
-                setRecents([...data.recent]);
-                setIsLoadingRecents(false)
-                setTransactions([...data[selectedOption]]);
-                setIsLoadingCategory(false)
-            })
-            .catch(err => err)
+        fetchExpensesData()
+        fetchCategoriesData()
     }, [selectedOption])
 
 

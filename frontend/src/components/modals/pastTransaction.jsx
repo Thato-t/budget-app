@@ -4,6 +4,7 @@ import Cross from '../../reusable/buttons/cross.jsx'
 import TypeOfCategory from '../../reusable/typeOfCategory.jsx'
 import './pastTransaction.scss'
 import LoadingState from '../../reusable/loadingState.jsx'
+import axios from 'axios'
 
 function PastTransaction({ show, onClose, text, color }){
 
@@ -14,26 +15,30 @@ function PastTransaction({ show, onClose, text, color }){
         const [ amount, setAmount ] = useState();
         const [ isLoading, setIsLoading ] = useState(false);
 
-        
-        useEffect(() => {
-            setIsLoading(true)
-            fetch('http://localhost:3002/0')
-                .then(res => res.json())
-                .then(data => {
-                    setPrevTrans([...data.recent])
-                    setIsLoading(false)
-                })
-                .catch(err => err)
-        }, [])
+    const fetchPrevTransData = async () => {
+        setIsLoading(true)
+        try{
+            const res = await axios.get('http://localhost:5000')
+            setPrevTrans([...res.dt.recent])
+            setIsLoading(false)
+        } catch (error){
+            console.error('Eroor found:', error)
+        }
+    }
+    const fetchPrevImgData = async () => {
+        try{
+            const res = await axios.get(`http://localhost:5000/Emergencies`)
+            setPrevImg(res.dt[2].exampleEmoji)
+        } catch(error){
+            console.error('Error found:', error)
+        }
+    }
+
+    useEffect(() => {
+        fetchPrevTransData();
+        fetchPrevImgData();
+    }, [])
     
-        useEffect(() => {
-            fetch('http://localhost:3000/Emergencies')
-                .then(res => res.json())
-                .then(data => {
-                    setPrevImg(data[2].exampleEmoji)
-                })
-                .catch(err => console.log(err))
-        }, [])
 
         if(!show) return null;
 

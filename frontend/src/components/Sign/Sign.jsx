@@ -5,7 +5,7 @@ import './Sign.scss'
 import { useEffect, useState } from 'react' 
 import useLocalStorageName from '../../utils/localStorage'
 import { useNavigate } from 'react-router-dom'
-
+import axios from 'axios'
 function Sign(){
 
     const [ setItems ] = useLocalStorageName('name');
@@ -17,13 +17,20 @@ function Sign(){
         setName(event.target.value);
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault()
         if(name.trim() === ''){
             setErrMsg('The name is required')
             return
         }
-
+        try{
+            const res = await axios.post('http://localhost:5000', { name })
+            alert(`User saved: ${res.data.user.name}`)
+            setName('')
+        }catch(error){
+            console.error(err)
+            alert('Failed to save')
+        }
 
         navigate('/')
         setItems(name)

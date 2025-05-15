@@ -4,6 +4,7 @@ import '../../styles/_variable.scss'
 import './settings.scss'
 import useLocalStorageName from '../../utils/localStorage.jsx'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 function Settings() {
     const [ removeItems ]  = useLocalStorageName('name');

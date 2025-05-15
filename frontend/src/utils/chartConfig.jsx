@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Bar, Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement} from 'chart.js';
+import axios from 'axios'
 
 // Register chart components
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement );
@@ -9,11 +10,16 @@ function ChartConfig({ states }) {
     const [ amounts, setAmounts ] = useState([]);
     const [ display, setDisplay] = useState('none')
 
+    const fetchData = async () => {
+        try{
+            const res = await axios.get('http://localhost:5000/')
+            setAmounts([...res.data.dt[0].recent])
+        } catch(error){
+            console.log('error found: ', error)
+        }
+    }
     useEffect(() => {
-        fetch('http://localhost:3002/0')
-            .then(res => res.json())
-            .then(dt => setAmounts([...dt.recent]))
-            .catch(err => console.log(err))
+        fetchData();
     }, [])
 
     const data = {

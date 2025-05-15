@@ -8,7 +8,7 @@ import Cross from '../../reusable/buttons/cross.jsx'
 import Create from '../../reusable/buttons/create.jsx'
 import TypeOfCategory from '../../reusable/typeOfCategory.jsx'
 import useLocalStorageName from '../../utils/localStorage.jsx'
-import Axios from 'axios'
+import axios from 'axios'
 
 
 function AddTransaction({ show, onClose }) {
@@ -43,23 +43,20 @@ function AddTransaction({ show, onClose }) {
             .then(data => setQuote(data.message))
             .catch(err => console.log('Error found', err))
     }, [])
+
     const fetchCategoriesData = async () => {
+        setIsLoading(true)
         try{
-            const response = await Axios.get('http://localhost:5000')
+            const res = await axios.get(`http://localhost:5000/${selectOption}`)
+            setExampleCategories([...res.cat])
+            setIsLoading(false)
         } catch{
             console.error(err, 'found')
         }
     }
 
     useEffect(() => {
-        setIsLoading(true)
-        fetch(`http://localhost:3000/${selectOption}`)
-            .then(res => res.json())
-            .then(data => setExampleCategories([...data]))
-            .catch(err => console.log(err))
-
-        setIsLoading(false)
-
+        fetchCategoriesData();
     }, [selectOption])
     
     const handleSubmit = event => {

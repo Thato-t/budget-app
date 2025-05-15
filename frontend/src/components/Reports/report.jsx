@@ -8,6 +8,7 @@ import  bar from '../../assets/Icons/bar.png'
 import pie from '../../assets/Icons/pie.png'
 import UpdateTransaction from '../modals/updateTransaction.jsx';
 import PastTransaction from '../modals/pastTransaction.jsx';
+import axios from 'axios'
 
 function Report() {
   // TODO a modal for the past transactions without inputs
@@ -31,15 +32,19 @@ function Report() {
 
 
   // TODO in the JSON file put another array of object that is for for monthly transactions for different months 
-    useEffect(() => {
-        setIsLoading(true)
-        fetch('http://localhost:3002/0')
-            .then(res => res.json())
-            .then(data => {
-                setMonthlyTransactions([...data.recent]);
-                setIsLoading(false)
-            })
-            .catch(err => err)
+  const fetchTransactions = async () => {
+    setIsLoading(true)
+    try {
+      const res = await axios.get('http://localhost:5000')
+      setMonthlyTransactions([...res.data.dt[0].recent]);
+      setIsLoading(false)
+    } catch(error){
+      console.log('error found:', error)
+    }
+  }
+
+  useEffect(() => {
+        fetchTransactions();
     }, [])
 
   return (

@@ -21,7 +21,7 @@ function Navbar() {
                         <span></span>
                         <span></span>
                     </div>
-                    <div className={`navbar-navigation ${isMenuOpen ? 'active' : ''}`}>
+                    <div className={`navbar-navigation ${isMenuOpen ? 'active' : 'hide'}`}>
                         <ul className="nav">
                             <Link to="/" className="nav-links" onClick={toggleMenu}><li className="options">Home</li></Link>
                             <Link to="/reports" className="nav-links" onClick={toggleMenu}><li className="options">Reports</li></Link>
@@ -30,7 +30,7 @@ function Navbar() {
                     </div>
                 </div>
             </div>
-            {isMenuOpen && <div className="mobile-overlay" onClick={toggleMenu}></div>}
+            {/* {isMenuOpen && <div className="mobile-overlay" onClick={toggleMenu}></div>} */}
         </>
     )
 }
