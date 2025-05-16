@@ -1,0 +1,121 @@
+[
+    {
+        "recent":[
+            {
+                "categoryName":"Fixed Expense",
+                "categoryEmoji":"🏠",
+                "emojiBgdColor":"#E3F2FD",
+                "exampleName":"Rent",
+                "amountLeft":2000,
+                "amountLimit":2300,
+                "amountSpend":300,
+                "date":"20 January 2025"
+            },
+            {
+                "categoryName":"Fixed Expense",
+                "categoryEmoji":"🚗",
+                "emojiBgdColor":"#80DEEA",
+                "exampleName":"Transportation",
+                "amountLeft":100,
+                "amountLimit":1000,
+                "amountSpend":900,
+                "date":"23 January 2025"
+            },
+            {
+                "categoryName":"Variable Expense",
+                "categoryEmoji":"🛒",
+                "emojiBgdColor":"#FF8A65",
+                "exampleName":"Groceries",
+                "amountLeft":1500,
+                "amountLimit":2000,
+                "amountSpend":500,
+                "date":"20 January 2025"
+            },
+            {
+                "categoryName":"Variable Expense",
+                "categoryEmoji":"🎬",
+                "emojiBgdColor":"#F8BBD0",
+                "exampleName":"Entertainment",
+                "amountLeft":500,
+                "amountLimit":1000,
+                "amountSpend":500,
+                "date":"25 January 2025"
+            }
+        ],
+        
+        "fixedExpense":[
+            {
+                "categoryName":"Fixed Expenses",
+                "categoryEmoji":"🏠",
+                "emojiBgdColor":"#E3F2FD",
+                "exampleName":"Rent",
+                "amountSpend":2000,
+                "amountLimit":2300
+            },
+            {
+                "categoryName":"Fixed Expenses",
+                "categoryEmoji":"🚗",
+                "emojiBgdColor":"#80DEEA",
+                "exampleName":"Transportation",
+                "amountSpend":1000,
+                "amountLimit":1200
+            },
+            {
+                "categoryName":"Fixed Expenses",
+                "categoryEmoji":"💡",
+                "emojiBgdColor":"#81D4FA",
+                "exampleName":"Utilities",
+                "amountSpend":1000,
+                "amountLimit":1000
+            }
+        ],
+        "variableExpense":[
+            {
+                "categoryName":"Variable Expenses",
+                "categoryEmoji":"🛒",
+                "emojiBgdColor":"#FF8A65",
+                "exampleName":"Groceries",
+                "amountSpend":150,
+                "amountLimit":2000
+            },
+            {
+                "categoryName":"Variable Expenses",
+                "categoryEmoji":"🎬",
+                "emojiBgdColor":"#F8BBD0",
+                "exampleName":"Entertainment",
+                "amountSpend":500,
+                "amountLimit":1000
+            }
+        ],
+        "savings":[
+            {
+                "categoryName":"Savings",
+                "categoryEmoji":"🚨",
+                "emojiBgdColor":"#FFCDD2",
+                "exampleName":"Emergency Fund",
+                "amountSpend":1000,
+                "amountLimit":1000,
+                "goal":3000
+            },
+            {
+                "categoryName":"Savings",
+                "categoryEmoji":"🎓",
+                "emojiBgdColor":"#81DAFA",
+                "exampleName":"Education Fund",
+                "amountSpend":1000,
+                "amountLimit":1000,
+                "goal":10000
+            }
+        ],
+        "debts":[
+            {
+                "categoryName":"Debts",
+                "categoryEmoji":"💳",
+                "emojiBgdColor":"#FFCDD2",
+                "exampleName":"Credit Card Debit",
+                "amountSpend":500,
+                "amountLimit":1000
+            }
+        ]
+    }
+]

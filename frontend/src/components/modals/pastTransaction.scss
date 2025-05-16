@@ -1,0 +1,102 @@
+@use '../../styles/_variable' as *;
+@use '../../styles/_mixins' as *;
+@use '../../styles/_global' as *;
+@use './addTransaction.scss' as *;
+@use '../Dashboard/dashboard.scss' as *;
+
+*,
+*::before,
+*::after{
+    @include boxSizing();
+    // outline: 2px solid red;
+}
+.past-trans-body{
+    position:fixed;
+    z-index:9;
+    left:0;
+    right:0;
+    box-shadow:0px 2px 10px rgba(0, 0, 0, 0.7);
+    background-color:rgba(0, 0, 0, 0.5);
+    overflow-y:auto;
+    width:100%;
+    height:100%;
+}
+.past-trans-wrapper{
+    @extend .add-transaction-wrapper;
+    margin-top:140px
+
+}
+.past-trans-containers{
+    @include flex-space-between; 
+    gap:30px;
+    margin-bottom:20px;
+}
+.past-trans-container-one{
+    width:100%;
+    padding:15px;
+}
+.past-trans-prev{
+    color:$lightText;
+    font-size: .8rem;
+    font-weight:200;
+}
+.past-trans-prev-rows{
+    @extend .recent-rows;
+    align-items: center;
+    // border-top:0.5px solid $lightPrimary;
+}
+.past-trans-clr{
+    width:30px;
+    height:30px;
+    @include flex-center();
+    align-items:center;
+    border-radius:6px;
+}
+.past-trans-date-comment{
+    margin-left:-80px;
+}
+.past-trans-date{
+    color:$lightText;
+    font-size:0.7rem;
+    font-weight:300;
+}
+.past-trans-comment{
+    font-weight:$fontWeight500;
+}
+
+.past-trans-container-two{
+    @extend .past-trans-container-one;
+    display:flex;
+    align-items:center;
+}
+.past-prev-card{
+    width:fit-content;
+    align-content:center;
+    padding:20px;
+    margin:auto;
+    border:1px dashed $lightInputBackground;
+    border-radius: 6px;
+}
+.past-trans-card-heading{
+    display: flex;
+    width:fit-content;
+    align-items:center;
+    margin-bottom:50px;
+    gap:15px;
+}
+.past-prev-card-clr{
+    @extend .past-trans-clr;
+    width:50px;
+    height:50px;
+}
+.past-prev-statement{
+    width:fit-content;
+    margin-inline:auto;
+    margin-bottom:50px;
+    padding:15px;
+}
+.past-prev-card-amount{
+    width:fit-content;
+    margin-inline:auto;
+    font-weight:200;
+}
