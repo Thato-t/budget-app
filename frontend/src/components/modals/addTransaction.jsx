@@ -37,20 +37,20 @@ function AddTransaction({ show, onClose }) {
 
     const handleSelectChange = event => setSelectOption(event.target.value);
 //  MAKE THE QUOTE BECOME AI GENERATED WHICH THE AI WILL DETECT HOW MUCH THE MONEY IS AND GIVES QUOTE BASED ON THE AMOUNT
-    useEffect(() => {
-        fetch(`http://localhost:3001/${randomIndex}`)
-            .then(res => res.json())
-            .then(data => setQuote(data.message))
-            .catch(err => console.log('Error found', err))
-    }, [])
+    // useEffect(() => {
+    //     fetch(`http://localhost:3001/${randomIndex}`)
+    //         .then(res => res.json())
+    //         .then(data => setQuote(data.message))
+    //         .catch(err => console.log('Error found', err))
+    // }, [])
 
     const fetchCategoriesData = async () => {
         setIsLoading(true)
         try{
-            const res = await axios.get(`http://localhost:5000/${selectOption}`)
-            setExampleCategories([...res.cat])
-            setIsLoading(false)
-        } catch{
+            const res = await axios.get(`http://localhost:5000/`)
+            setExampleCategories(res.data.cat[0][selectOption])
+            setIsLoading(false);
+        } catch(err){
             console.error(err, 'found')
         }
     }
@@ -59,26 +59,29 @@ function AddTransaction({ show, onClose }) {
         fetchCategoriesData();
     }, [selectOption])
     
-    const handleSubmit = event => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
+        const amount = amountLimitChange - amountSpentChange
         if(!categoryChange.trim() || !dateChange.trim() || !amountSpentChange.trim() || !amountLimitChange.trim()){
             setErrMsg('All inputs are required');
             return
         }
-        const newItems = [{
-            id: count,
-            categoryName: typeOfCategory,
-            categoryEmoji: categoryEmoji,
-            emojiBgdColor: categoryColor,
-            exampleName: categoryChange,
-            amountLeft: amountLimitChange - amountSpentChange,
-            amountLimit: amountLimitChange,
-            amountSpend: amountSpentChange,
-            date: dateChange,
-            comment: commentChange
-        }]
-        setItemsTransactions(newItems);
-        setCount(count + 1);
+        try{
+            const res = await axios.post('http://localhost:5000/api/transactions', {
+                typeOfCategory,
+                categoryEmoji,
+                categoryColor,
+                categoryChange,
+                amount,
+                amountLimitChange,
+                amountSpentChange,
+                dateChange,
+                commentChange
+            });
+            console.log('transaction saved')
+        } catch(err){
+            console.error('Error saving transaction', err)
+        }
         onClose();
     }
 

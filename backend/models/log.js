@@ -20,6 +20,6 @@ const logSchema = new mongoose.Schema({
   entries: [entrySchema]
 }, { timestamps: true });
 
-const Log = mongoose.model('Log', logSchema);
+const Logs = mongoose.model('Logs', logSchema);
 
-export default Log;
+export default Logs;
