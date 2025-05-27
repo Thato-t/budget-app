@@ -8,10 +8,10 @@ const TransactionSchema = new mongoose.Schema({
     amountLeft: { type: Number, required: true },
     amountLimit: { type: Number, required: true },
     amountSpend: { type: Number, required: true },
-    date: { type: String, required: true },
+    date: { type: String, required: true, },
     comment: { type: String },
 }, { timestamps: true });
 
-const Transactions = mongoose.model('Transaction', TransactionSchema)
+const Transactions = mongoose.model('Transactions', TransactionSchema)
 
 export default Transactions;

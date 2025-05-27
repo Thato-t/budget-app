@@ -2,16 +2,17 @@
 
 
 // Light Theme
-$lightPrimary:#00f2ff;
-$lightSecondary:#F5F5F5;
-$lightAccent:#4CAF50;
-$lightText:#333333;
-$lightBackground:#642f2f;
-$lightError:#F44336;
-$lightSuccess:#4CAF50;
-$lightInputBackground:#E0E0E0;
+$lightPrimary: #00f2ff;
+$lightSecondary: #F5F5F5;
+$lightAccent: #4CAF50;
+$lightText: #333333;
+$lightBackground: #642f2f;
+$lightError: #F44336;
+$lightSuccess: #4CAF50;
+$lightInputBackground: #E0E0E0;
 $lightWrapperBackground:hsl(0, 0%, 98%);
 $lightErrorBackground: hsl(4, 90%, 88%);
+$lightSucessBackground:hsl(122, 39.40%, 79.20%);
 
 // Hover-light
 $lightTextHover:hsl(0, 0%, 35%);
@@ -19,6 +20,8 @@ $lightPrimaryHover:hsl(183, 100%, 69%);
 $lightSecondaryHover:hsl(0, 0%, 99%);
 $lightErrorBackgroundHover:hsl(4, 90%, 95%);
 $lightErrorHover:hsl(4, 90%, 68%);
+$lightSuccessHover:hsl(122, 39.40%, 69.20%);
+$lightSuccessBackgroundHover:hsl(122, 39.40%, 89.20%);
 
 // Dark Theme
 $darkPrimary:#1976D2;

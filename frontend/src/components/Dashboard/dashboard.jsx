@@ -37,7 +37,7 @@ function Dashboard() {
         setIsLoadingRecents(true)
         try {
             const res = await axios.get('http://localhost:5000')
-            setRecents([...res.data.dt[0].recent]);
+            setRecents([...res.data.trans]);
             setIsLoadingRecents(false)
         } catch (error) {
             console.error(`Error found: ${error}`);

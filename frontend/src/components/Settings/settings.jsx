@@ -5,6 +5,7 @@ import './settings.scss'
 import useLocalStorageName from '../../utils/localStorage.jsx'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import flag from '../../assets/images/flag.png'
 
 function Settings() {
     const [ removeItems ]  = useLocalStorageName('name');
@@ -12,6 +13,12 @@ function Settings() {
     const navigate = useNavigate();
 
     // TODO make a fetch req of the flag and the currencies  
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+    }
+
+
   return (
     <>
         <div className="settings-body">
@@ -27,30 +34,37 @@ function Settings() {
                 <label for="currency-input" className="settings-currency-label">Currency</label>
                 <div className="settings-currency-wrapper">
                     <span className="settings-currency-type">Rand</span>
-                    <span className="settings-currency-flag">🚩</span>
+                    <img src={flag} className="settings-currency-flag" />
                 </div>
-    
-                <label for="income-input" className="settings-income-label">Total Income</label>
-                <div className="settings-income-wrapper">
-                    <input type="number" id="settings-income-input" placeholder="100.00" />
-                </div>
-    
-                <label for="settings-themes-input" className="settings-themes-label">Themes</label>
-                <div className="settings-themes-wrapper">
-                    <span className="settings-theme-clr" style={{ backgroundColor: '#00f2ff'}}></span>
-                </div>
-    
-                <button 
-                 className="settings-delete-btn" 
-                 onClick={() => {
-                    removeItems
-                    if(values[2] === ''){
-                        navigate('/sign')
-                    }
-                 }}
-                >Delete 
-                    <span className="settings-username"> {values}</span>
-                </button>
+                <form onSubmit={handleSubmit}>
+                    <label for="income-input" className="settings-income-label">Total Income</label>
+                    <div className="settings-income-wrapper">
+                        <input type="number" id="settings-income-input" placeholder="100.00" />
+                    </div>
+        
+                    <label for="settings-themes-input" className="settings-themes-label">Themes</label>
+                    <div className="settings-themes-wrapper">
+                        <span className="settings-theme-clr" style={{ backgroundColor: '#00f2ff'}}></span>
+                    </div>
+        
+                    <button 
+                    className="settings-delete-btn btn" 
+                    onClick={() => {
+                        removeItems
+                        if(values[2] === ''){
+                            navigate('/sign')
+                        }
+                    }}
+                    >Delete 
+                        <span className="settings-username"> {values}</span>
+                    </button>
+
+                    <button 
+                    className="settings-update-btn btn" 
+                    onClick={() => navigate('/')}
+                    >Update 
+                    </button>
+                </form>
             </div>
         </div>
     </>

@@ -6,6 +6,7 @@ const transactionRouter = express.Router()
 transactionRouter.post('/', async (req, res) => {
     try{
         const { typeOfCategory, categoryEmoji, categoryColor, categoryChange, amount, amountLimitChange, amountSpentChange, dateChange, commentChange } = req.body;
+        console.log(req.body)
         const newTransaction = new Transactions({
                 categoryName:  typeOfCategory,
                 categoryEmoji,

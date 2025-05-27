@@ -14,6 +14,8 @@ app.use(cors({
     origin: 'http://localhost:5173',
     credentials: true 
 }));
+app.use(express.json())
+app.use('/submit', transactionRoutes)
 
 const anySchema = new mongoose.Schema({}, {strict: false})
 
@@ -27,15 +29,16 @@ mongoose.connect(process.env.MONGO_URI)
 app.get('/', async (req, res) => {
     const recents = mongoose.model('recents', anySchema, 'data')
     const categories = mongoose.model('categories', anySchema, 'categories')
+    const transactions = mongoose.model('transactions', anySchema, 'transactions')
 
     const dt = await recents.find()
     const cat = await categories.find()
+    const trans = await transactions.find()
 
-    res.json({ dt, cat })
+    res.json({ dt, cat, trans })
     
 });
 
-app.use('/api/transactions', transactionRoutes)
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
