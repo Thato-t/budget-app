@@ -36,7 +36,7 @@ function Report() {
     setIsLoading(true)
     try {
       const res = await axios.get('http://localhost:5000')
-      setMonthlyTransactions([...res.data.dt[0].recent]);
+      setMonthlyTransactions([...res.data.trans]);
       setIsLoading(false)
     } catch(error){
       console.log('error found:', error)

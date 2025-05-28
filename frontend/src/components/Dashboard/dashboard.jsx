@@ -16,7 +16,7 @@ function Dashboard() {
     const [ isLoadingCategory, setIsLoadingCategory ] = useState(false);
     const [recents, setRecents] = useState([]); 
     const [transactions, setTransactions] = useState([]);
-    const [ selectedOption, setSelectedOption ] = useState('fixedExpense');  
+    const [ title, setTitle ] = useState('fixedExpense');  
     const values = useLocalStorageName('name', 'transactions');
     const [ countriesCurrency, setCountriesCurrency ] = useState('R');
     const [ graph, setGraph ] = useState(pie);
@@ -30,7 +30,7 @@ function Dashboard() {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     const handleSelectChange = (event) => {
-        setSelectedOption(event.target.value)
+        setTitle(event.target.value)
     }
 
     const fetchExpensesData = async () => {
@@ -48,7 +48,12 @@ function Dashboard() {
         setIsLoadingCategory(true)
         try {
             const res = await axios.get('http://localhost:5000')
-            setTransactions([...res.data.dt[0][selectedOption]]);
+            setTransactions([...res.data.dt[0][title]]);
+            const data = res.data.trans 
+            console.log(data)
+            for (let i = 0; i < data.length; i++){
+                console.log(data[i])
+            }
             setIsLoadingCategory(false) 
         } catch (error) {
             console.error(`Error found: ${error}`);
@@ -58,7 +63,7 @@ function Dashboard() {
     useEffect(() => {
         fetchExpensesData()
         fetchCategoriesData()
-    }, [selectedOption])
+    }, [title])
 
 
     const totalIncome = 5000;
@@ -197,7 +202,7 @@ function Dashboard() {
                             
                             <select 
                              className="categoryName" 
-                             value={selectedOption} 
+                             value={title} 
                              onChange={handleSelectChange}
                             >
                                 <option className="dashboard-categories-names" value="fixedExpense">Fixed Expenses</option>

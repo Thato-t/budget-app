@@ -9,6 +9,7 @@ const entrySchema = new mongoose.Schema({
   amountSpend: { type: Number, required: true },
   date: { type: String, required: true }, // ISO format: YYYY-MM-DD
   comment: { type: String },
+  title: { type: String }
 });
 
 const logSchema = new mongoose.Schema({

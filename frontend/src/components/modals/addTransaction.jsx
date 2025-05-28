@@ -76,7 +76,8 @@ function AddTransaction({ show, onClose }) {
                 amountLimitChange,
                 amountSpentChange,
                 dateChange,
-                commentChange
+                commentChange,
+                selectOption
             });
             console.log('transaction saved')
         } catch(err){

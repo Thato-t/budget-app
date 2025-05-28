@@ -10,33 +10,28 @@ function PastTransaction({ show, onClose, text, color }){
 
         const [ prevTrans, setPrevTrans ] = useState([])
         const [ prevImg, setPrevImg] = useState();
-        const [ comment, setComment ] = useState('All my wheels got punsched');
-        const [ cardHeading, setCardHeading ] = useState('Towing Service');
-        const [ amount, setAmount ] = useState();
+        const [ comment, setComment ] = useState();
+        const [ cardHeading, setIsCardHeading ] = useState();
+        const [ amount, setIsAmount ] = useState();
         const [ isLoading, setIsLoading ] = useState(false);
+        const [ categoryColor, setCategoryColor ] = useState()
+        const [ category, setCategory ] = useState()
+
+
 
     const fetchPrevTransData = async () => {
         setIsLoading(true)
         try{
             const res = await axios.get('http://localhost:5000')
-            setPrevTrans([...res.dt.recent])
+            setPrevTrans([...res.data.trans])
             setIsLoading(false)
         } catch (error){
-            console.error('Eroor found:', error)
-        }
-    }
-    const fetchPrevImgData = async () => {
-        try{
-            const res = await axios.get(`http://localhost:5000/Emergencies`)
-            setPrevImg(res.dt[2].exampleEmoji)
-        } catch(error){
             console.error('Error found:', error)
         }
     }
 
     useEffect(() => {
         fetchPrevTransData();
-        fetchPrevImgData();
     }, [])
     
 
@@ -59,14 +54,17 @@ function PastTransaction({ show, onClose, text, color }){
                                                 className="past-trans-prev-rows"
                                                 key={index}
                                                 onClick={() => {
-                                                    setCardHeading('Towing service')
-                                                    setAmount(prevTran.amountSpend)
+                                                    setComment(prevTran.comment)
+                                                    setIsAmount(prevTran.amountSpend)
+                                                    setCategoryColor(prevTran.emojiBgdColor)
+                                                    setIsCardHeading(prevTran.exampleName)
+                                                    setPrevImg(prevTran.categoryEmoji)
                                                 }}
                                             >
-                                                <span className="past-trans-clr" style={{backgroundColor:'red'}}>{ prevImg }</span>
+                                                <span className="past-trans-clr" style={{backgroundColor: prevTran.emojiBgdColor}}>{ prevTran.categoryEmoji }</span>
                                                 <span className="past-trans-date-comment">
                                                     <p className="past-trans-date">{ prevTran.date }</p>
-                                                    <p className="past-trans-comment" >{cardHeading} </p>
+                                                    <p className="past-trans-comment" >{prevTran.exampleName} </p>
                                                 </span>
                                                 <div className="past-trans-amount-currency">
                                                     <span className="past-trans-currency">R</span>
@@ -82,7 +80,7 @@ function PastTransaction({ show, onClose, text, color }){
                         <div className="past-trans-container-two">
                             <div className="past-prev-card">
                                 <h3 className="past-trans-card-heading">
-                                    <div className="past-prev-card-clr" style={{ backgroundColor: 'red'}}>{ prevImg }</div>
+                                    <div className="past-prev-card-clr" style={{ backgroundColor: categoryColor}}>{ prevImg }</div>
                                     {cardHeading}
                                 </h3>
                                 <p className="past-prev-statement">{comment}</p>

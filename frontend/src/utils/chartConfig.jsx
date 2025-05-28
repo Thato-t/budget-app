@@ -13,7 +13,7 @@ function ChartConfig({ states }) {
     const fetchData = async () => {
         try{
             const res = await axios.get('http://localhost:5000/')
-            setAmounts([...res.data.dt[0].recent])
+            setAmounts([...res.data.trans])
         } catch(error){
             console.log('error found: ', error)
         }
