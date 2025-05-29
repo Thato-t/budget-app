@@ -4,7 +4,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 dotenv.config();
 import transactionRoutes from './routes/transactionRoutes.js'
-// import userRoutes from './routes/userRoutes.js'
+import userRoutes from './routes/userRoutes.js'
 // import amountRoutes from './routes/amountRoutes.js'
 
 const app = express();
@@ -16,6 +16,7 @@ app.use(cors({
 }));
 app.use(express.json())
 app.use('/submit', transactionRoutes)
+app.use('/sign', userRoutes)
 
 const anySchema = new mongoose.Schema({}, {strict: false})
 
@@ -30,12 +31,14 @@ app.get('/', async (req, res) => {
     const recents = mongoose.model('recents', anySchema, 'data')
     const categories = mongoose.model('categories', anySchema, 'categories')
     const transactions = mongoose.model('transactions', anySchema, 'transactions')
+    const usernames = mongoose.model('username', anySchema, 'users')
 
     const dt = await recents.find()
     const cat = await categories.find()
     const trans = await transactions.find()
+    const users = await usernames.find()
 
-    res.json({ dt, cat, trans })
+    res.json({ dt, cat, trans, users })
     
 });
 

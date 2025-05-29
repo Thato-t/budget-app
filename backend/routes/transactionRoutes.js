@@ -6,7 +6,7 @@ const transactionRouter = express.Router()
 transactionRouter.post('/', async (req, res) => {
     try{
         const { typeOfCategory, categoryEmoji, categoryColor, categoryChange, amount, amountLimitChange, amountSpentChange, dateChange, commentChange, selectOption } = req.body;
-        console.log(req.body)
+        // console.log(req.body)
 
         // const title = await Transactions.find({selectOption: { $exists: true }})
   

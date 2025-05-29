@@ -6,34 +6,61 @@ import { useEffect, useState } from 'react'
 import useLocalStorageName from '../../utils/localStorage'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+
 function Sign(){
 
-    const [ setItems ] = useLocalStorageName('name');
-    const [ name, setName ] = useState('');
+    const [ username, setUsername ] = useState('');
     const [ errMsg, setErrMsg ] = useState('');
+    const [ data, setData ] = useState('');
     const navigate = useNavigate();
 
     const onChange = (event) => {
-        setName(event.target.value);
+        setUsername(event.target.value);
     }
 
+    const fetchData = async () => {
+        try {
+            const res = await axios.get('http://localhost:5000');
+            setData(res.data.users);
+        } catch (error) {
+            console.error('Error found', error)
+        }
+
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, [])
+    
     const handleSubmit = async (event) => {
         event.preventDefault()
-        if(name.trim() === ''){
-            setErrMsg('The name is required')
+        if(username.trim() === ''){
+            setErrMsg('The username is required')
             return
         }
+        for (let i = 0; i < data.length; i++){
+            const regex = /^[a-z]+\d+$/gi
+            console.log(data[i].username)
+            if(data[i].username === username){
+                console.warn('username taken')
+                return setErrMsg(`${username} is already taken try another`)
+            }else{
+                if(!username.match(regex)){
+                    return setErrMsg(`Include random numbers like ${username}234. You mustn't forget those numbers`)
+                }else{
+                    username.replace(/\d+/g)
+                    setErrMsg('Loading.....')
+                }
+            }
+        }
         try{
-            const res = await axios.post('http://localhost:5000', { name })
-            alert(`User saved: ${res.data.user.name}`)
-            setName('')
+            const res = await axios.post('http://localhost:5000/sign', { username })
+            console.log('User Saved')
         }catch(error){
-            console.error(err)
-            alert('Failed to save')
+            console.error(error)
         }
 
         navigate('/')
-        setItems(name)
     }
     
     return(
@@ -53,15 +80,15 @@ function Sign(){
                                  type="text" 
                                  id="input" 
                                  className="input" 
-                                 placeholder="What is your name?"
-                                 value={name}
+                                 placeholder="What is your username?"
+                                 value={username}
                                  onChange={() => onChange(event)}
                                 /><br></br>
                             </div>
                             <p className="sign-error">{errMsg}</p> 
                             {/* Must put an icon of a head or person inside the btn */}
                                 <button type="submit" id="btn" className="btn"
-                                >Create Account</button>
+                                >Get Started</button>
                         </div>
                     </form>
                 </div>

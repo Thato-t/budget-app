@@ -60,8 +60,8 @@ function Settings() {
                     </button>
 
                     <button 
-                    className="settings-update-btn btn" 
-                    onClick={() => navigate('/')}
+                     className="settings-update-btn btn" 
+                     onClick={() => navigate('/')}
                     >Update 
                     </button>
                 </form>

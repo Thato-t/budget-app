@@ -9,15 +9,17 @@ import ChartConfig from '../../utils/chartConfig.jsx';
 import  bar from '../../assets/Icons/bar.png'
 import pie from '../../assets/Icons/pie.png'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 
 function Dashboard() {
+    const navigate = useNavigate();
     const [ isLoadingRecents, setIsLoadingRecents ] = useState(false);
     const [ isLoadingCategory, setIsLoadingCategory ] = useState(false);
     const [recents, setRecents] = useState([]); 
     const [transactions, setTransactions] = useState([]);
     const [ title, setTitle ] = useState('fixedExpense');  
-    const values = useLocalStorageName('name', 'transactions');
+    const [ username, setUsername ] = useState('');
     const [ countriesCurrency, setCountriesCurrency ] = useState('R');
     const [ graph, setGraph ] = useState(pie);
     const [ showAddModal, setShowAddModal ] = useState(false)
@@ -25,14 +27,35 @@ function Dashboard() {
     const [ isBar, setIsBar ] = useState(true)
     const [ textCategory, setTextCategory ] = useState();
     const [ bgdColorCategory, setBgdColorCategry ] = useState()
-    // Make the bar and pie image persistent in localStorage
 
+    // Make the bar and pie image persistent in localStorage
+    useEffect(() => {
+        setTimeout(() => {            
+            if(username){
+                navigate('/')
+            }else{
+                navigate('/sign')
+            }
+        }, 5000);
+    }, [])
+    
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     const handleSelectChange = (event) => {
         setTitle(event.target.value)
     }
-
+    
+    
+    const fetchUsernamesData = async () => {
+        try {
+            const res = await axios.get('http://localhost:5000')
+            console.log(res.data.users[0].username)
+            setUsername(res.data.users[0].username)
+        } catch (error) {
+            console.error('Error found', error)
+        }   
+    }
+    
     const fetchExpensesData = async () => {
         setIsLoadingRecents(true)
         try {
@@ -59,18 +82,19 @@ function Dashboard() {
             console.error(`Error found: ${error}`);
         }
     }
-
+    
     useEffect(() => {
         fetchExpensesData()
         fetchCategoriesData()
+        fetchUsernamesData()
     }, [title])
-
-
+    
+    
     const totalIncome = 5000;
     const remainingBudget = 2000;
     const totalExpense = 3000;
-  
-
+    
+    
     // styles the percentage and the progress circles
     const getCircleColor = (totalAmount, amountSpent) => {
         const remaining = totalAmount - amountSpent;
@@ -92,6 +116,7 @@ function Dashboard() {
         if(percentage > (5).toFixed(2)) return ' #F44336'
     }
 
+
   return ( 
     <>  
         {showAddModal && <AddTransaction 
@@ -107,7 +132,7 @@ function Dashboard() {
         <div className="body">
             <Navbar className="navbar"/>
             <div className="dashboard-wrapper">
-                <h1 className="heading">Welcome <span className="username" >{values ? values : 'Guest'} </span></h1>
+                <h1 className="heading">Welcome <span className="username" >{username ? username : 'Guest'} </span></h1>
                 <div className="containers">
                     <div className="dashboard-containerOne">
                         {/* CARD */}
