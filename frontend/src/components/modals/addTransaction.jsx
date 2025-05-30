@@ -7,7 +7,6 @@ import CommentInput from '../../reusable/inputs/commentInput.jsx'
 import Cross from '../../reusable/buttons/cross.jsx'
 import Create from '../../reusable/buttons/create.jsx'
 import TypeOfCategory from '../../reusable/typeOfCategory.jsx'
-import useLocalStorageName from '../../utils/localStorage.jsx'
 import axios from 'axios'
 
 
@@ -23,7 +22,6 @@ function AddTransaction({ show, onClose }) {
     const [ typeOfCategory, setTypeOfCategory ] = useState();
     const [ categoryColor, setCategoryColor ] = useState();
     const [ isLoading, setIsLoading ] = useState(false) 
-    const [ setItemsTransactions ] = useLocalStorageName('transactions');
     const [ count, setCount] = useState(1);
     const [ categoryChange, setCategoryChange ] = useState('');
     const [ dateChange, setDateChange ] = useState('');

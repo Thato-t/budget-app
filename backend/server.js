@@ -5,7 +5,7 @@ import dotenv from 'dotenv'
 dotenv.config();
 import transactionRoutes from './routes/transactionRoutes.js'
 import userRoutes from './routes/userRoutes.js'
-// import amountRoutes from './routes/amountRoutes.js'
+import amountRoutes from './routes/amountsRoutes.js'
 
 const app = express();
 
@@ -16,7 +16,8 @@ app.use(cors({
 }));
 app.use(express.json())
 app.use('/submit', transactionRoutes)
-app.use('/sign', userRoutes)
+app.use('/', userRoutes)
+app.use('/amounts', amountRoutes)
 
 const anySchema = new mongoose.Schema({}, {strict: false})
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Navbar from '../../reusable/navbar/navbar.jsx';
 import './dashboard.scss';
-import useLocalStorageName from '../../utils/localStorage.jsx';
+import useFetchData from '../../utils/api.jsx';
 import LoadingState from '../../reusable/loadingState.jsx';
 import AddTransaction from '../modals/addTransaction.jsx';
 import UpdateTransaction from '../modals/updateTransaction.jsx';
@@ -19,7 +19,8 @@ function Dashboard() {
     const [recents, setRecents] = useState([]); 
     const [transactions, setTransactions] = useState([]);
     const [ title, setTitle ] = useState('fixedExpense');  
-    const [ username, setUsername ] = useState('');
+    const [ username, sendErrMsg ] = useFetchData();
+    console.log(username)
     const [ countriesCurrency, setCountriesCurrency ] = useState('R');
     const [ graph, setGraph ] = useState(pie);
     const [ showAddModal, setShowAddModal ] = useState(false)
@@ -29,15 +30,6 @@ function Dashboard() {
     const [ bgdColorCategory, setBgdColorCategry ] = useState()
 
     // Make the bar and pie image persistent in localStorage
-    useEffect(() => {
-        setTimeout(() => {            
-            if(username){
-                navigate('/')
-            }else{
-                navigate('/sign')
-            }
-        }, 5000);
-    }, [])
     
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -46,15 +38,6 @@ function Dashboard() {
     }
     
     
-    const fetchUsernamesData = async () => {
-        try {
-            const res = await axios.get('http://localhost:5000')
-            console.log(res.data.users[0].username)
-            setUsername(res.data.users[0].username)
-        } catch (error) {
-            console.error('Error found', error)
-        }   
-    }
     
     const fetchExpensesData = async () => {
         setIsLoadingRecents(true)
@@ -86,7 +69,6 @@ function Dashboard() {
     useEffect(() => {
         fetchExpensesData()
         fetchCategoriesData()
-        fetchUsernamesData()
     }, [title])
     
     
@@ -132,7 +114,7 @@ function Dashboard() {
         <div className="body">
             <Navbar className="navbar"/>
             <div className="dashboard-wrapper">
-                <h1 className="heading">Welcome <span className="username" >{username ? username : 'Guest'} </span></h1>
+                <h1 className="heading">Welcome <span className="username" >{ username } </span></h1>
                 <div className="containers">
                     <div className="dashboard-containerOne">
                         {/* CARD */}
@@ -163,7 +145,7 @@ function Dashboard() {
                         <p className="recent">Recent</p>
                         <div className="recent-trans">
                             { isLoadingRecents ? 
-                            <LoadingState /> 
+                            <LoadingState message={sendErrMsg}/> 
                             : recents.length === 0 ?
                             <div className="recent-empty-recents">
                                 <p className="recent-explanation-one">All your recents transactions will show up here</p>

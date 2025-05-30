@@ -3,7 +3,6 @@ import wave from '../../assets/images/wave.png'
 import Dashboard from '../Dashboard/dashboard.jsx'
 import './Sign.scss'
 import { useEffect, useState } from 'react' 
-import useLocalStorageName from '../../utils/localStorage'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
@@ -12,6 +11,7 @@ function Sign(){
     const [ username, setUsername ] = useState('');
     const [ errMsg, setErrMsg ] = useState('');
     const [ data, setData ] = useState('');
+    const [ getItem, setGetItem ] = useState('')
     const navigate = useNavigate();
 
     const onChange = (event) => {
@@ -30,6 +30,7 @@ function Sign(){
 
     useEffect(() => {
         fetchData();
+        setGetItem(localStorage.getItem('username'));
     }, [])
     
     const handleSubmit = async (event) => {
@@ -41,26 +42,30 @@ function Sign(){
         for (let i = 0; i < data.length; i++){
             const regex = /^[a-z]+\d+$/gi
             console.log(data[i].username)
-            if(data[i].username === username){
+            if(data[i].username === username && username !== getItem){
                 console.warn('username taken')
                 return setErrMsg(`${username} is already taken try another`)
             }else{
                 if(!username.match(regex)){
                     return setErrMsg(`Include random numbers like ${username}234. You mustn't forget those numbers`)
-                }else{
-                    username.replace(/\d+/g)
+                }else if(data[i].username === username && username === getItem){
                     setErrMsg('Loading.....')
+                    navigate('/home')
+                    return
                 }
+                setErrMsg('Loading.....')
             }
         }
         try{
-            const res = await axios.post('http://localhost:5000/sign', { username })
+
+            const res = await axios.post('http://localhost:5000/', { username })
             console.log('User Saved')
+            localStorage.setItem('username', username);
         }catch(error){
             console.error(error)
         }
 
-        navigate('/')
+        navigate('/home')
     }
     
     return(

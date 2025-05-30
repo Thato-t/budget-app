@@ -23,7 +23,7 @@ function Navbar() {
                     </div>
                     <div className={`navbar-navigation ${isMenuOpen ? 'active' : 'hide'}`}>
                         <ul className="nav">
-                            <Link to="/" className="nav-links" onClick={toggleMenu}><li className="options">Home</li></Link>
+                            <Link to="/home" className="nav-links" onClick={toggleMenu}><li className="options">Home</li></Link>
                             <Link to="/reports" className="nav-links" onClick={toggleMenu}><li className="options">Reports</li></Link>
                             <Link to="/settings" className="nav-links" onClick={toggleMenu}><li className="options settings">Settings</li></Link>
                         </ul>
