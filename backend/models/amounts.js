@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const amountsSchema = new mongoose.Schema({
     currency: { type: String, required: true },
     totalIncome: { type: Number, required: true },
-    TotalExpense: Number,
+    totalExpense: Number,
     remainingAmount: Number,
     flagImage: String
 })

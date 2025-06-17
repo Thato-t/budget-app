@@ -20,7 +20,6 @@ function Dashboard() {
     const [transactions, setTransactions] = useState([]);
     const [ title, setTitle ] = useState('fixedExpense');  
     const [ username, sendErrMsg ] = useFetchData();
-    console.log(username)
     const [ countriesCurrency, setCountriesCurrency ] = useState('R');
     const [ graph, setGraph ] = useState(pie);
     const [ showAddModal, setShowAddModal ] = useState(false)
@@ -28,6 +27,9 @@ function Dashboard() {
     const [ isBar, setIsBar ] = useState(true)
     const [ textCategory, setTextCategory ] = useState();
     const [ bgdColorCategory, setBgdColorCategry ] = useState()
+    const [ totalIncome, setTotalIncome ] = useState(0);
+    const [ remainingBudget, setRemainingBudget ] = useState(0);
+    const [ totalExpense, setTotalExpense]  = useState(0);
 
     // Make the bar and pie image persistent in localStorage
     
@@ -65,16 +67,21 @@ function Dashboard() {
             console.error(`Error found: ${error}`);
         }
     }
+
+    const fetchAmountsData = async () => {
+        const res = await axios.get('http://localhost:5000');
+        const data = res.data.amounts[0]
+        console.log(data);
+        setRemainingBudget(data.remainingAmount);
+        setTotalExpense(data.totalExpense);
+        setTotalIncome(data.totalIncome)
+    }
     
     useEffect(() => {
         fetchExpensesData()
         fetchCategoriesData()
+        fetchAmountsData()
     }, [title])
-    
-    
-    const totalIncome = 5000;
-    const remainingBudget = 2000;
-    const totalExpense = 3000;
     
     
     // styles the percentage and the progress circles
@@ -122,7 +129,7 @@ function Dashboard() {
                             <div className="firstHalf">
                                 <div className="remaining-budget">
                                     <p className="card-texts">Remaining Budget</p>
-                                    <p className="card-numbers"><span className="currency">{countriesCurrency}</span>{(remainingBudget).toFixed(2)}</p>
+                                    <p className="card-numbers"><span className="currency">{countriesCurrency}</span>{remainingBudget.toFixed(2)}</p>
                                 </div>
                                 <div className="amount-color"
                                  style={{backgroundColor:getCircleColor(totalIncome, totalExpense)}}

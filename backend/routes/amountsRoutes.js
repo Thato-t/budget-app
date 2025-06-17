@@ -3,25 +3,29 @@ import Amounts from '../models/amounts.js';
 
 const amountRoutes  = express.Router();
 
-amountRoutes.post('/amounts', async (req, res) => {
-    const { totalIncome, currency, flagImage } = req.body
+amountRoutes.post('/', async (req, res) => {
+    const { totalIncome, currency, flagImage } = req.body;
+    console.log(req.body)
+    const totalExpense = 0
+
     try {
         const newAmounts = new Amounts({
             currency,
             totalIncome,
-            TotalExpense: 0,
-            remainingAmount: (totalIncome - TotalExpense).toFixed(2),
+            totalExpense,
+            remainingAmount: (totalIncome - totalExpense).toFixed(2),
             flagImage: flagImage
         })
-        newAmounts.save()
-        res.status(200).json(newAmounts)
+        await newAmounts.save();
+        res.status(200).json(newAmounts);
     } catch (error) {
-        res.status(500).json({ message: 'Erro found', error })
+        console.error('Found error: ', error)
+        res.status(500).json({ message: 'Error found', error });
     }
 })
 
-amountRoutes.patch('/', async (req, res) => {
+// amountRoutes.patch('/', async (req, res) => {
 
-})
+// })
 
 export default amountRoutes

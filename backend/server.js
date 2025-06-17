@@ -17,7 +17,7 @@ app.use(cors({
 app.use(express.json())
 app.use('/submit', transactionRoutes)
 app.use('/', userRoutes)
-app.use('/amounts', amountRoutes)
+app.use('/settings', amountRoutes)
 
 const anySchema = new mongoose.Schema({}, {strict: false})
 
@@ -33,13 +33,15 @@ app.get('/', async (req, res) => {
     const categories = mongoose.model('categories', anySchema, 'categories')
     const transactions = mongoose.model('transactions', anySchema, 'transactions')
     const usernames = mongoose.model('username', anySchema, 'users')
+    const usersAmounts = mongoose.model('usersAmounts', anySchema, 'user amounts')
 
     const dt = await recents.find()
     const cat = await categories.find()
     const trans = await transactions.find()
     const users = await usernames.find()
+    const amounts = await usersAmounts.find()
 
-    res.json({ dt, cat, trans, users })
+    res.json({ dt, cat, trans, users, amounts })
     
 });
 

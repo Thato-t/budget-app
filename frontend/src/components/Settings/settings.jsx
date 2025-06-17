@@ -13,34 +13,39 @@ function Settings() {
     const [username] = useFetchData();
     const [ currency, setCurrency ] = useState('Rands')
     const [ flagImage, setFlagImage ] = useState(flag)
-    const [ totalIncome, setTotalIncome ] = useState()
+    const [ totalIncome, setTotalIncome ] = useState('')
     // TODO make a fetch req of the flag and the currencies  
 
-    const handleSubmit = async (event) => {
+    const handleDelete = async (event) => {
         event.preventDefault();
         try {
             const res = await axios.delete('http://localhost:5000/', {data: username});
             console.log('Account deleted')
+            alert(`Are you sure you want delete the account ${username}`);
+            localStorage.removeItem('username');
+            navigate('/');  
         } catch (error) {
             console.error('Error found', error)
         }
-
+        
     }
 
-    const update = async () => {
+    const handleUpdate = async (event) => {
+        event.preventDefault();
         try {
-            const res = await axios.post('http://localhost:5000/amounts', 
+            const res = await axios.post('http://localhost:5000/settings/', 
                 {
                     totalIncome,
                     currency,
                     flagImage
                 }
             )
+            console.log('money saved')
+            navigate('/home')
 
         } catch (error) {
             console.error('Error found', error);
         }
-        navigate('/home')
     }
 
 
@@ -56,13 +61,13 @@ function Settings() {
                     <span className="settings-going-word" style={{color:  '#00f2ff'}}> Going</span>
                 </h1>
     
-                <label for="currency-input" className="settings-currency-label">Currency</label>
+                <label htmlFor="currency-input" className="settings-currency-label">Currency</label>
                 <div className="settings-currency-wrapper">
                     <span className="settings-currency-type">{currency}</span>
                     <img src={flagImage} className="settings-currency-flag" />
                 </div>
-                <form onSubmit={handleSubmit}>
-                    <label for="income-input" className="settings-income-label">Total Income</label>
+                <form onSubmit={(event) => handleUpdate(event)}>
+                    <label htmlFor="income-input" className="settings-income-label">Total Income</label>
                     <div className="settings-income-wrapper">
                         <input 
                          type="number" 
@@ -73,25 +78,20 @@ function Settings() {
                         />
                     </div>
         
-                    <label for="settings-themes-input" className="settings-themes-label">Themes</label>
+                    <label htmlFor="settings-themes-input" className="settings-themes-label">Themes</label>
                     <div className="settings-themes-wrapper">
                         <span className="settings-theme-clr" style={{ backgroundColor: '#00f2ff'}}></span>
                     </div>
         
                     <button 
-                    className="settings-delete-btn btn" 
-                    onClick={() => {
-                        alert(`Are you sure you want delete the account ${username}`);
-                        localStorage.removeItem('username');
-                        navigate('/');  
-                    }}
+                     className="settings-delete-btn btn" 
+                     onClick={(event) => handleDelete(event)}
                     >Delete 
                         <span className="settings-username"> {username}</span>
                     </button>
 
                     <button 
                      className="settings-update-btn btn" 
-                     onClick={update()}
                     >Update 
                     </button>
                 </form>
