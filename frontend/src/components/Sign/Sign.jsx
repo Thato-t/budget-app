@@ -7,12 +7,13 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 function Sign(){
-
+    
     const [ username, setUsername ] = useState('');
     const [ errMsg, setErrMsg ] = useState('');
-    const [ data, setData ] = useState('');
+    const [ data, setData ] = useState([]);
     const [ getItem, setGetItem ] = useState('')
     const navigate = useNavigate();
+    const regex = /^[a-z]+\d+$/gi;
 
     const onChange = (event) => {
         setUsername(event.target.value);
@@ -20,8 +21,8 @@ function Sign(){
 
     const fetchData = async () => {
         try {
-            const res = await axios.get('http://localhost:5000');
-            setData(res.data.users);
+            const res = await axios.get('http://localhost:5000/');
+            setData(res.data.log);
         } catch (error) {
             console.error('Error found', error)
         }
@@ -30,42 +31,45 @@ function Sign(){
 
     useEffect(() => {
         fetchData();
-        setGetItem(localStorage.getItem('username'));
     }, [])
-    
+
+    const signing  = async () => {
+        if(!username.match(regex)){
+            setErrMsg(`Include random numbers like ${username}234. You mustn't forget those numbers`)
+            return 
+        }else{
+            try{
+                const res = await axios.post('http://localhost:5000/username', { username })
+                console.log('User Saved')
+                setErrMsg('Loading.....')
+                navigate('/home')
+            }catch(error){
+                console.error(error)
+            }
+            return
+        }
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault()
         if(username.trim() === ''){
             setErrMsg('The username is required')
             return
-        }
-        for (let i = 0; i < data.length; i++){
-            const regex = /^[a-z]+\d+$/gi
-            console.log(data[i].username)
-            if(data[i].username === username && username !== getItem){
-                console.warn('username taken')
-                return setErrMsg(`${username} is already taken try another`)
-            }else{
-                if(!username.match(regex)){
-                    return setErrMsg(`Include random numbers like ${username}234. You mustn't forget those numbers`)
-                }else if(data[i].username === username && username === getItem){
-                    setErrMsg('Loading.....')
-                    navigate('/home')
-                    return
+        }else if (!data.length){
+            signing();
+        }else{
+            for (let i = 0; i < data.length; i++){
+                console.log(data[i].username)
+                if(data[i].username === username){
+                    console.warn('username taken')
+                    setErrMsg(`${username} is already taken try another`)
+                    return 
+                }else{
+                    signing();
                 }
-                setErrMsg('Loading.....')
             }
         }
-        try{
 
-            const res = await axios.post('http://localhost:5000/', { username })
-            console.log('User Saved')
-            localStorage.setItem('username', username);
-        }catch(error){
-            console.error(error)
-        }
-
-        navigate('/home')
     }
     
     return(

@@ -44,8 +44,8 @@ function Dashboard() {
     const fetchExpensesData = async () => {
         setIsLoadingRecents(true)
         try {
-            const res = await axios.get('http://localhost:5000')
-            setRecents([...res.data.trans]);
+            const res = await axios.get(`http://localhost:5000/${username}`)
+            setRecents([...res.data.log]);
             setIsLoadingRecents(false)
         } catch (error) {
             console.error(`Error found: ${error}`);
@@ -55,9 +55,9 @@ function Dashboard() {
     const fetchCategoriesData = async () => {
         setIsLoadingCategory(true)
         try {
-            const res = await axios.get('http://localhost:5000')
-            setTransactions([...res.data.dt[0][title]]);
-            const data = res.data.trans 
+            const res = await axios.get(`http://localhost:5000/${username}`)
+            setTransactions([...res.data.log[title]]);
+            const data = res.data.log
             console.log(data)
             for (let i = 0; i < data.length; i++){
                 console.log(data[i])
@@ -69,10 +69,10 @@ function Dashboard() {
     }
 
     const fetchAmountsData = async () => {
-        const res = await axios.get('http://localhost:5000');
-        const data = res.data.amounts[0]
+        const res = await axios.get(`http://localhost:5000/${username}`);
+        const data = res.data.log
         console.log(data);
-        setRemainingBudget(data.remainingAmount);
+        setRemainingBudget(data.amountLeft);
         setTotalExpense(data.totalExpense);
         setTotalIncome(data.totalIncome)
     }

@@ -2,23 +2,29 @@
 import mongoose from 'mongoose';
 
 const entrySchema = new mongoose.Schema({
-  categoryName: { type: String, required: true },
+  categoryName: { type: String},
   categoryEmoji: { type: String },
   emojiBgdColor: { type: String },
-  exampleName: { type: String, required: true },
-  amountSpend: { type: Number, required: true },
-  date: { type: String, required: true }, // ISO format: YYYY-MM-DD
+  exampleName: { type: String },
+  amountSpend: { type: Number },
+  categoryLimit: { type: Number },
+  date: { type: String }, // ISO format: YYYY-MM-DD
   comment: { type: String },
-  title: { type: String }
+  selectOption: { type: String }
 });
 
+const categoriesSchema = new mongoose.Schema({
+  category: { type: String}
+})
+
 const logSchema = new mongoose.Schema({
-  username: { type: String, required: true },
-  amount: { type: Number, required: true },
-  currency: { type: String, required: true },
-  amountLimit: { type: Number, required: true },
-  amountLeft: { type: Number, required: true },
-  entries: [entrySchema]
+  username: { type: String },
+  amount: { type: Number },
+  amountLeft: { type: Number },
+  totalExpense: { type: Number },
+  currency: { type: String },
+  flagImage: { type: String }, 
+  transactions: [entrySchema]
 }, { timestamps: true });
 
 const Logs = mongoose.model('Logs', logSchema);

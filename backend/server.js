@@ -3,9 +3,7 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import dotenv from 'dotenv'
 dotenv.config();
-import transactionRoutes from './routes/transactionRoutes.js'
-import userRoutes from './routes/userRoutes.js'
-import amountRoutes from './routes/amountsRoutes.js'
+import logRoutes from './routes/logRoutes.js'
 
 const app = express();
 
@@ -15,9 +13,7 @@ app.use(cors({
     credentials: true 
 }));
 app.use(express.json())
-app.use('/submit', transactionRoutes)
-app.use('/', userRoutes)
-app.use('/settings', amountRoutes)
+app.use('/', logRoutes)
 
 const anySchema = new mongoose.Schema({}, {strict: false})
 
@@ -29,21 +25,18 @@ mongoose.connect(process.env.MONGO_URI)
 // Routes
 
 app.get('/', async (req, res) => {
-    const recents = mongoose.model('recents', anySchema, 'data')
-    const categories = mongoose.model('categories', anySchema, 'categories')
-    const transactions = mongoose.model('transactions', anySchema, 'transactions')
-    const usernames = mongoose.model('username', anySchema, 'users')
-    const usersAmounts = mongoose.model('usersAmounts', anySchema, 'user amounts')
 
-    const dt = await recents.find()
-    const cat = await categories.find()
-    const trans = await transactions.find()
-    const users = await usernames.find()
-    const amounts = await usersAmounts.find()
+    const categories = mongoose.model('categories', anySchema, 'categories');
+    const logs = mongoose.model('logs', anySchema, 'logs');
+    
 
-    res.json({ dt, cat, trans, users, amounts })
+    const cat = await categories.find();
+    const log = await logs.find();
+
+    res.json({ cat, log });
     
 });
+
 
 
 const PORT = process.env.PORT || 5000;

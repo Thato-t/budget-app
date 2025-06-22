@@ -19,7 +19,7 @@ function Settings() {
     const handleDelete = async (event) => {
         event.preventDefault();
         try {
-            const res = await axios.delete('http://localhost:5000/', {data: username});
+            const res = await axios.delete(f`http://localhost:5000/{username}`, {data: username});
             console.log('Account deleted')
             alert(`Are you sure you want delete the account ${username}`);
             localStorage.removeItem('username');
@@ -33,7 +33,7 @@ function Settings() {
     const handleUpdate = async (event) => {
         event.preventDefault();
         try {
-            const res = await axios.post('http://localhost:5000/settings/', 
+            const res = await axios.post(`http://localhost:5000/settings/${username}`, 
                 {
                     totalIncome,
                     currency,

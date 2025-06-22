@@ -5,25 +5,19 @@ import axios from 'axios'
 const useFetchData = () => {
     const [ username, setUsername ] = useState('')
     const [ sendErrMsg, setSendErrMsg ] = useState()
+    const [ resData, setResData ] = useState([])
 
     const fetchUsernamesData = async () => {
         try {
             const regex = /\d+/g
-            const res = await axios.get('http://localhost:5000')
-            const resData = res.data.users
-            const getItem = localStorage.getItem('username');
-            for (let i = 0; i < resData.length; i++){
-                if(resData[i].username === getItem){
-                    const data = (resData[i].username).replace(regex, '').trim();
+            const res = await axios.get('http://localhost:5000/')
+            setResData(res.data.log)
+                if(resData.username == 'thato123'){
+                    const data = (resData.username).replace(regex, '').trim();
                     setUsername(data)
-                }else if(!getItem){
-                    setUsername((resData[i].username).replace(regex, '').trim())
-                    console.log('Welcome new user')
-                }
-                else{
+                }else{
                     console.warn('try again')
                 }
-            }
             console.log(username)
         } catch (error) {
             console.error('Error found', error)

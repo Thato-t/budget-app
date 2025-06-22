@@ -11,7 +11,9 @@ userRoutes.post('/', async (req, res) => {
     const user = await Users.findOne({username})
     console.log(user)
     if(user){
-        console.log(`${user} is already taken try another name`)
+        const takenErr = `${user} is already taken try another name`
+        res.json(takenErr)
+        console.log(takenErr)
     }else{
         try {
             const newUser = new Users({ username});
