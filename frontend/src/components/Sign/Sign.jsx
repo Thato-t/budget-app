@@ -10,67 +10,37 @@ function Sign(){
     
     const [ username, setUsername ] = useState('');
     const [ errMsg, setErrMsg ] = useState('');
-    const [ data, setData ] = useState([]);
     const [ getItem, setGetItem ] = useState('')
     const navigate = useNavigate();
-    const regex = /^[a-z]+\d+$/gi;
 
     const onChange = (event) => {
         setUsername(event.target.value);
     }
 
-    const fetchData = async () => {
-        try {
-            const res = await axios.get('http://localhost:5000/');
-            setData(res.data.log);
-        } catch (error) {
-            console.error('Error found', error)
-        }
-
-    }
-
-    useEffect(() => {
-        fetchData();
-    }, [])
-
-    const signing  = async () => {
-        if(!username.match(regex)){
-            setErrMsg(`Include random numbers like ${username}234. You mustn't forget those numbers`)
-            return 
-        }else{
-            try{
-                const res = await axios.post('http://localhost:5000/username', { username })
-                console.log('User Saved')
-                setErrMsg('Loading.....')
-                navigate('/home')
-            }catch(error){
-                console.error(error)
-            }
-            return
-        }
-    }
 
     const handleSubmit = async (event) => {
         event.preventDefault()
+        const notFound = `${username} doesn't exist`
         if(username.trim() === ''){
             setErrMsg('The username is required')
             return
-        }else if (!data.length){
-            signing();
-        }else{
-            for (let i = 0; i < data.length; i++){
-                console.log(data[i].username)
-                if(data[i].username === username){
-                    console.warn('username taken')
-                    setErrMsg(`${username} is already taken try another`)
-                    return 
-                }else{
-                    signing();
-                }
-            }
         }
-
+        try{
+            const findUser = await axios.get(`http://localhost:5000/users/${username}`)
+            if (findUser.data.errMsg === notFound){
+                const newUser = await axios.post('http://localhost:5000/', { username });
+                console.log('User Saved');
+            } else{
+                console.log('User Found')
+            }
+            setErrMsg('Loading.....')
+            navigate('/home')
+        }catch(error){
+            console.error(error)
+        }
     }
+
+
     
     return(
         <>

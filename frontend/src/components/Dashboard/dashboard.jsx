@@ -19,7 +19,7 @@ function Dashboard() {
     const [recents, setRecents] = useState([]); 
     const [transactions, setTransactions] = useState([]);
     const [ title, setTitle ] = useState('fixedExpense');  
-    const [ username, sendErrMsg ] = useFetchData();
+    const [ username, sendErrMsg, pin ] = useFetchData();
     const [ countriesCurrency, setCountriesCurrency ] = useState('R');
     const [ graph, setGraph ] = useState(pie);
     const [ showAddModal, setShowAddModal ] = useState(false)
@@ -32,7 +32,7 @@ function Dashboard() {
     const [ totalExpense, setTotalExpense]  = useState(0);
 
     // Make the bar and pie image persistent in localStorage
-    
+
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     const handleSelectChange = (event) => {
@@ -44,8 +44,9 @@ function Dashboard() {
     const fetchExpensesData = async () => {
         setIsLoadingRecents(true)
         try {
-            const res = await axios.get(`http://localhost:5000/${username}`)
-            setRecents([...res.data.log]);
+            const res = await axios.get(`http://localhost:5000/home/dashboard`)
+            console.log(res)
+            setRecents(res.data.findLog.transactions);
             setIsLoadingRecents(false)
         } catch (error) {
             console.error(`Error found: ${error}`);
@@ -55,13 +56,8 @@ function Dashboard() {
     const fetchCategoriesData = async () => {
         setIsLoadingCategory(true)
         try {
-            const res = await axios.get(`http://localhost:5000/${username}`)
-            setTransactions([...res.data.log[title]]);
-            const data = res.data.log
-            console.log(data)
-            for (let i = 0; i < data.length; i++){
-                console.log(data[i])
-            }
+            const res = await axios.get(`http://localhost:5000/home/dashboard`)
+            setTransactions(res.data.findLog.transactions);
             setIsLoadingCategory(false) 
         } catch (error) {
             console.error(`Error found: ${error}`);
@@ -69,12 +65,19 @@ function Dashboard() {
     }
 
     const fetchAmountsData = async () => {
-        const res = await axios.get(`http://localhost:5000/${username}`);
-        const data = res.data.log
-        console.log(data);
-        setRemainingBudget(data.amountLeft);
-        setTotalExpense(data.totalExpense);
-        setTotalIncome(data.totalIncome)
+
+        try {            
+            const res = await axios.get(`http://localhost:5000/home/dashboard`);
+            const data = res.data.findLog
+            console.log(data);
+            if (data.totalIncome){
+                setRemainingBudget(data.amountLeft);
+                setTotalExpense(data.totalExpense);
+                setTotalIncome(data.totalIncome)
+            }
+        } catch (error) {
+            console.error('Error found', error)
+        }
     }
     
     useEffect(() => {
@@ -88,11 +91,11 @@ function Dashboard() {
     const getCircleColor = (totalAmount, amountSpent) => {
         const remaining = totalAmount - amountSpent;
         const percentage = ((remaining / totalAmount) * 100).toFixed(2);
-        if(percentage > (80).toFixed(2)) return '#F44336'
-        if(percentage > (60).toFixed(2)) return '#FF5722'
-        if(percentage > (40).toFixed(2)) return '#FFEB3B'
-        if(percentage > (20).toFixed(2)) return '#00BCD4'
-        if(percentage > (5).toFixed(2)) return '#4CAF50'
+        if(percentage > (80).toFixed(2)) return ' #F44336'
+        if(percentage > (60).toFixed(2)) return ' #FF5722'
+        if(percentage > (40).toFixed(2)) return ' #FFEB3B'
+        if(percentage > (20).toFixed(2)) return ' #00BCD4'
+        if(percentage > (5).toFixed(2)) return ' #4CAF50'
     }
 
     const getPercentageColor = (totalAmount, amountSpent) => {
@@ -100,11 +103,12 @@ function Dashboard() {
         const percentage = ((remaining / totalAmount) * 100).toFixed(2);
         if(percentage > (80).toFixed(2)) return ' #4CAF50'
         if(percentage > (60).toFixed(2)) return ' #00BCD4'
-        if(percentage > (40).toFixed(2)) return '#FFEB3B' 
+        if(percentage > (40).toFixed(2)) return ' #FFEB3B' 
         if(percentage > (20).toFixed(2)) return ' #FF5722'
         if(percentage > (5).toFixed(2)) return ' #F44336'
     }
 
+    alert(`From now on get started using this ${pin} as your name`)
 
   return ( 
     <>  
@@ -129,7 +133,7 @@ function Dashboard() {
                             <div className="firstHalf">
                                 <div className="remaining-budget">
                                     <p className="card-texts">Remaining Budget</p>
-                                    <p className="card-numbers"><span className="currency">{countriesCurrency}</span>{remainingBudget.toFixed(2)}</p>
+                                    <p className="card-numbers"><span className="currency">{countriesCurrency}</span>{(remainingBudget).toFixed(2)}</p>
                                 </div>
                                 <div className="amount-color"
                                  style={{backgroundColor:getCircleColor(totalIncome, totalExpense)}}
@@ -153,7 +157,7 @@ function Dashboard() {
                         <div className="recent-trans">
                             { isLoadingRecents ? 
                             <LoadingState message={sendErrMsg}/> 
-                            : recents.length === 0 ?
+                            : !recents.length ?
                             <div className="recent-empty-recents">
                                 <p className="recent-explanation-one">All your recents transactions will show up here</p>
                                 <p className="recent-explanation-two">Start with (+) to create first one</p>
@@ -229,7 +233,7 @@ function Dashboard() {
                             </select>
                             { isLoadingCategory ?
                             <LoadingState /> 
-                            : transactions.length === 0 ?
+                            : !transactions.length ?
                             <div className="dashboard-empty-transactions">
                                 <p className="empty-transactions-explanation-one">All your transactions will show up here</p>
                                 <p className="empty-transactions-explanation-two">Start with (+) to create first one</p>

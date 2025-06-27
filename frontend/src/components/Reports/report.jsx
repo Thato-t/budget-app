@@ -9,6 +9,8 @@ import pie from '../../assets/Icons/pie.png'
 import UpdateTransaction from '../modals/updateTransaction.jsx';
 import PastTransaction from '../modals/pastTransaction.jsx';
 import axios from 'axios'
+import useFetchData from '../../utils/api.jsx';
+
 
 function Report() {
   // TODO a modal for the past transactions without inputs
@@ -24,6 +26,8 @@ function Report() {
   const [ selectedOption, setSelectedOption ] = useState(months[new Date().getMonth()]);
   const [ textCategory, setTextCategory ] = useState();
   const [ bgdColorCategory, setBgdColorCategry ] = useState()
+  const [ username ] = useFetchData()
+  const [ amountSpent, setAmountSpent ] = useState(0)
 
 
   const handleSelectChange = (event) => {
@@ -35,9 +39,11 @@ function Report() {
   const fetchTransactions = async () => {
     setIsLoading(true)
     try {
-      const res = await axios.get('http://localhost:5000')
-      setMonthlyTransactions([...res.data.trans]);
-      setIsLoading(false)
+      const res = await axios.get(`http://localhost:5000/reports/dashboard`);
+      const data = res.data.findLog;
+      setMonthlyTransactions(data.transactions);
+      data.amountSpent ? setAmountSpent(data.amountSpent) : setAmountSpent(0);
+      setIsLoading(false);
     } catch(error){
       console.log('error found:', error)
     }
@@ -104,7 +110,7 @@ function Report() {
                   <ChartConfig states={isBar}/>
                 </div>
                 <p className="report-results">You spent 
-                  <span className="report-amount"> R4000.00 </span>
+                  <span className="report-amount"> { amountSpent.toFixed(2) } </span>
                   on all expenses
                 </p>
               </div>

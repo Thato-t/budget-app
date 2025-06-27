@@ -24,6 +24,8 @@ const logSchema = new mongoose.Schema({
   totalExpense: { type: Number },
   currency: { type: String },
   flagImage: { type: String }, 
+  pin: { type: String },
+  totalIncome: { type: Number },
   transactions: [entrySchema]
 }, { timestamps: true });
 

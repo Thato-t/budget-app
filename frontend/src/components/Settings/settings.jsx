@@ -19,10 +19,9 @@ function Settings() {
     const handleDelete = async (event) => {
         event.preventDefault();
         try {
-            const res = await axios.delete(f`http://localhost:5000/{username}`, {data: username});
-            console.log('Account deleted')
+            const res = await axios.delete(`http://localhost:5000/settings/users/${username}`, {data: username});
             alert(`Are you sure you want delete the account ${username}`);
-            localStorage.removeItem('username');
+            console.log('Account deleted') 
             navigate('/');  
         } catch (error) {
             console.error('Error found', error)
@@ -33,7 +32,7 @@ function Settings() {
     const handleUpdate = async (event) => {
         event.preventDefault();
         try {
-            const res = await axios.post(`http://localhost:5000/settings/${username}`, 
+            const res = await axios.post(`http://localhost:5000/settings/amounts/${username}`, 
                 {
                     totalIncome,
                     currency,

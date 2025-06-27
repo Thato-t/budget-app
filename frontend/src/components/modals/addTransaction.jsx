@@ -45,7 +45,7 @@ function AddTransaction({ show, onClose }) {
     const fetchCategoriesData = async () => {
         setIsLoading(true)
         try{
-            const res = await axios.get(`http://localhost:5000/`)
+            const res = await axios.get(`http://localhost:5000/transaction`)
             setExampleCategories(res.data.cat[0][selectOption])
             setIsLoading(false);
         } catch(err){

@@ -5,24 +5,18 @@ import axios from 'axios'
 const useFetchData = () => {
     const [ username, setUsername ] = useState('')
     const [ sendErrMsg, setSendErrMsg ] = useState()
-    const [ resData, setResData ] = useState([])
+    const [ pin, setPin ] = useState([])
 
     const fetchUsernamesData = async () => {
         try {
-            const regex = /\d+/g
-            const res = await axios.get('http://localhost:5000/')
-            setResData(res.data.log)
-                if(resData.username == 'thato123'){
-                    const data = (resData.username).replace(regex, '').trim();
-                    setUsername(data)
-                }else{
-                    console.warn('try again')
-                }
-            console.log(username)
+
+            const res = await axios.get('http://localhost:5000/home/users/user')
+            setPin(res.data.newName.pin)
+            setUsername(res.data.newName.username)
         } catch (error) {
             console.error('Error found', error)
             if(error.message === 'Network Error'){
-                setSendErrMsg('Network problem, try reloading your page or check your internet connection')
+                setSendErrMsg('Server error, try reloading your page or check your internet connection')
             }
         }   
     }
@@ -31,6 +25,6 @@ const useFetchData = () => {
         fetchUsernamesData();
     }, [])
 
-    return [ username, sendErrMsg ]
+    return [ username, sendErrMsg, pin ]
 }
 export default useFetchData
