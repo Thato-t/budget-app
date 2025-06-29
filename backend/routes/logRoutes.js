@@ -7,17 +7,18 @@ const localStorage = new LocalStorage('../scratch')
 let totalExpenses = 0;
 let amountsLeft = 0;
 
+// login in and checking if user exists
 logRoutes.get('/users/:username', async (req, res) => {
-    const pin = req.params.username
-    console.log(pin)
-    const findUsername = await Logs.findOne({pin});
+    const paramsPin = req.params.username
     try{
+        const findUsername = await Logs.findOne({paramsPin});
         if (!findUsername){
-            const errMsg = `${pin} doesn't exist`
+            const errMsg = `${paramsPin} doesn't exist`
+            localStorage.setItem('errMsg',  errMsg)
             console.log(errMsg)
             res.status(200).json({ errMsg })
         }else{
-            const found = `${pin} found`
+            const found = `${paramsPin} found`
             console.log(findUsername, 'found')
             res.status(200).json({ found })
         }
@@ -28,6 +29,7 @@ logRoutes.get('/users/:username', async (req, res) => {
 
 })
 
+// fetching dashboard data from db 
 logRoutes.get('/home/dashboard', async (req, res) => {
     const pin = localStorage.getItem('pin')
     try {
@@ -39,6 +41,7 @@ logRoutes.get('/home/dashboard', async (req, res) => {
     }
 })
 
+// fetching reports data from db
 logRoutes.get('/reports/dashboard', async (req, res) => {
     const pin = localStorage.getItem('pin')
     try {
@@ -51,6 +54,50 @@ logRoutes.get('/reports/dashboard', async (req, res) => {
 })
 
 
+// making transactions
+logRoutes.post('/transaction', async (req, res) => {
+    const pin =  localStorage.getItem('pin')
+    const { typeOfCategory, categoryEmoji, categoryColor, categoryChange, amount, amountLimitChange, amountSpentChange, dateChange, commentChange, selectOption } = req.body;
+    try {        
+        
+        const findAmounts  = await Logs.findOne({ pin })
+        if (findAmounts){
+            let totalExpense = parseInt(findAmounts.totalExpense) + parseInt(amountSpentChange);
+            let amountLeft = parseInt(findAmounts.totalIncome) - parseInt(totalExpense);
+            let totalExpenses = totalExpense
+            console.log(amountLeft)
+
+            const saveTransactions = await Logs.findOneAndUpdate(
+                { pin: pin },
+                {$set: { totalExpense, amountLeft }},
+                { $push: { transactons: { 
+                    categoryName: typeOfCategory,
+                    categoryEmoji: categoryEmoji,
+                    emojiBgdColor: categoryColor,
+                    exampleName: categoryChange,
+                    amountSpend: amountSpentChange,
+                    amountLimit: amountLimitChange, 
+                    date: dateChange, // ISO format: YYYY-MM-DD
+                    comment: commentChange,
+                    selectOption
+                }} }  
+            )
+            await saveTransactions.save();
+            console.log(saveTransactions);
+            res.status(200).json(saveTransactions);
+        }else{
+            console.error(username, 'not found')
+            res.status(404).json('user not found')
+        }
+
+    } catch (error) {
+        console.error('Error found', error);
+        res.status(500).json(error);
+    }
+    
+})
+
+// saving incomes of user to db
 logRoutes.post('/settings/amounts/:username', async (req, res) => {
     const pin =  localStorage.getItem('pin')
     const totalExpense = totalExpenses
@@ -60,7 +107,7 @@ logRoutes.post('/settings/amounts/:username', async (req, res) => {
     try {
         const saveAmounts = await Logs.findOneAndUpdate(
             { pin: pin },
-            { $set: { totalIncome, currency, flagImage, totalExpense, amountLeft } }
+            { $set: { totalIncome: parseInt(totalIncome), currency, flagImage, totalExpense, amountLeft } }
         )
         await saveAmounts.save();
         console.log(saveAmounts, 'amounts saved')
@@ -70,47 +117,6 @@ logRoutes.post('/settings/amounts/:username', async (req, res) => {
         res.status(500).json(error)
     }
 })
-
-logRoutes.post('/transaction/:username/:id', async (req, res) => {
-    const pin =  localStorage.getItem('pin')
-    const { typeOfCategory, categoryEmoji, categoryColor, categoryChange, amount, amountLimitChange, amountSpentChange, dateChange, commentChange, selectOption } = req.body;
-    try {        
-
-        const findAmounts  = await Logs.find(pin || pin)
-        if (findAmounts){
-            let amountLefts = findAmounts.totalIncome - amountSpentChange;
-            const totalExpense = totalExpense + amountSpentChange;
-            let totalExpenses = totalExpense
-        }else{
-            console.error(username, 'not found');
-            return
-        }
-
-        const saveTransactions = await Logs.findOneAndUpdate(
-            { pin: pin },
-            {$set: { totalIncome, totalExpense, amountLefts }},
-            { $push: { transactons: { 
-                categoryName: typeOfCategory,
-                categoryEmoji: categoryEmoji,
-                emojiBgdColor: categoryColor,
-                exampleName: categoryChange,
-                amountSpend: amountSpendChange,
-                amountLimit: amountLimitChange, 
-                date: dateChange, // ISO format: YYYY-MM-DD
-                comment: commentChange,
-                selectOption
-             }} }  
-            )
-            await saveTransactions.save();
-            console.log(saveTransactions);
-            res.status(200).json(saveTransactions);
-    } catch (error) {
-        console.error('Error found', error);
-        res.status(500).json(error);
-    }
-
-})
-
 
 
 

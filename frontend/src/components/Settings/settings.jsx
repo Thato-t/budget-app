@@ -18,11 +18,11 @@ function Settings() {
 
     const handleDelete = async (event) => {
         event.preventDefault();
+        alert(`Are you sure you want delete the account ${username}`);
         try {
-            const res = await axios.delete(`http://localhost:5000/settings/users/${username}`, {data: username});
-            alert(`Are you sure you want delete the account ${username}`);
-            console.log('Account deleted') 
             navigate('/');  
+            console.log('Account deleted') 
+            const res = await axios.delete(`http://localhost:5000/settings/users/${username}`, {data: username});
         } catch (error) {
             console.error('Error found', error)
         }

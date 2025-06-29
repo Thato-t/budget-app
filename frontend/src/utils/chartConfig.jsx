@@ -14,7 +14,7 @@ function ChartConfig({ states }) {
 
     const fetchData = async () => {
         try{
-            const res = await axios.get(`http://localhost:5000/home/dashboard` || `http://localhost:5000/reports/${username}`)
+            const res = await axios.get(`http://localhost:5000/home/dashboard` || `http://localhost:5000/reports/dashboard`)
             console.log(res)
             setAmounts(res.data.findLog.transactions)
         } catch(error){

@@ -6,6 +6,8 @@ import Logs from '../models/log.js'
 const userRoutes = express.Router();
 const localStorage = new LocalStorage('../scratch');
 
+
+// creating new user account
 userRoutes.post('/', async (req, res) => {
     // let count = 0;
     const {username} = req.body;
@@ -34,7 +36,7 @@ userRoutes.post('/', async (req, res) => {
     }
     
 })
-
+// creating pin for user and storing in logs
 userRoutes.get('/home/users/user', async (req, res) => {
     const username = localStorage.getItem('username');
     const pin = localStorage.getItem('pin');
@@ -49,7 +51,7 @@ userRoutes.get('/home/users/user', async (req, res) => {
         }
         const name = await Users.findOne({ username });
         console.log(name)
-        if (!username.includes(/\d+/) && name.username === username){
+        if (name.username === username){
             const id = name._id.toString()
             const lastCharId = id.slice(-4);
             const pin = name.username + lastCharId;
@@ -65,23 +67,25 @@ userRoutes.get('/home/users/user', async (req, res) => {
     
 })
 
+// Delete users account 
 userRoutes.delete('/settings/users/:username', async (req, res) => {
     const pin = localStorage.getItem('pin');
-    console.log(pin)
-    const deleteUser = await Users.findOneAndDelete({ pin })
-    const deleteLog = await Logs.findOneAndDelete({ pin })
+    const username = req.params.username
+    const deleteLog = await Logs.findOne({ pin })
     try {
-        if(!deleteUser && !deleteLog){
-            console.log(`${deleteUser.pin} not found`)
-            res.status(404).json({ message: 'User not found'})
+        if(!deleteLog){
+            console.log(`${username} not found`)
+            res.status(404).json('User not found')
         }else{
-            await deleteLog.drop()
-            console.log(`${deleteUser.pin} deleted`)
-            res.status(204).json({ message: `${deleteUser} deleted`})
+            await Logs.findOneAndDelete({ pin })  
+            await Users.findOneAndDelete({ username })
+            localStorage.clear()
+            console.log(`user deleted`)
+            res.status(204)
         }
-
+        
     } catch (error) {
-        res.status(500).json({ message: 'Error deleting user', error})
+        res.status(500).json('Error deleting user', error)
     }
 })
 

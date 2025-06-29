@@ -42,7 +42,7 @@ function Report() {
       const res = await axios.get(`http://localhost:5000/reports/dashboard`);
       const data = res.data.findLog;
       setMonthlyTransactions(data.transactions);
-      data.amountSpent ? setAmountSpent(data.amountSpent) : setAmountSpent(0);
+      data.totalExpense ? setAmountSpent(data.totalExpense) : setAmountSpent(0);
       setIsLoading(false);
     } catch(error){
       console.log('error found:', error)

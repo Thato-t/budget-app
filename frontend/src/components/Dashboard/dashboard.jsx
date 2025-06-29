@@ -108,7 +108,7 @@ function Dashboard() {
         if(percentage > (5).toFixed(2)) return ' #F44336'
     }
 
-    alert(`From now on get started using this ${pin} as your name`)
+    // alert(`From now on get started using this ${pin} as your name`)
 
   return ( 
     <>  
