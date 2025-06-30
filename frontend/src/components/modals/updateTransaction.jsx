@@ -32,8 +32,8 @@ function UpdateTransaction({ show, onClose, text, color }) {
     const fetchPrevTransData = async () => {
         setIsLoading(true)
         try{
-            const res = await axios.get('http://localhost:5000')
-            setPrevTrans([...res.data.trans])
+            const res = await axios.get('http://localhost:5000/getTransactions')
+            setPrevTrans(res.data.findAmounts.transactions)
             setIsLoading(false)
         } catch (error){
             console.error('Error found:', error)
@@ -52,7 +52,7 @@ function UpdateTransaction({ show, onClose, text, color }) {
             return
         }
         try{
-            const res = await axios.post('http://localhost:5000/submit', {
+            const res = await axios.post('http://localhost:5000/add/transaction', {
                 typeOfCategory,
                 categoryEmoji,
                 categoryColor,

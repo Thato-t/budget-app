@@ -91,21 +91,21 @@ function Dashboard() {
     const getCircleColor = (totalAmount, amountSpent) => {
         const remaining = totalAmount - amountSpent;
         const percentage = ((remaining / totalAmount) * 100).toFixed(2);
-        if(percentage > (80).toFixed(2)) return ' #F44336'
-        if(percentage > (60).toFixed(2)) return ' #FF5722'
-        if(percentage > (40).toFixed(2)) return ' #FFEB3B'
-        if(percentage > (20).toFixed(2)) return ' #00BCD4'
-        if(percentage > (5).toFixed(2)) return ' #4CAF50'
+        if(percentage > (80).toFixed(2)) return '#4CAF50'
+        if(percentage > (60).toFixed(2)) return '#00BCD4'
+        if(percentage > (40).toFixed(2)) return '#FFEB3B'
+        if(percentage > (20).toFixed(2)) return '#FF5722'
+        if(percentage >= (0).toFixed(2)) return '#F44336'
     }
 
     const getPercentageColor = (totalAmount, amountSpent) => {
         const remaining = totalAmount - amountSpent;
         const percentage = ((remaining / totalAmount) * 100).toFixed(2);
-        if(percentage > (80).toFixed(2)) return ' #4CAF50'
-        if(percentage > (60).toFixed(2)) return ' #00BCD4'
-        if(percentage > (40).toFixed(2)) return ' #FFEB3B' 
-        if(percentage > (20).toFixed(2)) return ' #FF5722'
-        if(percentage > (5).toFixed(2)) return ' #F44336'
+        if(percentage > (80).toFixed(2)) return '#4CAF50'
+        if(percentage > (60).toFixed(2)) return '#00BCD4'
+        if(percentage > (40).toFixed(2)) return '#FFEB3B' 
+        if(percentage > (20).toFixed(2)) return '#FF5722'
+        if(percentage >= (0).toFixed(2)) return '#F44336'
     }
 
     // alert(`From now on get started using this ${pin} as your name`)
@@ -174,8 +174,8 @@ function Dashboard() {
                                 >
                                     <div className="emoji-box" style={{backgroundColor: recent.emojiBgdColor}}>{recent.categoryEmoji}</div>
                                     <p className="example-name">{recent.exampleName}</p>
-                                    <p className="amount-left"><span className="currency">{countriesCurrency}</span>{(recent.amountLeft).toFixed(2)}</p>
-                                    <div className="amount-left-color" style={{backgroundColor:getCircleColor(recent.amountLimit, recent.amountSpend)}}
+                                    <p className="amount-left"><span className="currency">{countriesCurrency}</span>{(recent.categoryLimit).toFixed(2)}</p>
+                                    <div className="amount-left-color" style={{backgroundColor:getCircleColor(recent.categoryLimit, recent.amountSpend)}}
                                     ></div>
                                 </div>
                             )}
@@ -250,16 +250,16 @@ function Dashboard() {
                                         <p className="category-example">{category.exampleName}</p>
                                         <p className="example-limit">
                                             <span className="currency">{countriesCurrency}</span>
-                                            {category.amountLimit}
+                                            {(category.categoryLimit).toFixed(2)}
                                         </p>
                                         <p className="example-amount-left">
-                                            <span className="currency">R</span>
-                                            {category.amountSpend}
+                                            <span className="currency">{countriesCurrency}</span>
+                                            {(category.amountSpend).toFixed(2)}
                                         </p>
                                     </div>
                                     <p className="percentage-left" 
-                                    style={{ color: getPercentageColor(category.amountLimit, category.amountSpend)}}>{
-                                    (((category.amountLimit - category.amountSpend) / category.amountLimit) * 100).toFixed(2)
+                                    style={{ color: getPercentageColor(category.categoryLimit, category.amountSpend)}}>{
+                                    (((category.categoryLimit - category.amountSpend) / category.categoryLimit) * 100).toFixed(2)
                                     }%
                                     </p>
                                 </div>

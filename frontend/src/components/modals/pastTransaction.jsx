@@ -22,8 +22,8 @@ function PastTransaction({ show, onClose, text, color }){
     const fetchPrevTransData = async () => {
         setIsLoading(true)
         try{
-            const res = await axios.get('http://localhost:5000')
-            setPrevTrans([...res.data.trans])
+            const res = await axios.get('http://localhost:5000/getTransactions')
+            setPrevTrans(res.data.findAmounts.transactions)
             setIsLoading(false)
         } catch (error){
             console.error('Error found:', error)

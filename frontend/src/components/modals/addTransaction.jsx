@@ -65,7 +65,7 @@ function AddTransaction({ show, onClose }) {
             return
         }
         try{
-            const res = await axios.post('http://localhost:5000/transaction', {
+            const res = await axios.post('http://localhost:5000/add/transaction', {
                 typeOfCategory,
                 categoryEmoji,
                 categoryColor,

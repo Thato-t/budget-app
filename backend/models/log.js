@@ -10,7 +10,8 @@ const entrySchema = new mongoose.Schema({
   categoryLimit: { type: Number },
   date: { type: String }, // ISO format: YYYY-MM-DD
   comment: { type: String },
-  selectOption: { type: String }
+  selectOption: { type: String },
+  amount: { type: Number }
 });
 
 const categoriesSchema = new mongoose.Schema({
@@ -19,7 +20,6 @@ const categoriesSchema = new mongoose.Schema({
 
 const logSchema = new mongoose.Schema({
   username: { type: String },
-  amount: { type: Number },
   amountLeft: { type: Number },
   totalExpense: { type: Number },
   currency: { type: String },

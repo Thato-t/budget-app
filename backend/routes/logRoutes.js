@@ -55,34 +55,33 @@ logRoutes.get('/reports/dashboard', async (req, res) => {
 
 
 // making transactions
-logRoutes.post('/transaction', async (req, res) => {
+logRoutes.post('/add/transaction', async (req, res) => {
     const pin =  localStorage.getItem('pin')
     const { typeOfCategory, categoryEmoji, categoryColor, categoryChange, amount, amountLimitChange, amountSpentChange, dateChange, commentChange, selectOption } = req.body;
     try {        
         
         const findAmounts  = await Logs.findOne({ pin })
         if (findAmounts){
-            let totalExpense = parseInt(findAmounts.totalExpense) + parseInt(amountSpentChange);
+            let totalExpense = parseInt(findAmounts.totalExpense) + parseInt(amountLimitChange);
             let amountLeft = parseInt(findAmounts.totalIncome) - parseInt(totalExpense);
             let totalExpenses = totalExpense
             console.log(amountLeft)
 
             const saveTransactions = await Logs.findOneAndUpdate(
                 { pin: pin },
-                {$set: { totalExpense, amountLeft }},
-                { $push: { transactons: { 
+                {$push: { transactions: { 
                     categoryName: typeOfCategory,
                     categoryEmoji: categoryEmoji,
                     emojiBgdColor: categoryColor,
                     exampleName: categoryChange,
-                    amountSpend: amountSpentChange,
-                    amountLimit: amountLimitChange, 
+                    amountSpend: parseInt(amountSpentChange),
+                    categoryLimit: parseInt(amountLimitChange), 
                     date: dateChange, // ISO format: YYYY-MM-DD
                     comment: commentChange,
-                    selectOption
-                }} }  
+                    selectOption: selectOption,
+                    amount: parseInt(amount)
+                }}, $set: { totalExpense, amountLeft }}
             )
-            await saveTransactions.save();
             console.log(saveTransactions);
             res.status(200).json(saveTransactions);
         }else{
@@ -96,6 +95,25 @@ logRoutes.post('/transaction', async (req, res) => {
     }
     
 })
+
+// get transactions
+logRoutes.get('/getTransactions', async (req, res) => {
+    const pin = localStorage.getItem('pin');
+    try {        
+        const findAmounts  = await Logs.findOne({ pin });
+        if(!findAmounts){
+            console.error('Not found');
+            res.status(404).json('Not found');
+        } else{
+            console.log('User Found');
+            res.status(200).json({ findAmounts })
+        }
+    } catch (error){
+        console.error('Error found', error);
+        res.status(500).json({error});
+    }
+})
+
 
 // saving incomes of user to db
 logRoutes.post('/settings/amounts/:username', async (req, res) => {
