@@ -23,7 +23,9 @@ function PastTransaction({ show, onClose, text, color }){
         setIsLoading(true)
         try{
             const res = await axios.get('http://localhost:5000/getTransactions')
-            setPrevTrans(res.data.findAmounts.transactions)
+            const data = res.data.findAmounts.transactions;
+            const selected = data.filter(item => item.categoryName === text);
+            setPrevTrans(selected)
             setIsLoading(false)
         } catch (error){
             console.error('Error found:', error)

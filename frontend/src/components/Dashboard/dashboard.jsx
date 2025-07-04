@@ -26,6 +26,7 @@ function Dashboard() {
     const [ showUpdateModal, setShowUpdateModal ] = useState(false)
     const [ isBar, setIsBar ] = useState(true)
     const [ textCategory, setTextCategory ] = useState();
+    const [ textCategoryExample, setTextCategoryExample ] = useState();
     const [ bgdColorCategory, setBgdColorCategry ] = useState()
     const [ totalIncome, setTotalIncome ] = useState(0);
     const [ remainingBudget, setRemainingBudget ] = useState(0);
@@ -57,7 +58,9 @@ function Dashboard() {
         setIsLoadingCategory(true)
         try {
             const res = await axios.get(`http://localhost:5000/home/dashboard`)
-            setTransactions(res.data.findLog.transactions);
+            const data =  res.data.findLog.transactions;
+            const selected = data.filter(item => item.selectOption === title)
+            setTransactions(selected)
             setIsLoadingCategory(false) 
         } catch (error) {
             console.error(`Error found: ${error}`);
@@ -81,9 +84,9 @@ function Dashboard() {
     }
     
     useEffect(() => {
-        fetchExpensesData()
-        fetchCategoriesData()
-        fetchAmountsData()
+        fetchExpensesData();
+        fetchCategoriesData();
+        fetchAmountsData();
     }, [title])
     
     
@@ -116,12 +119,14 @@ function Dashboard() {
             show={showAddModal} 
             onClose={() => setShowAddModal(false)} 
         />}
-        {showUpdateModal && <UpdateTransaction 
+        {/* TODO: Make it possible for users to update their transactions */}
+        {/* {showUpdateModal && <UpdateTransaction 
             show={showUpdateModal} 
             onClose={() => setShowUpdateModal(false)} 
             text={textCategory}
             color={bgdColorCategory}
-        />}
+        />} */}
+
         <div className="body">
             <Navbar className="navbar"/>
             <div className="dashboard-wrapper">
@@ -169,7 +174,8 @@ function Dashboard() {
                                   onClick={() =>  { 
                                     setShowUpdateModal(true)
                                     setBgdColorCategry(recent.emojiBgdColor)
-                                    setTextCategory(recent.exampleName)
+                                    setTextCategoryExample(recent.exampleName)
+                                    setTextCategory(recent.categoryName)
                                 }}
                                 >
                                     <div className="emoji-box" style={{backgroundColor: recent.emojiBgdColor}}>{recent.categoryEmoji}</div>
@@ -223,8 +229,8 @@ function Dashboard() {
                              value={title} 
                              onChange={handleSelectChange}
                             >
-                                <option className="dashboard-categories-names" value="fixedExpense">Fixed Expenses</option>
-                                <option className="dashboard-categories-names" value="variableExpense">Variable Expenses</option>
+                                <option className="dashboard-categories-names" value="fixedExpenses">Fixed Expenses</option>
+                                <option className="dashboard-categories-names" value="variableExpenses">Variable Expenses</option>
                                 <option className="dashboard-categories-names" value="savings">Savings</option>
                                 <option className="dashboard-categories-names" value="investments">Investments</option>
                                 <option className="dashboard-categories-names" value="emergencies">Emergencies</option>
@@ -242,7 +248,12 @@ function Dashboard() {
                                 <div 
                                   className="categoryExample"  
                                   key={index}
-                                  onClick={() => setShowUpdateModal(true)}
+                                  onClick={() => { 
+                                    setShowUpdateModal(true)
+                                    setBgdColorCategry(category.emojiBgdColor)
+                                    setTextCategoryExample(category.exampleName)
+                                    setTextCategory(category.categoryName)
+                                }}
                                 >
                                     <div className="semi-category">
                                         <div className="category-emoji" 

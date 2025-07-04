@@ -118,14 +118,14 @@ logRoutes.get('/getTransactions', async (req, res) => {
 // saving incomes of user to db
 logRoutes.post('/settings/amounts/:username', async (req, res) => {
     const pin =  localStorage.getItem('pin')
-    const totalExpense = totalExpenses
-    const amountLeft = amountsLeft
-    const { totalIncome, currency, flagImage } = req.body;
+    // const totalExpense = totalExpenses
+    // const amountLeft = amountsLeft
+    const { totalIncome, currency, flagImage, totalExpense, amountLeft } = req.body;
 
     try {
         const saveAmounts = await Logs.findOneAndUpdate(
             { pin: pin },
-            { $set: { totalIncome: parseInt(totalIncome), currency, flagImage, totalExpense, amountLeft } }
+            { $set: { totalIncome: totalIncome, currency, flagImage, totalExpense, amountLeft } }
         )
         await saveAmounts.save();
         console.log(saveAmounts, 'amounts saved')

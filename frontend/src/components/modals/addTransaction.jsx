@@ -8,11 +8,9 @@ import Cross from '../../reusable/buttons/cross.jsx'
 import Create from '../../reusable/buttons/create.jsx'
 import TypeOfCategory from '../../reusable/typeOfCategory.jsx'
 import axios from 'axios'
-
+import useHelpers from '../../utils/helpers.jsx'
 
 function AddTransaction({ show, onClose }) {
-
-
 
     const [ quote, setQuote ] = useState();
     const [ exampleCategories, setExampleCategories ] = useState([]);
@@ -30,6 +28,8 @@ function AddTransaction({ show, onClose }) {
     const [ amountLimitChange, setAmountLimitChange ] = useState('');
     const [ categoryEmoji, setCategoryEmoji ] = useState();
     const  [ errMsg, setErrMsg ] = useState('')
+    const  [ amountLeft, setAmountLeft ] = useState('')
+    const [ getTotalIncome, getTotalExpense, getAmountLeft ] = useHelpers();
 
     const randomIndex = Math.floor(Math.random() * 99);
 
@@ -62,6 +62,21 @@ function AddTransaction({ show, onClose }) {
         const amount = amountLimitChange - amountSpentChange
         if(!categoryChange.trim() || !dateChange.trim() || !amountSpentChange.trim() || !amountLimitChange.trim()){
             setErrMsg('All inputs are required');
+            return
+        }
+        if(amountLimitChange < amountSpentChange){
+            setErrMsg('The amount your spending is more than the limit');
+            return
+        }
+        if(amountLimitChange > getTotalIncome){
+            setErrMsg('You have less money in your account to spend.')
+            setTimeout(() => {
+                if(!getAmountLeft){
+                    setErrMsg(`Remaining amount is R${getTotalIncome}`);
+                }else{
+                    setErrMsg(`Remaining amount is R${getAmountLeft}`);
+                }
+            }, 2000);
             return
         }
         try{

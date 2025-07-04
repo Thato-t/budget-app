@@ -9,7 +9,8 @@ import CommentInput from '../../reusable/inputs/commentInput.jsx'
 import Create from '../../reusable/buttons/create.jsx'
 import TypeOfCategory from '../../reusable/typeOfCategory.jsx'
 import LoadingState from '../../reusable/loadingState.jsx'
-import axios from 'axios'
+import axios from 'axios';
+import useHelpers from '../../utils/helpers.jsx';
 
 
 function UpdateTransaction({ show, onClose, text, color }) {
@@ -27,13 +28,15 @@ function UpdateTransaction({ show, onClose, text, color }) {
     const [ errMsg, setErrMsg ] = useState('')
     const [categoryColor, setCategoryColor ] = useState()
     const [category, setCategory ] = useState()
-
+    const [ getTotalIncome, getAmountLeft, getTotalExpense ] = useHelpers()
 
     const fetchPrevTransData = async () => {
         setIsLoading(true)
         try{
             const res = await axios.get('http://localhost:5000/getTransactions')
-            setPrevTrans(res.data.findAmounts.transactions)
+            const data = res.data.findAmounts.transactions;
+            const selected = data.filter(item => item.categoryName === text)
+            setPrevTrans(selected)
             setIsLoading(false)
         } catch (error){
             console.error('Error found:', error)

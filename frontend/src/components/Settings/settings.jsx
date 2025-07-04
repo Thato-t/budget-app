@@ -7,6 +7,7 @@ import useFetchData from '../../utils/api.jsx'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import flag from '../../assets/images/flag.png'
+import useHelpers from '../../utils/helpers.jsx'
 
 function Settings() {
     const navigate = useNavigate();
@@ -14,6 +15,8 @@ function Settings() {
     const [ currency, setCurrency ] = useState('Rands')
     const [ flagImage, setFlagImage ] = useState(flag)
     const [ totalIncome, setTotalIncome ] = useState('')
+    const [ getTotalIncome, getAmountLeft, getTotalExpense ] = useHelpers();
+
     // TODO make a fetch req of the flag and the currencies  
 
     const handleDelete = async (event) => {
@@ -29,14 +32,17 @@ function Settings() {
         
     }
 
+
     const handleUpdate = async (event) => {
         event.preventDefault();
         try {
             const res = await axios.post(`http://localhost:5000/settings/amounts/${username}`, 
                 {
-                    totalIncome,
+                    totalIncome: parseInt(totalIncome) + parseInt(getTotalIncome),
                     currency,
-                    flagImage
+                    flagImage,
+                    totalExpense: parseInt(getTotalExpense),
+                    amountLeft: parseInt(getAmountLeft)
                 }
             )
             console.log('money saved')

@@ -25,6 +25,7 @@ function Report() {
   const [ showPastModal, setShowPastModal ] = useState(false);
   const [ selectedOption, setSelectedOption ] = useState(months[new Date().getMonth()]);
   const [ textCategory, setTextCategory ] = useState();
+  const [ textCategoryExample, setTextCategoryExample ] = useState();
   const [ bgdColorCategory, setBgdColorCategry ] = useState()
   const [ username ] = useFetchData()
   const [ amountSpent, setAmountSpent ] = useState(0)
@@ -55,10 +56,14 @@ function Report() {
 
   return (
     <>
-        {showUpdateModal && <UpdateTransaction 
+        {/* TODO: Make it possible for users to update their transactions */}
+        {/* {showUpdateModal && <UpdateTransaction 
                     show={showUpdateModal} 
                     onClose={() => setShowUpdateModal(false)} 
-        />}
+                    text={textCategory}
+                    color={bgdColorCategory}
+        />} */}
+
         {showPastModal && <PastTransaction 
                     show={showPastModal} 
                     onClose={() => setShowPastModal(false)} 
@@ -164,7 +169,12 @@ function Report() {
                 monthlyTransactions.map((transaction, index) => 
                   <div 
                    key={index}
-                   onClick={() =>  setShowUpdateModal(true)}
+                   onClick={() =>  {
+                    setShowUpdateModal(true)
+                    setBgdColorCategry(transaction.emojiBgdColor)
+                    setTextCategoryExample(transaction.exampleName)
+                    setTextCategory(transaction.categoryName)
+                  }}
                   >
                     <div className="report-statement">
                       <div className="report-amount-spent-percentage" 
