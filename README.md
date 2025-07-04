@@ -56,15 +56,15 @@ project/
 ## Screenshots & Designs
 - Desktop and mobile designs are available in `frontend/designs/`
 - Example mobile modal:
-  ![Mobile Modal Example](frontend/designs/mobile/Page%201.png)
+  ![Mobile Modal Example](frontend/designs/mobile/Page%202.png)
 
 ### Dashboard Screenshots
 
 #### Desktop
-[![Dashboard Desktop](docs/dashboard-desktop.png)](docs/dashboard-desktop.png)
+[![Dashboard Desktop](frontend/designs/docs/dashboard-desktop.png)
 
 #### Mobile
-[![Dashboard Mobile](docs/dashboard-mobile.png)](docs/dashboard-mobile.png)
+[![Dashboard Mobile](frontend/designs/docs/dashboard-mobile.png)
 
 ---
 
