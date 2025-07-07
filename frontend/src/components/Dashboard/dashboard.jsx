@@ -10,6 +10,7 @@ import  bar from '../../assets/Icons/bar.png'
 import pie from '../../assets/Icons/pie.png'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+const backendURL = import.meta.env.BACKEND_URI || 'http://localhost:5000';
 
 
 function Dashboard() {
@@ -45,7 +46,7 @@ function Dashboard() {
     const fetchExpensesData = async () => {
         setIsLoadingRecents(true)
         try {
-            const res = await axios.get(`http://localhost:5000/home/dashboard`)
+            const res = await axios.get(`${backend_URL}/home/dashboard`)
             console.log(res)
             setRecents(res.data.findLog.transactions);
             setIsLoadingRecents(false)
@@ -57,7 +58,7 @@ function Dashboard() {
     const fetchCategoriesData = async () => {
         setIsLoadingCategory(true)
         try {
-            const res = await axios.get(`http://localhost:5000/home/dashboard`)
+            const res = await axios.get(`${backend_URL}/home/dashboard`)
             const data =  res.data.findLog.transactions;
             const selected = data.filter(item => item.selectOption === title)
             setTransactions(selected)
@@ -70,7 +71,7 @@ function Dashboard() {
     const fetchAmountsData = async () => {
 
         try {            
-            const res = await axios.get(`http://localhost:5000/home/dashboard`);
+            const res = await axios.get(`${backend_URL}/home/dashboard`);
             const data = res.data.findLog
             console.log(data);
             if (data.totalIncome){

@@ -9,6 +9,7 @@ import Create from '../../reusable/buttons/create.jsx'
 import TypeOfCategory from '../../reusable/typeOfCategory.jsx'
 import axios from 'axios'
 import useHelpers from '../../utils/helpers.jsx'
+const backend_URL = import.meta.env.BACKEND_URI || 'http://localhost:5000';
 
 function AddTransaction({ show, onClose }) {
 
@@ -36,7 +37,7 @@ function AddTransaction({ show, onClose }) {
     const handleSelectChange = event => setSelectOption(event.target.value);
 //  MAKE THE QUOTE BECOME AI GENERATED WHICH THE AI WILL DETECT HOW MUCH THE MONEY IS AND GIVES QUOTE BASED ON THE AMOUNT
     // useEffect(() => {
-    //     fetch(`http://localhost:3001/${randomIndex}`)
+    //     fetch(`${backend_URL}:3001/${randomIndex}`)
     //         .then(res => res.json())
     //         .then(data => setQuote(data.message))
     //         .catch(err => console.log('Error found', err))
@@ -45,7 +46,7 @@ function AddTransaction({ show, onClose }) {
     const fetchCategoriesData = async () => {
         setIsLoading(true)
         try{
-            const res = await axios.get(`http://localhost:5000/transaction`)
+            const res = await axios.get(`${backend_URL}:5000/transaction`)
             setExampleCategories(res.data.cat[0][selectOption])
             setIsLoading(false);
         } catch(err){
@@ -80,7 +81,7 @@ function AddTransaction({ show, onClose }) {
             return
         }
         try{
-            const res = await axios.post('http://localhost:5000/add/transaction', {
+            const res = await axios.post('${backend_URL}:5000/add/transaction', {
                 typeOfCategory,
                 categoryEmoji,
                 categoryColor,
