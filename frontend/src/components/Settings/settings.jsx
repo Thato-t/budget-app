@@ -8,10 +8,12 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import flag from '../../assets/images/flag.png'
 import useHelpers from '../../utils/helpers.jsx'
+import useLocalStorage from '../../hooks/localStorage.jsx'
 
 function Settings() {
     const navigate = useNavigate();
-    const [username] = useFetchData();
+    const [username, email] = useFetchData();
+    const localStrEmail = useLocalStorage();
     const [ currency, setCurrency ] = useState('Rands')
     const [ flagImage, setFlagImage ] = useState(flag)
     const [ totalIncome, setTotalIncome ] = useState('')
@@ -25,7 +27,8 @@ function Settings() {
         try {
             navigate('/');  
             console.log('Account deleted') 
-            const res = await axios.delete(`http://localhost:5000/settings/users/${username}`, {data: username});
+            // check if is necessary to make a key value for delete with a key of data for each value
+            const res = await axios.delete(`http://localhost:5000/user/delete/${localStrEmail || email}`, { username, email});
         } catch (error) {
             console.error('Error found', error)
         }
@@ -36,7 +39,7 @@ function Settings() {
     const handleUpdate = async (event) => {
         event.preventDefault();
         try {
-            const res = await axios.post(`http://localhost:5000/settings/amounts/${username}`, 
+            const res = await axios.post(`http://localhost:5000/settings/amounts/${localStrEmail || email}`, 
                 {
                     totalIncome: parseInt(totalIncome) + parseInt(getTotalIncome),
                     currency,

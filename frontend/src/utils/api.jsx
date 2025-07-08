@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import useLocalStorage from '../hooks/localStorage.jsx'
 
 
 const useFetchData = () => {
     const [ username, setUsername ] = useState('')
     const [ sendErrMsg, setSendErrMsg ] = useState()
-    const [ pin, setPin ] = useState([])
+    const [ email, setEmail ] = useState('')
+    const localStrEmail = useLocalStorage()
 
     const fetchUsernamesData = async () => {
         try {
-
-            const res = await axios.get('http://localhost:5000/home/users/user')
-            setPin(res.data.newName.pin)
-            setUsername(res.data.newName.username)
+            const res = await axios.get(`http://localhost:5000/emails/${localStrEmail}`)
+            const data = res.data.user
+            setEmail(localStrEmail);
+            setUsername(data.username);
         } catch (error) {
             console.error('Error found', error)
             if(error.message === 'Network Error'){
@@ -23,8 +25,8 @@ const useFetchData = () => {
 
     useEffect(() => {
         fetchUsernamesData();
-    }, [])
+    }, [localStrEmail])
 
-    return [ username, sendErrMsg, pin ]
+    return [ username, sendErrMsg, email ]
 }
 export default useFetchData

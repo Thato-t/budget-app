@@ -1,39 +1,13 @@
 import express from 'express';
 import Logs from '../models/log.js';
-import { LocalStorage } from 'node-localstorage'
 
 const logRoutes = express.Router();
-const localStorage = new LocalStorage('../scratch')
-let totalExpenses = 0;
-let amountsLeft = 0;
-
-// login in and checking if user exists
-logRoutes.get('/users/:username', async (req, res) => {
-    const paramsPin = req.params.username
-    try{
-        const findUsername = await Logs.findOne({paramsPin});
-        if (!findUsername){
-            const errMsg = `${paramsPin} doesn't exist`
-            localStorage.setItem('errMsg',  errMsg)
-            console.log(errMsg)
-            res.status(200).json({ errMsg })
-        }else{
-            const found = `${paramsPin} found`
-            console.log(findUsername, 'found')
-            res.status(200).json({ found })
-        }
-    }catch (error){
-        console.log('Error found: ', error)
-        res.status(500).json(error)
-    }
-
-})
 
 // fetching dashboard data from db 
-logRoutes.get('/home/dashboard', async (req, res) => {
-    const pin = localStorage.getItem('pin')
+logRoutes.get('/home/dashboard/:email', async (req, res) => {
+    const email = req.params.email;
     try {
-        const findLog = await Logs.findOne({ pin });
+        const findLog = await Logs.findOne({ email });
         res.status(200).json({ findLog });
     } catch (error) {
         console.error('Error found', error);
@@ -42,10 +16,10 @@ logRoutes.get('/home/dashboard', async (req, res) => {
 })
 
 // fetching reports data from db
-logRoutes.get('/reports/dashboard', async (req, res) => {
-    const pin = localStorage.getItem('pin')
+logRoutes.get('/reports/dashboard/:email', async (req, res) => {
+    const email = req.params.email;
     try {
-        const findLog = await Logs.findOne({ pin });
+        const findLog = await Logs.findOne({ email });
         res.status(200).json({ findLog });
     } catch (error) {
         console.error('Error found', error);
@@ -55,20 +29,19 @@ logRoutes.get('/reports/dashboard', async (req, res) => {
 
 
 // making transactions
-logRoutes.post('/add/transaction', async (req, res) => {
-    const pin =  localStorage.getItem('pin')
+logRoutes.post('/add/transaction/:email', async (req, res) => {
+    const email =  req.params.email;
     const { typeOfCategory, categoryEmoji, categoryColor, categoryChange, amount, amountLimitChange, amountSpentChange, dateChange, commentChange, selectOption } = req.body;
     try {        
         
-        const findAmounts  = await Logs.findOne({ pin })
+        const findAmounts  = await Logs.findOne({ email })
         if (findAmounts){
             let totalExpense = parseInt(findAmounts.totalExpense) + parseInt(amountLimitChange);
             let amountLeft = parseInt(findAmounts.totalIncome) - parseInt(totalExpense);
-            let totalExpenses = totalExpense
             console.log(amountLeft)
 
             const saveTransactions = await Logs.findOneAndUpdate(
-                { pin: pin },
+                { email: email },
                 {$push: { transactions: { 
                     categoryName: typeOfCategory,
                     categoryEmoji: categoryEmoji,
@@ -85,7 +58,7 @@ logRoutes.post('/add/transaction', async (req, res) => {
             console.log(saveTransactions);
             res.status(200).json(saveTransactions);
         }else{
-            console.error(username, 'not found')
+            console.error(email, 'not found')
             res.status(404).json('user not found')
         }
 
@@ -97,10 +70,10 @@ logRoutes.post('/add/transaction', async (req, res) => {
 })
 
 // get transactions
-logRoutes.get('/getTransactions', async (req, res) => {
-    const pin = localStorage.getItem('pin');
+logRoutes.get('/getTransactions/:email', async (req, res) => {
+    const email = req.params.email;
     try {        
-        const findAmounts  = await Logs.findOne({ pin });
+        const findAmounts  = await Logs.findOne({ email });
         if(!findAmounts){
             console.error('Not found');
             res.status(404).json('Not found');
@@ -116,15 +89,13 @@ logRoutes.get('/getTransactions', async (req, res) => {
 
 
 // saving incomes of user to db
-logRoutes.post('/settings/amounts/:username', async (req, res) => {
-    const pin =  localStorage.getItem('pin')
-    // const totalExpense = totalExpenses
-    // const amountLeft = amountsLeft
+logRoutes.post('/settings/amounts/:email', async (req, res) => {
+    const email =  req.params.email;
     const { totalIncome, currency, flagImage, totalExpense, amountLeft } = req.body;
 
     try {
         const saveAmounts = await Logs.findOneAndUpdate(
-            { pin: pin },
+            { email: email },
             { $set: { totalIncome: totalIncome, currency, flagImage, totalExpense, amountLeft } }
         )
         await saveAmounts.save();
@@ -135,7 +106,6 @@ logRoutes.post('/settings/amounts/:username', async (req, res) => {
         res.status(500).json(error)
     }
 })
-
 
 
 export default logRoutes

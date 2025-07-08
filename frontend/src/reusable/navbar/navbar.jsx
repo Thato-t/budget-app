@@ -13,7 +13,7 @@ function Navbar() {
         <>
             <div className="navbar-wrapper">
                 <div className="navbar-containerOne">
-                    <p className="navbar-logo">Budget App</p>
+                    <p className="navbar-logo">Expensify</p>
                 </div>
                 <div className="navbar-containerTwo">
                     <div className={`burger-menu ${isMenuOpen ? 'active' : ''}`} onClick={toggleMenu}>

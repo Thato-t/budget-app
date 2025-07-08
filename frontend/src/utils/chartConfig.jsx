@@ -2,19 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { Bar, Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement} from 'chart.js';
 import axios from 'axios'
-import useFetchData from './api.jsx'
+import useLocalStorage from '../hooks/localStorage.jsx'
+
 
 // Register chart components
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement );
 
 function ChartConfig({ states }) {
     const [ amounts, setAmounts ] = useState([]);
-    const [ display, setDisplay] = useState('none')
-    const [ username ]  = useFetchData()
+    const [ display, setDisplay] = useState('none');
+    const localStrEmail = useLocalStorage()
 
     const fetchData = async () => {
         try{
-            const res = await axios.get(`http://localhost:5000/home/dashboard` || `http://localhost:5000/reports/dashboard`)
+            const res = await axios.get(`http://localhost:5000/home/dashboard/${localStrEmail}` || `http://localhost:5000/reports/dashboard/${localStrEmail}`)
             console.log(res)
             setAmounts(res.data.findLog.transactions)
         } catch(error){
@@ -23,7 +24,7 @@ function ChartConfig({ states }) {
     }
     useEffect(() => {
         fetchData();
-    }, [])
+    }, [localStrEmail])
 
     const data = {
             labels: amounts.map(amount => amount.exampleName),

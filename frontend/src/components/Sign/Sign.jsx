@@ -1,38 +1,29 @@
 import finance_theme_three from '../../assets/images/finance_theme_three.png'
 import wave from '../../assets/images/wave.png'
-import Dashboard from '../Dashboard/dashboard.jsx'
 import './Sign.scss'
 import { useEffect, useState } from 'react' 
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import axios from 'axios';
 
 function Sign(){
     
     const [ username, setUsername ] = useState('');
+    const [ email, setEmail ] = useState('');
     const [ errMsg, setErrMsg ] = useState('');
-    const [ getItem, setGetItem ] = useState('')
     const navigate = useNavigate();
-
-    const onChange = (event) => {
-        setUsername(event.target.value);
-    }
-
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        const notFound = `${username} doesn't exist`
-        if(username.trim() === ''){
-            setErrMsg('The username is required')
+        const notFound = `${username} doesn't exist`;
+        if(username.trim() === '' && email.trim() === ''){
+            setErrMsg('All inputs are required')
             return
         }
         try{
-            const findUser = await axios.get(`http://localhost:5000/users/${username}`)
-            if (findUser.data.errMsg === notFound){
-                const newUser = await axios.post('http://localhost:5000/', { username });
-                console.log('User Saved');
-            } else{
-                console.log('User Found')
-            }
+            // const findUser = await axios.get(`http://localhost:5000/users/${email}`)
+            const newUser = await axios.post('http://localhost:5000/', { username, email });
+            localStorage.setItem('email', JSON.stringify(email));
+            console.log('User Saved');
             setErrMsg('Loading.....')
             navigate('/home')
         }catch(error){
@@ -54,14 +45,24 @@ function Sign(){
                     </div> 
                     <form onSubmit={handleSubmit}> 
                         <div className="right-mini-wrapper">
-                            <div className="input-wrapper">
+                            <div className="input-wrapper username-bar">
                                 <input 
                                  type="text" 
                                  id="input" 
                                  className="input" 
                                  placeholder="What is your username?"
                                  value={username}
-                                 onChange={() => onChange(event)}
+                                 onChange={(event) => setUsername(event.target.value)}
+                                /><br></br>
+                            </div>
+                            <div className="input-wrapper email-bar">
+                                <input 
+                                 type="text" 
+                                 id="input" 
+                                 className="input" 
+                                 placeholder="What is your email?"
+                                 value={email}
+                                 onChange={(event) => setEmail(event.target.value)}
                                 /><br></br>
                             </div>
                             <p className="sign-error">{errMsg}</p> 

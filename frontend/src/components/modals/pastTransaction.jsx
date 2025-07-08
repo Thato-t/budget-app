@@ -5,6 +5,7 @@ import TypeOfCategory from '../../reusable/typeOfCategory.jsx'
 import './pastTransaction.scss'
 import LoadingState from '../../reusable/loadingState.jsx'
 import axios from 'axios'
+import useLocalStorage from '../../hooks/localStorage.jsx'
 
 function PastTransaction({ show, onClose, text, color }){
 
@@ -16,13 +17,14 @@ function PastTransaction({ show, onClose, text, color }){
         const [ isLoading, setIsLoading ] = useState(false);
         const [ categoryColor, setCategoryColor ] = useState()
         const [ category, setCategory ] = useState()
+        const localStrEmail = useLocalStorage()
 
 
 
     const fetchPrevTransData = async () => {
         setIsLoading(true)
         try{
-            const res = await axios.get('http://localhost:5000/getTransactions')
+            const res = await axios.get(`http://localhost:5000/getTransactions/${localStrEmail}`)
             const data = res.data.findAmounts.transactions;
             const selected = data.filter(item => item.categoryName === text);
             setPrevTrans(selected)
@@ -34,7 +36,7 @@ function PastTransaction({ show, onClose, text, color }){
 
     useEffect(() => {
         fetchPrevTransData();
-    }, [])
+    }, [localStrEmail])
     
 
         if(!show) return null;

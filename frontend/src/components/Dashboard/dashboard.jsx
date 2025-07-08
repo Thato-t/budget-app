@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import Navbar from '../../reusable/navbar/navbar.jsx';
 import './dashboard.scss';
 import useFetchData from '../../utils/api.jsx';
+import useLocalStorage from '../../hooks/localStorage.jsx';
 import LoadingState from '../../reusable/loadingState.jsx';
 import AddTransaction from '../modals/addTransaction.jsx';
 import UpdateTransaction from '../modals/updateTransaction.jsx';
@@ -10,17 +11,17 @@ import  bar from '../../assets/Icons/bar.png'
 import pie from '../../assets/Icons/pie.png'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-const backendURL = import.meta.env.BACKEND_URI || 'http://localhost:5000';
 
 
 function Dashboard() {
+    const backendURL = import.meta.env.BACKEND_URI || 'http://localhost:5000';
     const navigate = useNavigate();
     const [ isLoadingRecents, setIsLoadingRecents ] = useState(false);
     const [ isLoadingCategory, setIsLoadingCategory ] = useState(false);
     const [recents, setRecents] = useState([]); 
     const [transactions, setTransactions] = useState([]);
     const [ title, setTitle ] = useState('fixedExpense');  
-    const [ username, sendErrMsg, pin ] = useFetchData();
+    const [ username, sendErrMsg, email ] = useFetchData();
     const [ countriesCurrency, setCountriesCurrency ] = useState('R');
     const [ graph, setGraph ] = useState(pie);
     const [ showAddModal, setShowAddModal ] = useState(false)
@@ -32,6 +33,7 @@ function Dashboard() {
     const [ totalIncome, setTotalIncome ] = useState(0);
     const [ remainingBudget, setRemainingBudget ] = useState(0);
     const [ totalExpense, setTotalExpense]  = useState(0);
+    const localStrEmail  = useLocalStorage();
 
     // Make the bar and pie image persistent in localStorage
 
@@ -45,8 +47,9 @@ function Dashboard() {
     
     const fetchExpensesData = async () => {
         setIsLoadingRecents(true)
+        console.log(localStrEmail)
         try {
-            const res = await axios.get(`${backend_URL}/home/dashboard`)
+            const res = await axios.get(`${backendURL}/home/dashboard/${localStrEmail}`)
             console.log(res)
             setRecents(res.data.findLog.transactions);
             setIsLoadingRecents(false)
@@ -58,7 +61,7 @@ function Dashboard() {
     const fetchCategoriesData = async () => {
         setIsLoadingCategory(true)
         try {
-            const res = await axios.get(`${backend_URL}/home/dashboard`)
+            const res = await axios.get(`${backendURL}/home/dashboard/${localStrEmail}`)
             const data =  res.data.findLog.transactions;
             const selected = data.filter(item => item.selectOption === title)
             setTransactions(selected)
@@ -71,7 +74,7 @@ function Dashboard() {
     const fetchAmountsData = async () => {
 
         try {            
-            const res = await axios.get(`${backend_URL}/home/dashboard`);
+            const res = await axios.get(`${backendURL}/home/dashboard/${localStrEmail}`);
             const data = res.data.findLog
             console.log(data);
             if (data.totalIncome){
@@ -88,7 +91,7 @@ function Dashboard() {
         fetchExpensesData();
         fetchCategoriesData();
         fetchAmountsData();
-    }, [title])
+    }, [title, localStrEmail])
     
     
     // styles the percentage and the progress circles
@@ -112,7 +115,7 @@ function Dashboard() {
         if(percentage >= (0).toFixed(2)) return '#F44336'
     }
 
-    // alert(`From now on get started using this ${pin} as your name`)
+    // alert(`From now on get started using this localStrEmail} as your name`)
 
   return ( 
     <>  

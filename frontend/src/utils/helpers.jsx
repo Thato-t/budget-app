@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import useLocalStorage from '../hooks/localStorage.jsx'
 
 function useHelpers() {
-    const [ getTotalIncome, setGetTotalIncome ] = useState(0)
-    const [ getTotalExpense, setGetTotalExpense ] = useState(0)
-    const [ getAmountLeft, setGetAmountLeft ] = useState(0)
+    const [ getTotalIncome, setGetTotalIncome ] = useState(0);
+    const [ getTotalExpense, setGetTotalExpense ] = useState(0);
+    const [ getAmountLeft, setGetAmountLeft ] = useState(0);
+    const localStrEmail = useLocalStorage();
 
 
-  const fetchAmountsData = async () => {
-    try {
-        const res = await axios.get('http://localhost:5000/getTransactions');
+    const fetchAmountsData = async () => {
+      try {
+        const res = await axios.get(`http://localhost:5000/getTransactions/${localStrEmail}`);
         const data = res.data.findAmounts;
         data.totalIncome ? setGetTotalIncome(data.totalIncome) : setGetTotalIncome(0);
         data.totalExpense ? setGetTotalExpense(data.totalExpense) : setGetTotalExpense(0);
@@ -20,7 +22,7 @@ function useHelpers() {
   }
   useEffect(() => {
     fetchAmountsData();
-  }, [])
+  }, [localStrEmail])
 
   return [ getTotalIncome, getTotalExpense, getAmountLeft ]
 }

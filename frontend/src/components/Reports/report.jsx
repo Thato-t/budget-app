@@ -10,6 +10,7 @@ import UpdateTransaction from '../modals/updateTransaction.jsx';
 import PastTransaction from '../modals/pastTransaction.jsx';
 import axios from 'axios'
 import useFetchData from '../../utils/api.jsx';
+import useLocalStorage from '../../hooks/localStorage.jsx';
 
 
 function Report() {
@@ -27,7 +28,8 @@ function Report() {
   const [ textCategory, setTextCategory ] = useState();
   const [ textCategoryExample, setTextCategoryExample ] = useState();
   const [ bgdColorCategory, setBgdColorCategry ] = useState()
-  const [ username ] = useFetchData()
+  const [ username, email ] = useFetchData()
+  const localStrEmail = useLocalStorage();
   const [ amountSpent, setAmountSpent ] = useState(0)
 
 
@@ -35,12 +37,13 @@ function Report() {
     setSelectedOption(event.target.value)
 }
 
-
   // TODO in the JSON file put another array of object that is for for monthly transactions for different months 
   const fetchTransactions = async () => {
     setIsLoading(true)
     try {
-      const res = await axios.get(`http://localhost:5000/reports/dashboard`);
+      // TODO check the bug of why the email from the hook is returning undefined while in other pages is working
+      const res = await axios.get(`http://localhost:5000/reports/dashboard/${localStrEmail || email}`);
+      console.log(res)
       const data = res.data.findLog;
       setMonthlyTransactions(data.transactions);
       data.totalExpense ? setAmountSpent(data.totalExpense) : setAmountSpent(0);
@@ -52,7 +55,7 @@ function Report() {
 
   useEffect(() => {
         fetchTransactions();
-    }, [])
+    }, [localStrEmail])
 
   return (
     <>

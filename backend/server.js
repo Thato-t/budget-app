@@ -26,7 +26,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 // categories routes
 
-app.get('/transaction', async (req, res) => {
+app.get('/transaction/categories', async (req, res) => {
     const categories = mongoose.model('categories', anySchema, 'categories');
 
     try {

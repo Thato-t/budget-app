@@ -29,11 +29,12 @@ function UpdateTransaction({ show, onClose, text, color }) {
     const [categoryColor, setCategoryColor ] = useState()
     const [category, setCategory ] = useState()
     const [ getTotalIncome, getAmountLeft, getTotalExpense ] = useHelpers()
+    const localStrEmail = useLocalStorage();
 
     const fetchPrevTransData = async () => {
         setIsLoading(true)
         try{
-            const res = await axios.get('http://localhost:5000/getTransactions')
+            const res = await axios.get(`http://localhost:5000/getTransactions${localStrEmail}`)
             const data = res.data.findAmounts.transactions;
             const selected = data.filter(item => item.categoryName === text)
             setPrevTrans(selected)
@@ -45,7 +46,7 @@ function UpdateTransaction({ show, onClose, text, color }) {
 
     useEffect(() => {
         fetchPrevTransData();
-    }, [])
+    }, [localStrEmail])
     
 
     const handleSubmit = async (event) => {

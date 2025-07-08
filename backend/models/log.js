@@ -20,6 +20,7 @@ const categoriesSchema = new mongoose.Schema({
 
 const logSchema = new mongoose.Schema({
   username: { type: String },
+  email: { type: String },
   amountLeft: { type: Number },
   totalExpense: { type: Number },
   currency: { type: String },

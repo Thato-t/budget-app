@@ -9,6 +9,7 @@ import Create from '../../reusable/buttons/create.jsx'
 import TypeOfCategory from '../../reusable/typeOfCategory.jsx'
 import axios from 'axios'
 import useHelpers from '../../utils/helpers.jsx'
+import useLocalStorage from '../../hooks/localStorage.jsx'
 const backend_URL = import.meta.env.BACKEND_URI || 'http://localhost:5000';
 
 function AddTransaction({ show, onClose }) {
@@ -31,6 +32,7 @@ function AddTransaction({ show, onClose }) {
     const  [ errMsg, setErrMsg ] = useState('')
     const  [ amountLeft, setAmountLeft ] = useState('')
     const [ getTotalIncome, getTotalExpense, getAmountLeft ] = useHelpers();
+    const localStrEmail = useLocalStorage();
 
     const randomIndex = Math.floor(Math.random() * 99);
 
@@ -46,7 +48,7 @@ function AddTransaction({ show, onClose }) {
     const fetchCategoriesData = async () => {
         setIsLoading(true)
         try{
-            const res = await axios.get(`${backend_URL}:5000/transaction`)
+            const res = await axios.get(`${backend_URL}/transaction/categories`)
             setExampleCategories(res.data.cat[0][selectOption])
             setIsLoading(false);
         } catch(err){
@@ -56,7 +58,7 @@ function AddTransaction({ show, onClose }) {
 
     useEffect(() => {
         fetchCategoriesData();
-    }, [selectOption])
+    }, [selectOption, localStrEmail])
     
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -81,7 +83,7 @@ function AddTransaction({ show, onClose }) {
             return
         }
         try{
-            const res = await axios.post('${backend_URL}:5000/add/transaction', {
+            const res = await axios.post(`${backend_URL}/add/transaction/${localStrEmail}`, {
                 typeOfCategory,
                 categoryEmoji,
                 categoryColor,
