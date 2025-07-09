@@ -40,7 +40,7 @@ function Settings() {
     const handleUpdate = async (event) => {
         event.preventDefault();
         try {
-            const res = await axios.post(`http://localhost:5000/settings/amounts/${localStrEmail || email}`, 
+            const res = await axios.post(`${backendURL}/settings/amounts/${localStrEmail || email}`, 
                 {
                     totalIncome: parseInt(totalIncome) + parseInt(getTotalIncome),
                     currency,
