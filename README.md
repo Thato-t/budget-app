@@ -1,6 +1,6 @@
 # Expensify
 
-A modern, full-stack budgeting application to help you track expenses, manage categories, and visualize your financial health. Built with a React + Vite + Tailwind frontend and a Node.js + Express + MongoDB backend.
+A modern, full-stack budgeting application to help you track expenses, manage categories, and visualize your financial health. Built with a React + Vite + Sass frontend and a Node.js + Express + MongoDB backend.
 
 ---
 
