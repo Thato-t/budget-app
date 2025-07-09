@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
 function Sign(){
-    
+    const backendURL = import.meta.env.BACKEND_URI || 'http://localhost:5000';
     const [ username, setUsername ] = useState('');
     const [ email, setEmail ] = useState('');
     const [ errMsg, setErrMsg ] = useState('');
@@ -21,7 +21,7 @@ function Sign(){
         }
         try{
             // const findUser = await axios.get(`http://localhost:5000/users/${email}`)
-            const newUser = await axios.post('http://localhost:5000/', { username, email });
+            const newUser = await axios.post(`${backendURL}`, { username, email });
             localStorage.setItem('email', JSON.stringify(email));
             console.log('User Saved');
             setErrMsg('Loading.....')

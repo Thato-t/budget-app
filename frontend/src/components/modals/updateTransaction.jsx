@@ -14,7 +14,8 @@ import useHelpers from '../../utils/helpers.jsx';
 
 
 function UpdateTransaction({ show, onClose, text, color }) {
-
+    
+    const backendURL = import.meta.env.BACKEND_URI || 'http://localhost:5000';
     const [ prevTrans, setPrevTrans ] = useState([])
     const [ prevImg, setPrevImg] = useState();
     const [ comment, setComment ] = useState();
@@ -34,7 +35,7 @@ function UpdateTransaction({ show, onClose, text, color }) {
     const fetchPrevTransData = async () => {
         setIsLoading(true)
         try{
-            const res = await axios.get(`http://localhost:5000/getTransactions${localStrEmail}`)
+            const res = await axios.get(`${backendURL}/getTransactions${localStrEmail}`)
             const data = res.data.findAmounts.transactions;
             const selected = data.filter(item => item.categoryName === text)
             setPrevTrans(selected)
@@ -56,7 +57,7 @@ function UpdateTransaction({ show, onClose, text, color }) {
             return
         }
         try{
-            const res = await axios.post('http://localhost:5000/add/transaction', {
+            const res = await axios.post(`${backendURL}/add/transaction`, {
                 typeOfCategory,
                 categoryEmoji,
                 categoryColor,

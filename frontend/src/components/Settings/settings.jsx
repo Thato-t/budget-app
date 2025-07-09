@@ -22,13 +22,14 @@ function Settings() {
     // TODO make a fetch req of the flag and the currencies  
 
     const handleDelete = async (event) => {
+        const backendURL = import.meta.env.BACKEND_URI || 'http://localhost:5000';
         event.preventDefault();
         alert(`Are you sure you want delete the account ${username}`);
         try {
             navigate('/');  
             console.log('Account deleted') 
             // check if is necessary to make a key value for delete with a key of data for each value
-            const res = await axios.delete(`http://localhost:5000/user/delete/${localStrEmail || email}`, { username, email});
+            const res = await axios.delete(`${backendURL}/user/delete/${localStrEmail || email}`, { username, email});
         } catch (error) {
             console.error('Error found', error)
         }

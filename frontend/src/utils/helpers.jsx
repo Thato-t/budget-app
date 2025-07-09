@@ -3,6 +3,7 @@ import axios from 'axios'
 import useLocalStorage from '../hooks/localStorage.jsx'
 
 function useHelpers() {
+    const backendURL = import.meta.env.BACKEND_URI || 'http://localhost:5000';
     const [ getTotalIncome, setGetTotalIncome ] = useState(0);
     const [ getTotalExpense, setGetTotalExpense ] = useState(0);
     const [ getAmountLeft, setGetAmountLeft ] = useState(0);
@@ -11,7 +12,7 @@ function useHelpers() {
 
     const fetchAmountsData = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/getTransactions/${localStrEmail}`);
+        const res = await axios.get(`${backendURL}/getTransactions/${localStrEmail}`);
         const data = res.data.findAmounts;
         data.totalIncome ? setGetTotalIncome(data.totalIncome) : setGetTotalIncome(0);
         data.totalExpense ? setGetTotalExpense(data.totalExpense) : setGetTotalExpense(0);

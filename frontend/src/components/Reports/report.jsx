@@ -14,6 +14,7 @@ import useLocalStorage from '../../hooks/localStorage.jsx';
 
 
 function Report() {
+  const backendURL = import.meta.env.BACKEND_URI || 'http://localhost:5000';
   // TODO a modal for the past transactions without inputs
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -42,7 +43,7 @@ function Report() {
     setIsLoading(true)
     try {
       // TODO check the bug of why the email from the hook is returning undefined while in other pages is working
-      const res = await axios.get(`http://localhost:5000/reports/dashboard/${localStrEmail || email}`);
+      const res = await axios.get(`${backendURL}/reports/dashboard/${localStrEmail || email}`);
       console.log(res)
       const data = res.data.findLog;
       setMonthlyTransactions(data.transactions);

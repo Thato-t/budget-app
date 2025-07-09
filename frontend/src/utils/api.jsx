@@ -4,6 +4,7 @@ import useLocalStorage from '../hooks/localStorage.jsx'
 
 
 const useFetchData = () => {
+    const backendURL = import.meta.env.BACKEND_URI || 'http://localhost:5000';
     const [ username, setUsername ] = useState('')
     const [ sendErrMsg, setSendErrMsg ] = useState()
     const [ email, setEmail ] = useState('')
@@ -11,7 +12,7 @@ const useFetchData = () => {
 
     const fetchUsernamesData = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/emails/${localStrEmail}`)
+            const res = await axios.get(`${backendURL}/emails/${localStrEmail}`)
             const data = res.data.user
             setEmail(localStrEmail);
             setUsername(data.username);

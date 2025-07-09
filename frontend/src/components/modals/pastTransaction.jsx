@@ -9,6 +9,7 @@ import useLocalStorage from '../../hooks/localStorage.jsx'
 
 function PastTransaction({ show, onClose, text, color }){
 
+        const backendURL = import.meta.env.BACKEND_URI || 'http://localhost:5000';
         const [ prevTrans, setPrevTrans ] = useState([])
         const [ prevImg, setPrevImg] = useState();
         const [ comment, setComment ] = useState();
@@ -24,7 +25,7 @@ function PastTransaction({ show, onClose, text, color }){
     const fetchPrevTransData = async () => {
         setIsLoading(true)
         try{
-            const res = await axios.get(`http://localhost:5000/getTransactions/${localStrEmail}`)
+            const res = await axios.get(`${backendURL}/getTransactions/${localStrEmail}`)
             const data = res.data.findAmounts.transactions;
             const selected = data.filter(item => item.categoryName === text);
             setPrevTrans(selected)

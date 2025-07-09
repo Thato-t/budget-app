@@ -9,13 +9,14 @@ import useLocalStorage from '../hooks/localStorage.jsx'
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement );
 
 function ChartConfig({ states }) {
+    const backendURL = import.meta.env.BACKEND_URI || 'http://localhost:5000';
     const [ amounts, setAmounts ] = useState([]);
     const [ display, setDisplay] = useState('none');
     const localStrEmail = useLocalStorage()
 
     const fetchData = async () => {
         try{
-            const res = await axios.get(`http://localhost:5000/home/dashboard/${localStrEmail}` || `http://localhost:5000/reports/dashboard/${localStrEmail}`)
+            const res = await axios.get(`${backendURL}/home/dashboard/${localStrEmail}` || `http://localhost:5000/reports/dashboard/${localStrEmail}`)
             console.log(res)
             setAmounts(res.data.findLog.transactions)
         } catch(error){
