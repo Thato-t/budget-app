@@ -3,13 +3,13 @@ import { Bar, Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement} from 'chart.js';
 import axios from 'axios'
 import useLocalStorage from '../hooks/localStorage.jsx'
+const backendURL = import.meta.env.VITE_BACKEND_URI;
 
 
 // Register chart components
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend, ArcElement );
 
 function ChartConfig({ states }) {
-    const backendURL = import.meta.env.BACKEND_URI || 'http://localhost:5000';
     const [ amounts, setAmounts ] = useState([]);
     const [ display, setDisplay] = useState('none');
     const localStrEmail = useLocalStorage()

@@ -10,10 +10,10 @@ import TypeOfCategory from '../../reusable/typeOfCategory.jsx'
 import axios from 'axios'
 import useHelpers from '../../utils/helpers.jsx'
 import useLocalStorage from '../../hooks/localStorage.jsx'
+const backend_URL = import.meta.env.VITE_BACKEND_URI;
 
 function AddTransaction({ show, onClose }) {
 
-    const backend_URL = import.meta.env.BACKEND_URI || 'http://localhost:5000';
     const [ quote, setQuote ] = useState();
     const [ exampleCategories, setExampleCategories ] = useState([]);
     const [ category, setCategory ] = useState();

@@ -11,10 +11,10 @@ import  bar from '../../assets/Icons/bar.png'
 import pie from '../../assets/Icons/pie.png'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+const backendURL = import.meta.env.VITE_BACKEND_URI;
 
 
 function Dashboard() {
-    const backendURL = import.meta.env.BACKEND_URI || 'http://localhost:5000';
     const navigate = useNavigate();
     const [ isLoadingRecents, setIsLoadingRecents ] = useState(false);
     const [ isLoadingCategory, setIsLoadingCategory ] = useState(false);

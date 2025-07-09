@@ -11,10 +11,10 @@ import PastTransaction from '../modals/pastTransaction.jsx';
 import axios from 'axios'
 import useFetchData from '../../utils/api.jsx';
 import useLocalStorage from '../../hooks/localStorage.jsx';
+const backendURL = import.meta.env.VITE_BACKEND_URI;
 
 
 function Report() {
-  const backendURL = import.meta.env.BACKEND_URI || 'http://localhost:5000';
   // TODO a modal for the past transactions without inputs
   const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 

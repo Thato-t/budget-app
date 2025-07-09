@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import useLocalStorage from '../hooks/localStorage.jsx'
+const backendURL = import.meta.env.VITE_BACKEND_URI;
 
 
 const useFetchData = () => {
-    const backendURL = import.meta.env.BACKEND_URI || 'http://localhost:5000';
     const [ username, setUsername ] = useState('')
     const [ sendErrMsg, setSendErrMsg ] = useState()
     const [ email, setEmail ] = useState('')

@@ -4,9 +4,9 @@ import './Sign.scss'
 import { useEffect, useState } from 'react' 
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
+const backendURL = import.meta.env.VITE_BACKEND_URI;
 
 function Sign(){
-    const backendURL = import.meta.env.BACKEND_URI || 'http://localhost:5000';
     const [ username, setUsername ] = useState('');
     const [ email, setEmail ] = useState('');
     const [ errMsg, setErrMsg ] = useState('');

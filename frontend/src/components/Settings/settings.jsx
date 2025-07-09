@@ -18,11 +18,11 @@ function Settings() {
     const [ flagImage, setFlagImage ] = useState(flag)
     const [ totalIncome, setTotalIncome ] = useState('')
     const [ getTotalIncome, getAmountLeft, getTotalExpense ] = useHelpers();
+    const backendURL = import.meta.env.VITE_BACKEND_URI;
 
     // TODO make a fetch req of the flag and the currencies  
 
     const handleDelete = async (event) => {
-        const backendURL = import.meta.env.BACKEND_URI || 'http://localhost:5000';
         event.preventDefault();
         alert(`Are you sure you want delete the account ${username}`);
         try {

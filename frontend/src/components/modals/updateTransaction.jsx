@@ -11,11 +11,11 @@ import TypeOfCategory from '../../reusable/typeOfCategory.jsx'
 import LoadingState from '../../reusable/loadingState.jsx'
 import axios from 'axios';
 import useHelpers from '../../utils/helpers.jsx';
+const backendURL = import.meta.env.VITE_BACKEND_URI;
 
 
 function UpdateTransaction({ show, onClose, text, color }) {
     
-    const backendURL = import.meta.env.BACKEND_URI || 'http://localhost:5000';
     const [ prevTrans, setPrevTrans ] = useState([])
     const [ prevImg, setPrevImg] = useState();
     const [ comment, setComment ] = useState();

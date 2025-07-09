@@ -6,10 +6,10 @@ import './pastTransaction.scss'
 import LoadingState from '../../reusable/loadingState.jsx'
 import axios from 'axios'
 import useLocalStorage from '../../hooks/localStorage.jsx'
+const backendURL = import.meta.env.VITE_BACKEND_URI;
 
 function PastTransaction({ show, onClose, text, color }){
 
-        const backendURL = import.meta.env.BACKEND_URI || 'http://localhost:5000';
         const [ prevTrans, setPrevTrans ] = useState([])
         const [ prevImg, setPrevImg] = useState();
         const [ comment, setComment ] = useState();

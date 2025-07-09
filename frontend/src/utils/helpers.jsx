@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import useLocalStorage from '../hooks/localStorage.jsx'
+const backendURL = import.meta.env.VITE_BACKEND_URI;
 
 function useHelpers() {
-    const backendURL = import.meta.env.BACKEND_URI || 'http://localhost:5000';
     const [ getTotalIncome, setGetTotalIncome ] = useState(0);
     const [ getTotalExpense, setGetTotalExpense ] = useState(0);
     const [ getAmountLeft, setGetAmountLeft ] = useState(0);
