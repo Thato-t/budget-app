@@ -21,7 +21,7 @@ function Sign(){
         }
         try{
             // const findUser = await axios.get(`http://localhost:5000/users/${email}`)
-            const newUser = await axios.post(`${backendURL}`, { username, email });
+            const newUser = await axios.post(`${backendURL}/${username}`, { username, email });
             localStorage.setItem('email', JSON.stringify(email));
             console.log('User Saved');
             setErrMsg('Loading.....')
