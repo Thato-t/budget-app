@@ -1,4 +1,5 @@
 import finance_theme_three from '../../assets/images/finance_theme_three.png'
+import takeway_cup from '../../assets/Icons/takeway_cup.png'
 import wave from '../../assets/images/wave.png'
 import './Sign.scss'
 import { useEffect, useState } from 'react' 
@@ -11,23 +12,33 @@ function Sign(){
     const [ email, setEmail ] = useState('');
     const [ errMsg, setErrMsg ] = useState('');
     const navigate = useNavigate();
+    const getLocalEmail = localStorage.getItem('email');
+
+    const verifyEmail = (email) => {
+        const emailRegex = /[a-z0-9?]@gmail\.com/;
+        const validEmail = emailRegex.test(email);
+        return validEmail
+    }
 
     const handleSubmit = async (event) => {
-        event.preventDefault()
+        event.preventDefault();
         const notFound = `${username} doesn't exist`;
         if(username.trim() === '' && email.trim() === ''){
-            setErrMsg('All inputs are required')
+            setErrMsg('All inputs are required');
+            return
+        }
+        if(!verifyEmail(email)){
+            setErrMsg(`Email format must be user@email.com`);
             return
         }
         try{
-            // const findUser = await axios.get(`http://localhost:5000/users/${email}`)
             const newUser = await axios.post(`${backendURL}/${username}`, { username, email });
             localStorage.setItem('email', JSON.stringify(email));
-            console.log('User Saved');
-            setErrMsg('Loading.....')
-            navigate('/home')
+            setErrMsg('Loading.....');
+            navigate('/home');
         }catch(error){
-            console.error(error)
+            console.error(error);
+            setErrMsg('Error, Try again');
         }
     }
 
@@ -45,7 +56,10 @@ function Sign(){
                     </div> 
                     <form onSubmit={handleSubmit}> 
                         <div className="right-mini-wrapper">
-                            <div className="input-wrapper username-bar">
+                            <div 
+                             className="input-wrapper username-bar"
+                             style={{ display: getLocalEmail ? 'none' : 'flex'}}
+                            >
                                 <input 
                                  type="text" 
                                  id="input" 
@@ -53,6 +67,7 @@ function Sign(){
                                  placeholder="What is your username?"
                                  value={username}
                                  onChange={(event) => setUsername(event.target.value)}
+                                 style={{ display: getLocalEmail ? 'none' : 'flex'}}
                                 /><br></br>
                             </div>
                             <div className="input-wrapper email-bar">
@@ -68,7 +83,10 @@ function Sign(){
                             <p className="sign-error">{errMsg}</p> 
                             {/* Must put an icon of a head or person inside the btn */}
                                 <button type="submit" id="btn" className="btn"
-                                >Get Started</button>
+                                >
+                                    <img src={takeway_cup} alt={takeway_cup} className="takeway_cup" />
+                                    Get Started
+                                </button>
                         </div>
                     </form>
                 </div>

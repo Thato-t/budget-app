@@ -57,20 +57,27 @@
 .input{
     @include input-default();
 }
+.takeway_cup{
+    height:20px;
+    width:20px;
+}
 .sign-error{
     color:$lightError;
     font-size:.75rem;
     margin-bottom:7px;
 }
 #btn{
+    display:flex;
+    align-items:center;
     border:none;
     outline:none;
     width:fit-content;
     // height:80px;
     border-radius:6px;
+    gap:6px;
     font-weight:200;
     padding:10px;
-    margin-top:15px;
+    margin-top:40px;
     cursor:pointer;
     transition:300ms;
 }
