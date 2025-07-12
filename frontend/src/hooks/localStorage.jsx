@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 
 function useLocalStorage() {
 
-    const [ localStrEmail, setLocalStrEmail ] = useState(null);
+    const [ localStrEmail, setLocalStrEmail ] = useState('');
 
     useEffect(() => {
         try {
@@ -14,9 +14,13 @@ function useLocalStorage() {
             }
         } catch (error) {
             console.error('Error found', error);
-            setLocalStrEmail(null);
+            setLocalStrEmail('');
         }
     }, [])
+
+    useEffect(() => {
+        if(!localStrEmail) return;
+    }, [localStrEmail])
 
   return localStrEmail
 }

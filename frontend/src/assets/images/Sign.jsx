@@ -50,43 +50,27 @@ function Sign(){
         <>
             <div className="body">
                 <p className="logo">Expensify</p>
-                <div className="hero-section">
-                    <div className="hero-content">
-                        <h1 className="hero-title">
+                <div className="sign-landing-wrapper">
+                    <div className="landing-content">
+                        <h1 className="landing-title">
                             Enjoy Making Your <span className="budgeting">Budget</span>
                         </h1>
-                        <p className="hero-description">
+                        <p className="landing-description">
                             Personal budgeting is the secret to financial freedom.<br />
                             Start your journey today with Expensify.
                         </p>
-                        <div className="feature-cards">
-                            <div className="feature-card">
-                                <img src={dashboardMobile} alt="Mobile Dashboard" className="feature-img" />
-                                <div>
-                                    <h3>Track Anywhere</h3>
-                                    <p>Log expenses on the go with our mobile-friendly dashboard.</p>
-                                </div>
-                            </div>
-                            <div className="feature-card">
-                                <img src={dashboardDesktop} alt="Desktop Dashboard" className="feature-img" />
-                                <div>
-                                    <h3>Visual Insights</h3>
-                                    <p>See your spending with beautiful, interactive charts.</p>
-                                </div>
-                            </div>
-                            <div className="feature-card">
-                                <img src={reportDesktop} alt="Reports" className="feature-img" />
-                                <div>
-                                    <h3>Smart Reports</h3>
-                                    <p>Get detailed reports to help you save and grow.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="extra-dashboard-mobile">
-                            <img src={dashboardMobile} alt="Mobile Dashboard Large" />
+                        <ul className="feature-list">
+                            <li>Track your expenses effortlessly</li>
+                            <li>Visualize your spending with beautiful charts</li>
+                            <li>Set savings goals and stay on target</li>
+                        </ul>
+                        <div className="landing-images">
+                            <img src={dashboardDesktop} alt="Dashboard Desktop" />
+                            <img src={dashboardMobile} alt="Dashboard Mobile" />
+                            <img src={reportDesktop} alt="Report Desktop" />
                         </div>
                     </div>
-                    <div className="sign-form-card">
+                    <div className="sign-form-wrapper">
                         <form onSubmit={handleSubmit}>
                             <div className="right-mini-wrapper">
                                 <div 

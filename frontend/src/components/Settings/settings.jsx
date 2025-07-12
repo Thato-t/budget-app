@@ -29,6 +29,7 @@ function Settings() {
             navigate('/');  
             console.log('Account deleted') 
             // check if is necessary to make a key value for delete with a key of data for each value
+            localStorage.removeItem('email');
             const res = await axios.delete(`${backendURL}/user/delete/${localStrEmail || email}`, { username, email});
         } catch (error) {
             console.error('Error found', error)

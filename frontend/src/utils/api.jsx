@@ -13,6 +13,7 @@ const useFetchData = () => {
     const fetchUsernamesData = async () => {
         try {
             const res = await axios.get(`${backendURL}/emails/${localStrEmail}`)
+            console.log(localStrEmail)
             const data = res.data.user
             setEmail(localStrEmail);
             setUsername(data.username);

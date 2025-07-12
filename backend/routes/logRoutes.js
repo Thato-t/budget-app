@@ -38,7 +38,6 @@ logRoutes.post('/add/transaction/:email', async (req, res) => {
         if (findAmounts){
             let totalExpense = parseInt(findAmounts.totalExpense) + parseInt(amountLimitChange);
             let amountLeft = parseInt(findAmounts.totalIncome) - parseInt(totalExpense);
-            console.log(amountLeft)
 
             const saveTransactions = await Logs.findOneAndUpdate(
                 { email: email },

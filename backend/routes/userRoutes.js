@@ -60,15 +60,17 @@ userRoutes.get('/emails/:email', async (req, res) => {
     const email = req.params.email;
     try{
         const findUsername = await Logs.findOne({email});
+        console.log(findUsername)
         if (!findUsername){
             const errMsg = `${email} doesn't exist`;
             console.log(errMsg);
             res.status(200).json({ errMsg });
+            return
         }else{
-            const found = `${email} found`;
             console.log(findUsername, 'found');
             const user = findUsername;
             res.status(200).json({ user });
+            return
         }
     }catch (error){
         console.log('Error found: ', error);
