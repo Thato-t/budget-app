@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import dashboardDesktop from '../../assets/images/dashboard-desktop.png';
-import dashboardMobile from '../../assets/images/dashboard-mobile.png';
+import galaxyDashboard from '../../assets/images/galaxy-dashboard.png';
 import reportDesktop from '../../assets/images/report-desktop.png';
 const backendURL = import.meta.env.VITE_BACKEND_URI;
 
@@ -61,7 +61,7 @@ function Sign(){
                         </p>
                         <div className="feature-cards">
                             <div className="feature-card">
-                                <img src={dashboardMobile} alt="Mobile Dashboard" className="feature-img" />
+                                <img src={galaxyDashboard} alt="Mobile Dashboard" className="feature-img" />
                                 <div>
                                     <h3>Track Anywhere</h3>
                                     <p>Log expenses on the go with our mobile-friendly dashboard.</p>
@@ -83,7 +83,7 @@ function Sign(){
                             </div>
                         </div>
                         <div className="extra-dashboard-mobile">
-                            <img src={dashboardMobile} alt="Mobile Dashboard Large" />
+                            <img src={galaxyDashboard} alt="Mobile Dashboard Large" />
                         </div>
                     </div>
                     <div className="sign-form-card">
