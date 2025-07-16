@@ -34,7 +34,7 @@ function Sign(){
             return
         }
         try{
-            const newUser = await axios.post(`${backendURL}/${username}`, { username, email });
+            await axios.post(`${backendURL}/${email}`, { username, email });
             localStorage.setItem('email', JSON.stringify(email));
             setErrMsg('Loading.....');
             navigate('/home');

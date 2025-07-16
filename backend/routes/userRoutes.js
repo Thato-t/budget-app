@@ -6,14 +6,14 @@ const userRoutes = express.Router();
 
 
 // creating new user account
-userRoutes.post('/:username', async (req, res) => {
+userRoutes.post('/:email', async (req, res) => {
     const {email, username} = req.body;
     try{
         const userExisit = await Logs.findOne({ email });
         if(userExisit){
             console.log(`${userExisit.email} found`);
             const user = userExisit;
-            res.status(200).json(user);
+            res.status(200).json({user});
             return
         }else{
             console.log(`${email} not found`);

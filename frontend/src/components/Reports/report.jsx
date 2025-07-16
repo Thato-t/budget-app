@@ -36,8 +36,19 @@ function Report() {
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value)
-}
+  
+  }
+  const monthsdate = [
 
+    {date: '2025-12-12'}
+  ]
+  // TODO function to filter monthsDates
+  // console.log(monthsdate.forEach(dt => {
+  //   const slice = dt.date.slice(5,7);
+  //   console.log(slice)
+  //   console.log(months[slice - 1])
+  //   slice.filter(item => months[slice - 1] === selectedOption)
+  // }))
   // TODO in the JSON file put another array of object that is for for monthly transactions for different months 
   const fetchTransactions = async () => {
     setIsLoading(true)
