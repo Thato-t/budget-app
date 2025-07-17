@@ -77,7 +77,7 @@
 }
 .report-category-name-date{
     width:200px;
-    margin-left:-104px
+    margin-left:-104px;
 }
 .report-monthly-date{
     font-size:.7rem;
@@ -103,6 +103,10 @@
         grid-template-columns: 1fr 1fr;
         gap: 20px;
     }
+    .report-category-name-date{
+        width:100px;
+        margin-left:30px;
+    }
 }
 
 @media screen and (max-width: 768px) {
@@ -125,6 +129,10 @@
 
     .filter-group {
         width: 100%;
+    }
+    .report-category-name-date{
+        width:100px;
+        margin-left:10px;
     }
 }
 
@@ -164,5 +172,9 @@
     }
     .report-monthly-statements {
       margin-top: 12px;
+    }
+    .report-category-name-date{
+        width:100px;
+        margin-left:10px;
     }
   }

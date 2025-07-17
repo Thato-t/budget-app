@@ -145,7 +145,7 @@
     margin-bottom:15px;
 }
 .add-transaction-btn{
-    margin-inline:43.5%;
+    margin-inline:auto;
     cursor:pointer;
     padding:20px;
     text-transform: uppercase;
@@ -205,5 +205,8 @@
 
     .form-buttons button {
         width: 100%;
+    }
+    .add-transaction-category-example-wrapper{
+        width:250px;
     }
 }
