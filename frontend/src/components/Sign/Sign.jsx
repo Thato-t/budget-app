@@ -30,13 +30,13 @@ function Sign(){
             return
         }
         if(!verifyEmail(email)){
-            setErrMsg(`Email format must be user@email.com`);
+            setErrMsg(`Email format must be user@gmail.com`);
             return
         }
         try{
+            setErrMsg('Loading.....');
             await axios.post(`${backendURL}/${email}`, { username, email });
             localStorage.setItem('email', JSON.stringify(email));
-            setErrMsg('Loading.....');
             navigate('/home');
         }catch(error){
             console.error(error);
