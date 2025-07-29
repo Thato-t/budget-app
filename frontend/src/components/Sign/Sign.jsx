@@ -1,6 +1,7 @@
 import finance_theme_three from '../../assets/images/finance_theme_three.png'
 import takeway_cup from '../../assets/Icons/takeway_cup.png'
 import wave from '../../assets/images/wave.png'
+import logo from '../../assets/images/logo.png';
 import './Sign.scss'
 import { useEffect, useState } from 'react' 
 import { useNavigate } from 'react-router-dom'
@@ -49,7 +50,7 @@ function Sign(){
     return(
         <>
             <div className="body">
-                <p className="logo">Expensify</p>
+                <img src={logo} className="logo" />
                 <div className="hero-section">
                     <div className="hero-content">
                         <h1 className="hero-title">
@@ -113,7 +114,12 @@ function Sign(){
                                         onChange={(event) => setEmail(event.target.value)}
                                     /><br />
                                 </div>
-                                <p className="sign-error">{errMsg}</p>
+                                <p 
+                                 className="sign-error" 
+                                 style={{color: errMsg == 'Loading.....' ? '#4CAF50' : '#F44336'}}
+                                >
+                                    {errMsg}
+                                </p>
                                 <button type="submit" id="btn" className="btn">
                                     <img src={takeway_cup} alt={takeway_cup} className="takeway_cup" />
                                     Get Started

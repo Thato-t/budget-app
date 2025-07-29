@@ -6,6 +6,7 @@ dotenv.config();
 import logRoutes from './routes/logRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import categoriesRoutes from './routes/categoriesRoutes.js';
+import quoteRoutes from './routes/quotesRoutes.js';
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use('/', logRoutes);
 app.use('/', userRoutes);
 app.use('/', categoriesRoutes);
+app.use('/', quoteRoutes);
 
 // Database connection
 mongoose.connect(process.env.MONGO_URI)

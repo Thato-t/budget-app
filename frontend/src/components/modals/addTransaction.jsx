@@ -14,7 +14,7 @@ const backend_URL = import.meta.env.VITE_BACKEND_URI;
 
 function AddTransaction({ show, onClose }) {
 
-    const [ quote, setQuote ] = useState();
+    const [ quote, setQuote ] = useState('Your budget is training for the Olympics. Help it win!');
     const [ exampleCategories, setExampleCategories ] = useState([]);
     const [ category, setCategory ] = useState();
     const [ selectOption, setSelectOption] = useState('fixedExpenses');
@@ -34,16 +34,18 @@ function AddTransaction({ show, onClose }) {
     const [ getTotalIncome, getTotalExpense, getAmountLeft ] = useHelpers();
     const localStrEmail = useLocalStorage();
 
-    const randomIndex = Math.floor(Math.random() * 99);
-
     const handleSelectChange = event => setSelectOption(event.target.value);
-//  MAKE THE QUOTE BECOME AI GENERATED WHICH THE AI WILL DETECT HOW MUCH THE MONEY IS AND GIVES QUOTE BASED ON THE AMOUNT
-    // useEffect(() => {
-    //     fetch(`${backend_URL}:3001/${randomIndex}`)
-    //         .then(res => res.json())
-    //         .then(data => setQuote(data.message))
-    //         .catch(err => console.log('Error found', err))
-    // }, [])
+//  TODO MAKE THE QUOTE BECOME AI GENERATED WHICH THE AI WILL DETECT HOW MUCH THE MONEY IS AND GIVES QUOTE BASED ON THE AMOUNT
+    // TODO find why the api endpoint returning not found 
+    // const fetchQuotes = async () => {        
+    //     try {
+    //         const res = await axios.get(`${backend_URL}/transaction/quotes`);
+    //         console.log(res);
+    //         setQuote(res);
+    //     } catch (error) {
+    //         console.error('Error found', error);
+    //     }
+    // }
 
     const fetchCategoriesData = async () => {
         setIsLoading(true)
@@ -60,6 +62,10 @@ function AddTransaction({ show, onClose }) {
         fetchCategoriesData();
     }, [selectOption, localStrEmail])
     
+    // useEffect(() => {
+    //     // fetchQuotes();
+    // }, [])
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         const amount = amountLimitChange - amountSpentChange
