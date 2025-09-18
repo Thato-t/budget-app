@@ -61,7 +61,7 @@ project/
 ### Dashboard Screenshots
 
 #### Desktop
-[![Dashboard Desktop](frontend/designs/docs/dashboard-desktop.png)
+[![Dashboard Desktop](frontend/designs/docs/homePage.png)
 
 #### Mobile
 [![Dashboard Mobile](frontend/designs/docs/dashboard-mobile.png)
